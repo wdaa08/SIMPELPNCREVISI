@@ -14,5 +14,6 @@
         <div class="mb-3 d-flex items-center justify-content-center">
             <a href="{{ route('s.datapelaporan') }}" type="button" class="btn btn-primary">Kembali</a>
         </div>
+        <h1>tes</h1>
     </div>
 @endsection
