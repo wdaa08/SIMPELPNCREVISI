@@ -35,6 +35,8 @@ Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('ac
 
 
 Route::post('/tambah_laporan', [PelaporanController::class, 'store'])->name('tambah_laporan');
+Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
+Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('updateprofile');
 
 Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     // Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.dashboard');

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id');
             $table->string('nama');
             $table->string('npm_nidn_npak')->unique();
+            $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();

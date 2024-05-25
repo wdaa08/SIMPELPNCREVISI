@@ -20,6 +20,7 @@ class Userseeder extends Seeder
             'role_id' => '1',
             'nama' => 'satgas',
             'npm_nidn_npak' => '210202048',
+            'email' => 'satgas@gmail.com',
             'password' => Hash::make('satgas'),
             'remember_token' => Str::random(60),
         ]);
@@ -28,6 +29,7 @@ class Userseeder extends Seeder
             'role_id' => '2',
             'nama' => 'pelapor',
             'npm_nidn_npak' => '210202047',
+            'email' => 'pelapor@gmail.com',
             'password' => Hash::make('pelapor'),
             'remember_token' => Str::random(60),
         ]);
