@@ -74,6 +74,7 @@ class PelaporanController extends Controller
         if ($request->hasFile('tanda_tangan_pelapor')) {
             $imagePath = $request->file('tanda_tangan_pelapor')->store('images');
             $pelapor->tanda_tangan_pelapor = $imagePath;
+            
         }
 
         $pelapor->save();

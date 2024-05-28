@@ -27,9 +27,9 @@ Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/actionlogin', [LoginController::class, 'actionLogin'])->name('actionlogin');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
 
-// Route::get('/halamanpelaporan', [PelaporanController::class, 'halamanpelaporan'])->middleware('isLogin');
-// Route::resource('halamanpelaporan', PelaporanController::class)->middleware('isLogin');
-
+Route::get('/login', [LoginController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/actionlogin', [LoginController::class, 'actionLogin'])->name('actionlogin')->middleware('guest');
+Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
 
 
 

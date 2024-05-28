@@ -34,7 +34,7 @@
             <!-- Navbar Start -->
             @include('partials.navbar')
             <!-- Navbar End -->
-
+<h1>test</h1>
 
             <!-- Form untuk pelaporan -->
             @yield('container')
@@ -47,6 +47,8 @@
 
         @include('partials.js')
     </div>
+
+
 </body>
 
 </html>

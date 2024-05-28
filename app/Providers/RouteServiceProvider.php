@@ -35,7 +35,17 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
     }
-
+    public static function home()
+    {
+        // Mengarahkan pengguna berdasarkan peran mereka
+        $role = auth()->user()->role_id;
+        if ($role == 1) {
+            return route('s.datapelaporan');
+        } elseif ($role == 2) {
+            return route('p.halamanpelaporan');
+        }
+        return '/';
+    }
     /**
      * Configure the rate limiters for the application.
      */
