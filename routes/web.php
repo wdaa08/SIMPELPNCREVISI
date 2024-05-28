@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardSatgasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelaporanController;
@@ -33,7 +34,6 @@ Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('ac
 
 
 
-
 Route::post('/tambah_laporan', [PelaporanController::class, 'store'])->name('tambah_laporan');
 Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
 Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('updateprofile');
@@ -43,6 +43,8 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('s.datapelaporan');
     Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
+    Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
+    
     // Tambahkan rute lain dalam grup ini
 
     //route pencarian
@@ -59,4 +61,16 @@ Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
     // Tambahkan rute lain dalam grup ini
 });
 
+
+///chabtbot
+Route::get('/chatbot', function () {
+    return view('chatbot');
+});
+
+Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
+Route::post('/chatbot/store', [ChatbotController::class, 'store'])->name('chatbot.store');
+
+Route::get('/add_question', function () {
+    return view('add_question');
+});
 
