@@ -25,6 +25,7 @@ class CreatePelaporansTable extends Migration
             $table->text('kebutuhan_korban')->nullable();
             $table->date('tanggal_pelaporan');
             $table->string('tanda_tangan_pelapor')->nullable(); // Untuk menyimpan path tanda tangan jika diunggah ke server
+            $table->string('respon');
             $table->timestamps();
         });
     }

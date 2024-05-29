@@ -74,8 +74,9 @@ class PelaporanController extends Controller
         if ($request->hasFile('tanda_tangan_pelapor')) {
             $imagePath = $request->file('tanda_tangan_pelapor')->store('images');
             $pelapor->tanda_tangan_pelapor = $imagePath;
-            
         }
+
+        $pelapor->respon = 'DI BACA';
 
         $pelapor->save();
 
@@ -193,5 +194,24 @@ class PelaporanController extends Controller
     {
         $pelapor = Pelaporan::findOrFail($id);
         return view('satgas.ttdView', compact('pelapor'));
+    }
+
+    public function editdatapelaporan($id)
+    {
+        $pelapor = Pelaporan::findOrFail($id);
+        return view('satgas.editdatapelaporan', compact('pelapor'));
+    }
+
+    public function updatedatapelaporan(Request $request, $id)
+    {
+        $pelapor = Pelaporan::findOrFail($id);
+
+        $request->validate([
+            'respon' => 'required|string'
+        ]);
+        
+        $pelapor->respon = $request->respon;
+        $pelapor->save();
+        return redirect()->route('s.datapelaporan')->with('success', 'Formulir pelaporan berhasil diupdate.');
     }
 }

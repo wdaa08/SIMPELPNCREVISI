@@ -26,5 +26,6 @@ class Pelaporan extends Model
         'kebutuhan_korban',
         'tanggal_pelaporan',
         'tanda_tangan_pelapor',
+        'respon',
     ];
 }
