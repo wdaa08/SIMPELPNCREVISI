@@ -17,12 +17,14 @@
         }
 
         .chat-container {
-            width: 300px;
+            width: 400px; /* Lebarkan kotak chatbot */
             height: 500px;
             background-color: #fff;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             overflow: hidden;
+            display: flex; /* Gunakan flexbox untuk mengatur tata letak */
+            flex-direction: column; /* Atur tata letak elemen ke dalam kolom */
         }
 
         .chat-header {
@@ -34,26 +36,30 @@
         }
 
         .chatbox {
-            height: 70%;
-            overflow-y: scroll;
-            padding: 10px;
-        }
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column; /* Ubah ke arah kolom */
+}
+
 
         .message {
-            background-color: #e6f2ff;
             padding: 8px 12px;
             border-radius: 8px;
             margin: 5px;
             max-width: 70%;
+            word-wrap: break-word; /* Agar pesan yang panjang akan dibungkus ke baris berikutnya */
         }
 
         .user-message {
-            align-self: flex-end;
+            align-self: flex-end; /* Pesan pengguna sekarang akan muncul di sebelah kanan */
             background-color: #cce5ff;
         }
 
         .bot-message {
-            align-self: flex-start;
+            align-self: flex-start; /* Pesan bot sekarang akan muncul di sebelah kiri */
+            background-color: #e6f2ff; /* Bedakan warna latar belakang pesan bot */
         }
 
         .chat-input-container {
@@ -111,10 +117,14 @@
                     },
                     success: function(response) {
                         $('#chatbox').append('<div class="message bot-message">' + response.answer + '</div>');
-                        $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
+                        scrollToBottom(); // Panggil fungsi scrollToBottom setelah menambahkan pesan bot
                     }
                 });
             }
+        }
+
+        function scrollToBottom() {
+            $('#chatbox').scrollTop($('#chatbox')[0].scrollHeight);
         }
     </script>
     
