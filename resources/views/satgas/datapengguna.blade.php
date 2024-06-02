@@ -20,6 +20,7 @@
                                     <tr>
                                         <th scope="col">Nama</th>
                                         <th scope="col">NPM NIDN NPK</th>
+                                        <th scope="col">Email</th>
                                    
                                     </tr>
                                 </thead>
@@ -28,6 +29,7 @@
                                     <tr>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->npm_nidn_npak }}</td>
+                                        <td>{{ $item->email }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>

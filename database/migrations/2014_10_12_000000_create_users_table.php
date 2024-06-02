@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('role_id')->default(2); // Contoh nilai default, sesuaikan sesuai dengan logika bisnis Anda
             $table->string('nama');
             $table->string('npm_nidn_npak')->unique();
             $table->string('email')->unique();

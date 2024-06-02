@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardSatgasController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelaporanController;
+// use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\isLogin;
 use App\Models\Pelaporan;
@@ -20,9 +22,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
 Route::get('/', function () {
-    return view('welcome');
-});
+       return view('landingpage/index');
+         });
+
+         Route::get('/register', [RegistrationController::class, 'create'])->name('register');
+         Route::post('/register', [RegistrationController::class, 'store']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/actionlogin', [LoginController::class, 'actionLogin'])->name('actionlogin');
