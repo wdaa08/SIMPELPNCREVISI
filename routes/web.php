@@ -26,12 +26,22 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
+//landingpage
+
 Route::get('/', function () {
        return view('landingpage/index');
          });
 
-         Route::get('/register', [RegistrationController::class, 'create'])->name('register');
-         Route::post('/register', [RegistrationController::class, 'store']);
+Route::get('landingpage/about', function () {
+    return view('chatbot');
+});
+
+
+
+
+//regiss
+Route::get('/register', [RegistrationController::class, 'create'])->name('register');
+Route::post('/register', [RegistrationController::class, 'store']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/actionlogin', [LoginController::class, 'actionLogin'])->name('actionlogin');

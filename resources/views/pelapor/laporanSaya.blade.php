@@ -9,6 +9,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Judul</th>
                     <th scope="col">Aksi</th>
+                    <th scope="col">Keterangan</th>
                 </tr>
             </thead>
             <tbody>
@@ -19,6 +20,7 @@
                     <td>
                         <a href="{{ route('editlaporan', ['id' => $tbl->id]) }}" type="button" class="btn btn-primary">Edit</a>
                     </td>
+
                 </tr>
                 @endforeach
             </tbody>

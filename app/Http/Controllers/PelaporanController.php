@@ -17,71 +17,62 @@ class PelaporanController extends Controller
     public function store(Request $request)
     {
         // Validasi data
-        $rules = [
-            'nama_pelapor' => 'required|string',
-            'melapor_sebagai' => 'required',
-            'nomor_hp' => 'required|string',
+        $validator = Validator::make($request->all(), [
+            'namapelapor' => 'required|string',
+            'melaporsebagai' => 'required',
+            'nomorhp' => 'required|string',
             'alamat_email' => 'required|email',
-            'domisili_pelapor' => 'required|string',
-            'jenis_kekerasan_seksual' => 'required|string',
+            'domisilipelapor' => 'required|string',
+            'jenis_kekerasan' => 'required|string',
             'cerita_peristiwa' => 'required|string',
             'memiliki_disabilitas' => 'required',
-            'status_terlapor' => 'required',
+            'statusterlapor' => 'required',
             'alasan_pengaduan' => 'required',
             'tanggal_pelaporan' => 'required|date',
-            'tanda_tangan_pelapor' => 'nullable||image|mimes:jpeg,png,jpg',
+            'tanda_tangan_pelapor' => 'nullable|image|mimes:jpeg,png,jpg',
             'nomor_hp_pihak_lain' => 'nullable|string',
             'kebutuhan_korban' => 'nullable',
-        ];
-
-        $messages = [
-            'nama_pelapor.required' => 'Nama Pelapor tidak boleh kosong!',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
+        ]);
+    
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-
-
+    
         // Menggabungkan data inputan yang berupa array menjadi string
         $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
-
+    
+        // Simpan data ke database
         $pelapor = new Pelaporan;
-        $pelapor->nama_pelapor = $request->nama_pelapor;
-        $pelapor->melapor_sebagai = $request->melapor_sebagai;
-        $pelapor->nomor_hp = $request->nomor_hp;
+        $pelapor->namapelapor = $request->namapelapor;
+        $pelapor->melaporsebagai = $request->melaporsebagai;
+        $pelapor->nomorhp = $request->nomorhp;
         $pelapor->alamat_email = $request->alamat_email;
-        $pelapor->domisili_pelapor = $request->domisili_pelapor;
-        $pelapor->jenis_kekerasan_seksual = $request->jenis_kekerasan_seksual;
+        $pelapor->domisilipelapor = $request->domisilipelapor;
+        $pelapor->jenis_kekerasan = $request->jenis_kekerasan;
         $pelapor->cerita_peristiwa = $request->cerita_peristiwa;
         $pelapor->memiliki_disabilitas = $request->memiliki_disabilitas;
-
-        if ($request->memiliki_disabilitas == 'memiliki') {
-            $pelapor->deskripsi_disabilitas = $request->deskripsi_disabilitas;
-        }
-
-        $pelapor->status_terlapor = $request->status_terlapor;
+        $pelapor->deskripsi_disabilitas = $request->deskripsi_disabilitas;
+        $pelapor->statusterlapor = $request->statusterlapor;
         $pelapor->alasan_pengaduan = $combineAlasan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
         $pelapor->kebutuhan_korban = $combineKebutuhan;
         $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
-        // $pelapor->tanda_tangan_pelapor = $request->tanda_tangan_pelapor;
-
+    
         if ($request->hasFile('tanda_tangan_pelapor')) {
             $imagePath = $request->file('tanda_tangan_pelapor')->store('images');
             $pelapor->tanda_tangan_pelapor = $imagePath;
         }
-
+    
         $pelapor->respon = 'DI BACA';
-
+    
         $pelapor->save();
-
+    
         return redirect()->back()->with('success', 'Formulir pelaporan berhasil disimpan.');
     }
+    
 
     public function datapelaporan()
     {

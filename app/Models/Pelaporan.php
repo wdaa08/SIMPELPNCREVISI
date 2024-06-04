@@ -11,12 +11,12 @@ class Pelaporan extends Model
 
     protected $table = "pelaporans";
     protected $fillable = [
-        'namapelapor',
-        'melaporsebagai',
-        'nomorhp',
-        'alamatemailpelapor',
-        'domisilipelapor',
-        'jenis_kekerasan',
+        'nama_pelapor',
+        'melapor_sebagai',
+        'nomor_hp',
+        'alamat_email',
+        'domisili_pelapor',
+        'jenis_kekerasan_seksual',
         'cerita_peristiwa',
         'memiliki_disabilitas',
         'deskripsi_disabilitas',
@@ -28,4 +28,5 @@ class Pelaporan extends Model
         'tanda_tangan_pelapor',
         'respon',
     ];
+    
 }
