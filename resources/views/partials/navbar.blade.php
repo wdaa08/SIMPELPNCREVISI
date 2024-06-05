@@ -55,7 +55,7 @@
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 <i class="bi bi-person-fill"></i>{{auth()->user()->nama}}
-                <span class="d-none d-lg-inline-flex">Welcome, </span>
+                {{-- <span class="d-none d-lg-inline-flex">Welcome, </span> --}}
             </a>
             <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                 <a href="{{ route('profile', ['id' => auth()->user()->id]) }}" class="dropdown-item">My Profile</a>

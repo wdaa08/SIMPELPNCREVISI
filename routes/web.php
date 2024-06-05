@@ -29,8 +29,8 @@ use Illuminate\Support\Facades\Route;
 //landingpage
 
 Route::get('/', function () {
-       return view('landingpage/index');
-         });
+    return view('landingpage/index');
+});
 
 Route::get('landingpage/about', function () {
     return view('chatbot');
@@ -53,7 +53,7 @@ Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('ac
 
 
 
-Route::post('/tambah_laporan', [PelaporanController::class, 'store'])->name('tambah_laporan');
+
 Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
 Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('updateprofile');
 
@@ -73,6 +73,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
 });
 
 Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
+    Route::post('/tambah_laporan', [PelaporanController::class, 'store'])->name('tambah_laporan');
     Route::get('/halamanpelaporan', [PelaporanController::class, 'index'])->name('p.halamanpelaporan');
     Route::get('/halamanpelaporan/pelaporan', [PelaporanController::class, 'pelaporan'])->name('pelaporan');
     Route::get('/halamanpelaporan/laporan_saya', [PelaporanController::class, 'laporansaya'])->name('laporansaya');

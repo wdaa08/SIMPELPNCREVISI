@@ -61,11 +61,6 @@
                                     name="status_terlapor" value="{{ $pelapor->status_terlapor }}">
                             </div>
                             <div class="mb-3">
-                                <label for="namapelapor" class="form-label">Alasan Pengaduan</label>
-                                <input type="text" class="form-control" disabled id="alasan_pengaduan"
-                                    name="alasan_pengaduan" value="{{ $pelapor->alasan_pengaduan }}">
-                            </div>
-                            <div class="mb-3">
                                 <label for="namapelapor" class="form-label">Nomor Hp Pihak Lain</label>
                                 <input type="text" class="form-control" disabled id="nomor_hp_pihak_lain"
                                     name="nomor_hp_pihak_lain" value="{{ $pelapor->nomor_hp_pihak_lain }}">

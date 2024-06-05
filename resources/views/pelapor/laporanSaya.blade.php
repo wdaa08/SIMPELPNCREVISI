@@ -14,14 +14,17 @@
             </thead>
             <tbody>
                 @foreach ($tabellaporan as $tbl)
-                <tr>
-                    <th scope="row">{{$loop->iteration}}</th>
-                    <td>Pelaporan {{$loop->iteration}}</td>
-                    <td>
-                        <a href="{{ route('editlaporan', ['id' => $tbl->id]) }}" type="button" class="btn btn-primary">Edit</a>
-                    </td>
-
-                </tr>
+                    <tr>
+                        <th scope="row">{{ $loop->iteration }}</th>
+                        <td>Pelaporan {{ $loop->iteration }}</td>
+                        <td>
+                            <a href="{{ route('editlaporan', ['id' => $tbl->id]) }}" type="button"
+                                class="btn btn-primary">Edit</a>
+                        </td>
+                        <td>
+                            {{$tbl->respon}}
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>
