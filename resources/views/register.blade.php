@@ -53,10 +53,10 @@
                             </a>
                             
                         </div>
+                        
+                        <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
                         <h3 class="mb-3">Mendaftar</h3>
-                        <form method="POST" action="{{ route('register') }}">
                             @csrf
-        
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="nama" name="nama" value="{{ old('nama') }}" required autofocus>
                                 <label for="nama">Nama Lengkap</label>
@@ -88,18 +88,18 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="form-floating mb-4">
+                            {{-- <div class="form-floating mb-4">
                                 <input type="password" class="form-control" name="password_confirmation" id="password_confirmation"  required>
                                 <label for="password">Konfirmasi kembali password anda</label>
                                 @error('password')
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
-                            </div>
+                            </div> --}}
                             <div class="mb-3">
-                                <label for="ttdpelapor" class="form-label">Tanda Tangan Pelapor</label>
-                                <input class="form-control" name="tanda_tangan" type="file" id="tanda_tangan" multiple>
+                                <label for="tanda_tangan" class="form-label">Tanda Tangan Pelapor</label>
+                                <input type="file" class="form-control" id="tanda_tangan" name="tanda_tangan">
                                 @error('tanda_tangan')
-                                    <span class="text-danger">{{ $message }}</span>
+                                     <div class="text-danger">{{ $message }}</div>
                                 @enderror
                             </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>

@@ -300,13 +300,6 @@
                             <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan">
                         </div>
 
-                        <div class="mb-3">
-                            <label for="ttdpelapor" class="form-label">Tanda Tangan Pelapor</label>
-                            <input class="form-control" name="tanda_tangan" type="file" id="tanda_tangan" multiple>
-                        </div>
-                        
-
-
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
                             <label class="form-check-label" for="exampleCheck1">Check me out</label>

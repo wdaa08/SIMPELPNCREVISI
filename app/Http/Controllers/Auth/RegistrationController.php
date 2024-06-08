@@ -24,16 +24,15 @@ class RegistrationController extends Controller
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|max:255|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|confirmed',
-            'tanda_tangan' => 'nullable|image|mimes:jpeg,png,jpg',
+            'password' => 'required|string|',
+            'tanda_tangan' => 'image|file|max:5000' ,
         ]);
 
-        dd($validatedData);
+    
 
-        if ($request->hasFile('tanda_tangan')) {
-            $imagePath = $request->file('tanda_tangan')->store('tanda_tangan'); // Menyimpan gambar ke direktori yang diinginkan
-        } else {
-            $imagePath = null; // Atur path gambar menjadi null jika tidak ada gambar yang diunggah
+        if($request->file('tanda_tangan')) {
+            $validatedData['tanda_tangan'] = $request->file('tanda_tangan')->store('profile');
+
         }
 
         // Simpan pengguna baru ke dalam database
@@ -42,7 +41,7 @@ class RegistrationController extends Controller
             'npm_nidn_npak' => $validatedData['npm_nidn_npak'],
             'email' => $validatedData['email'],
             'password' => Hash::make($validatedData['password']),
-            'tanda_tangan' => $imagePath, // Menyimpan path gambar ke dalam kolom 'tanda_tangan'
+            'tanda_tangan' => $validatedData['tanda_tangan'], // Menyimpan path gambar ke dalam kolom 'tanda_tangan'
         ]);
 
         if ($user) {

@@ -24,27 +24,37 @@ class UserController extends Controller
 
     public function updateprofile(Request $request, $id)
     {
+
+              
         $user = User::findOrFail($id);
 
         // dd($request->file('tanda_tangan'));
+   
 
         // Validasi input
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|max:255|unique:users,npm_nidn_npak,' . $user->id,
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'tanda_tangan' => 'nullable|image|mimes:jpeg,png,jpg|' ,
+            'tanda_tangan' => 'image|file|max:5000' ,
         ]);
 
-        if ($request->hasFile('tanda_tangan')) {
-            // Hapus tanda tangan lama jika ada
-            if ($user->tanda_tangan) {
-                Storage::delete('public/tanda_tangan/' . $user->tanda_tangan);
-            }
-            // Simpan tanda tangan baru
-            $imagePath = $request->file('tanda_tangan')->store('images');
-            $user->tanda_tangan = $imagePath;
+        if($request->file('tanda_tangan')) {
+            $validatedData['tanda_tangan'] = $request->file('tanda_tangan')->store('profile');
         }
+
+
+
+
+        // if ($request->hasFile('tanda_tangan')) {
+        //     // Hapus tanda tangan lama jika ada
+        //     if ($user->tanda_tangan) {
+        //         Storage::delete('public/tanda_tangan/' . $user->tanda_tangan);
+        //     }
+        //     // Simpan tanda tangan baru
+        //     $imagePath = $request->file('tanda_tangan')->store('images');
+        //     $user->tanda_tangan = $imagePath;
+        // }
     
 
         // Update data pengguna

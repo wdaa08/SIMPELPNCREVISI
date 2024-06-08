@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pelaporan;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Termwind\Components\Dd;
@@ -17,6 +18,8 @@ class PelaporanController extends Controller
 
     public function store(Request $request)
 {
+
+    Log::info('Request Data: ', $request->all());
     // Validasi data
     $validator = Validator::make($request->all(), [
         'nama_pelapor' => 'required|string',
@@ -30,7 +33,6 @@ class PelaporanController extends Controller
         'status_terlapor' => 'required',
         'alasan_pengaduan' => 'required',
         'tanggal_pelaporan' => 'required|date',
-        'tanda_tangan_pelapor' => 'nullable|image|mimes:jpeg,png,jpg',
         'nomor_hp_pihak_lain' => 'nullable|string',
         'kebutuhan_korban' => 'nullable|array',
     ]);
@@ -43,6 +45,7 @@ class PelaporanController extends Controller
 
     // Menggabungkan data inputan yang berupa array menjadi string
     $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
+    $tandaTanganPengguna = auth()->user()->tanda_tangan;
 
     // Simpan data ke database
     $pelapor = new Pelaporan;
@@ -60,11 +63,7 @@ class PelaporanController extends Controller
     $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
     $pelapor->kebutuhan_korban = $combineKebutuhan;
     $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
-
-    if ($request->hasFile('tanda_tangan_pelapor')) {
-        $imagePath = $request->file('tanda_tangan_pelapor')->store('images');
-        $pelapor->tanda_tangan_pelapor = $imagePath;
-    }
+   
 
     $pelapor->respon = 'TERKIRIM';
         
@@ -173,16 +172,8 @@ class PelaporanController extends Controller
         $pelapor->kebutuhan_korban = $combineKebutuhan;
         $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
     
-        // Mengunggah dan menyimpan path tanda tangan pelapor jika ada
-        if ($request->hasFile('tanda_tangan_pelapor')) {
-            // Hapus tanda tangan lama jika ada
-            if ($pelapor->tanda_tangan_pelapor) {
-                Storage::delete($pelapor->tanda_tangan_pelapor);
-            }
-            $imagePath = $request->file('tanda_tangan_pelapor')->store('images');
-            $pelapor->tanda_tangan_pelapor = $imagePath;
-        }
-    
+
+
         $pelapor->save();
     
         return redirect()->route('laporansaya')->with('success', 'Formulir pelaporan berhasil diupdate.');

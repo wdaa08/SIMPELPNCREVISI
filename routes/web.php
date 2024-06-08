@@ -41,6 +41,7 @@ Route::get('landingpage/about', function () {
 
 //regiss
 Route::get('/register', [RegistrationController::class, 'create'])->name('register');
+Route::post('/register', 'Auth\RegistrationController@store')->name('register');
 Route::post('/register', [RegistrationController::class, 'store']);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');

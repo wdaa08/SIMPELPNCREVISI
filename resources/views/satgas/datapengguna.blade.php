@@ -21,7 +21,6 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">NPM NIDN NPK</th>
                                         <th scope="col">Email</th>
-                                        <th scope="col">Gambar</th>
                                         <th scope="col">Tanda Tangan</th>
                                     </tr>
                                     </thead>
@@ -32,15 +31,8 @@
                                             <td>{{ $item->npm_nidn_npak }}</td>
                                             <td>{{ $item->email }}</td>
                                             <td>
-                                                @if ($item->gambar)
-                                                    <img src="{{ asset('storage/images/' . $item->gambar) }}" alt="Gambar">
-                                                @else
-                                                    Tidak ada gambar
-                                                @endif
-                                            </td>
-                                            <td>
                                                 @if ($item->tanda_tangan)
-                                                    <img src="{{ asset('storage/tandatanganpelapor/' . $item->tanda_tangan) }}" alt="Tanda Tangan">
+                                                    <img src="{{ asset('storage/' . $item->tanda_tangan) }}" alt="Tanda Tangan" class="center-image" width="100" height="100" >
                                                 @else
                                                     Tidak ada tanda tangan
                                                 @endif
