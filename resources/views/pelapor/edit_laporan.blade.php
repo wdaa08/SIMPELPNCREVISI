@@ -6,6 +6,7 @@
             <div class="col-sm-12 col-xl-0">
                 <div class="bg-light rounded h-100 p-4">
                     <h6 class="mb-4">Formulir Pelaporan</h6>
+                    <H1>TEST</H1>
                     <form method="post" action="{{ route('updatelaporan', $pelapor->id) }}" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
@@ -56,11 +57,95 @@
                                 value="{{ $pelapor->domisili_pelapor }}" aria-describedby="emailHelp">
                         </div>
 
-                        <label for="" class="form-label">Jenis Kekerasan Seksual</label>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="narasipelapor" id="jenis_kekerasan_seksual" name="jenis_kekerasan_seksual"
-                                style="height: 150px;">{{ $pelapor->jenis_kekerasan_seksual }}</textarea>
-                            <label for="floatingTextarea">Silahkan Narasikan</label>
+                        <div class="form-group">
+                            <label for="jenis_kekerasan_seksual">Jenis Kekerasan Seksual</label>
+                            <select class="form-select" id="jenis_kekerasan_seksual" name="jenis_kekerasan_seksual">
+                                <option value="">-- pilih salah satu --</option>
+                                <option value="Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban' ? 'selected' : '' }}>
+                                    Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban
+                                </option>
+                                <option value="Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban' ? 'selected' : '' }}>
+                                    Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban
+                                </option>
+                                <option value="Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban' ? 'selected' : '' }}>
+                                    Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban
+                                </option>
+                                <option value="Menatap Korban dengan nuansa seksual dan/atau tidak nyaman"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Menatap Korban dengan nuansa seksual dan/atau tidak nyaman' ? 'selected' : '' }}>
+                                    Menatap Korban dengan nuansa seksual dan/atau tidak nyaman
+                                </option>
+                                <option value="Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban' ? 'selected' : '' }}>
+                                    Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban
+                                </option>
+                                <option value="Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban' ? 'selected' : '' }}>
+                                    Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban
+                                </option>
+                                <option value="Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban' ? 'selected' : '' }}>
+                                    Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban
+                                </option>
+                                <option value="Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban' ? 'selected' : '' }}>
+                                    Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban
+                                </option>
+                                <option value="Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi' ? 'selected' : '' }}>
+                                    Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi
+                                </option>
+                                <option value="Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban' ? 'selected' : '' }}>
+                                    Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban
+                                </option>
+                                <option value="Memberi hukuman atau sanksi yang bernuansa seksual"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Memberi hukuman atau sanksi yang bernuansa seksual' ? 'selected' : '' }}>
+                                    Memberi hukuman atau sanksi yang bernuansa seksual
+                                </option>
+                                <option value="Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban' ? 'selected' : '' }}>
+                                    Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban
+                                </option>
+                                <option value="Membuka pakaian Korban tanpa persetujuan Korban"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Membuka pakaian Korban tanpa persetujuan Korban' ? 'selected' : '' }}>
+                                    Membuka pakaian Korban tanpa persetujuan Korban
+                                </option>
+                                <option value="Memaksa Korban untuk melakukan transaksi atau kegiatan seksual"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa Korban untuk melakukan transaksi atau kegiatan seksual' ? 'selected' : '' }}>
+                                    Memaksa Korban untuk melakukan transaksi atau kegiatan seksual
+                                </option>
+                                <option value="Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual' ? 'selected' : '' }}>
+                                    Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual
+                                </option>
+                                <option value="Melakukan percobaan perkosaan, namun penetrasi tidak terjadi"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Melakukan percobaan perkosaan, namun penetrasi tidak terjadi' ? 'selected' : '' }}>
+                                    Melakukan percobaan perkosaan, namun penetrasi tidak terjadi
+                                </option>
+                                <option value="Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin' ? 'selected' : '' }}>
+                                    Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin
+                                </option>
+                                <option value="Memaksa atau memperdayai Korban untuk melakukan aborsi"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa atau memperdayai Korban untuk melakukan aborsi' ? 'selected' : '' }}>
+                                    Memaksa atau memperdayai Korban untuk melakukan aborsi
+                                </option>
+                                <option value="Memaksa atau memperdayai Korban untuk hamil"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa atau memperdayai Korban untuk hamil' ? 'selected' : '' }}>
+                                    Memaksa atau memperdayai Korban untuk hamil
+                                </option>
+                                <option value="Membiarkan terjadinya Kekerasan Seksual dengan sengaja"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Membiarkan terjadinya Kekerasan Seksual dengan sengaja' ? 'selected' : '' }}>
+                                    Membiarkan terjadinya Kekerasan Seksual dengan sengaja
+                                </option>
+                                <option value="Melakukan perbuatan Kekerasan Seksual lainnya"
+                                    {{ $pelapor->jenis_kekerasan_seksual == 'Melakukan perbuatan Kekerasan Seksual lainnya' ? 'selected' : '' }}>
+                                    Melakukan perbuatan Kekerasan Seksual lainnya
+                                </option>
+                            </select>
                         </div>
 
                         <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
@@ -87,91 +172,26 @@
                             <label for="disabilityDescription">Deskripsi Disabilitas</label>
                         </div>
 
-                        <fieldset class="row mb-3 mt-3">
-                            <legend class="col-form-label col-sm-10 pt-0">Status Terlapor (pilih salah satu) </legend>
-                            <div class="col-sm-10">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status_terlapor" id="mahasiswa"
-                                        @if ($pelapor->status_terlapor == 'Mahasiswa') checked @endif value="Mahasiswa">
-                                    <label class="form-check-label" for="mahasiswa">
-                                        Mahasiswa
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status_terlapor" id="pendidik" @if ($pelapor->status_terlapor == 'Pendidik') checked @endif
-                                        value="Pendidik">
-                                    <label class="form-check-label" for="pendidik">
-                                        Pendidik
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status_terlapor" @if ($pelapor->status_terlapor == 'Tenaga Kependidikan') checked @endif
-                                        id="tenagaKependidikan" value="Tenaga Kependidikan">
-                                    <label class="form-check-label" for="tenagaKependidikan">
-                                        Tenaga Kependidikan
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status_terlapor"
-                                        id="wargaKampus" value="Warga Kampus" @if ($pelapor->status_terlapor == 'Warga Kampus') checked @endif>
-                                    <label class="form-check-label" for="wargaKampus">
-                                        Warga Kampus
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="status_terlapor"
-                                        id="masyarakatUmum" value="Masyarakat Umum" @if ($pelapor->status_terlapor == 'Masyarakat Umum') checked @endif>
-                                    <label class="form-check-label" for="masyarakatUmum">
-                                        Masyarakat Umum
-                                    </label>
-                                </div>
-                            </div>
+                        <div class="form-floating mb-3 mt-3">
+                            <select class="form-select" id="statusterlapor" name="status_terlapor" aria-label="Floating label select example">
+                                <option value="">-- Pilih salah satu --</option>
+                                <option value="Mahasiswa" @if ($pelapor->status_terlapor == 'Mahasiswa') selected @endif>Mahasiswa</option>
+                                <option value="Pendidik" @if ($pelapor->status_terlapor == 'Pendidik') selected @endif>Pendidik</option>
+                                <option value="Tenaga Kependidikan" @if ($pelapor->status_terlapor == 'Tenaga Kependidikan') selected @endif>Tenaga Kependidikan</option>
+                                <option value="Warga Kampus" @if ($pelapor->status_terlapor == 'Warga Kampus') selected @endif>Warga Kampus</option>
+                                <option value="Masyarakat Umum" @if ($pelapor->status_terlapor == 'Masyarakat Umum') selected @endif>Masyarakat Umum</option>
+                            </select>
+                            <label for="statusterlapor">Status Terlapor:</label>
+                        </div>
+                        
 
-                            <div class="border border-light p-3">
-                                <div class="mb-3">
-                                    <label for="alasanPengaduan" class="form-label">Alasan Pengaduan</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
-                                            id="saksi" value="Saya seorang saksi yang khawatir dengan keadaan korban" @if (is_array($pelapor->alasan_pengaduan) && in_array('Saya seorang saksi yang khawatir dengan keadaan korban', $pelapor->alasan_pengaduan)) 
-                                            checked 
-                                        @endif>
-                                        <label class="form-check-label" for="saksi">
-                                            Saya seorang saksi yang khawatir dengan keadaan korban
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
-                                            id="korban" value="Saya seorang korban yang memerlukan bantuan pemulihan" @if (is_array($pelapor->alasan_pengaduan) && in_array('Saya seorang korban yang memerlukan bantuan pemulihan', $pelapor->alasan_pengaduan)) 
-                                            checked 
-                                        @endif>
-                                        <label class="form-check-label" for="korban">
-                                            Saya seorang korban yang memerlukan bantuan pemulihan
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
-                                            id="tindakTegas" value="Saya ingin perguruan tinggi menindak tegas terlapor">
-                                        <label class="form-check-label" for="tindakTegas">
-                                            Saya ingin perguruan tinggi menindak tegas terlapor
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
-                                            id="dokumentasi"
-                                            value="Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya">
-                                        <label class="form-check-label " for="dokumentasi">
-                                            Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan
-                                            perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        {{-- <input class="form-check-input" type="checkbox" id="lainnya" value="lainnya"> --}}
-                                        <label class="form-check-label" for="lainnya">Lainnya :</label>
-                                        <input type="text" class="form-control" id="InputText"
-                                            name="alasan_pengaduan[]" placeholder="Opsional">
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label for="alasan_pengaduan" class="form-label">Alasan Pengaduan</label>
+                            <input type="text" class="form-control" id="alasan_pengaduan" name="alasan_pengaduan"
+                            value="{{ $pelapor->alasan_pengaduan }}">
+                                
+                        </div>
+
                             <div class="mb-3">
                                 <div data-mdb-input-init class="form-outline">
                                     <label class="form-label" for="typeNumber">Nomor HP Pihak lain yang dapat
@@ -191,82 +211,94 @@
                                     }
                                 });
                             </script>
-                            <div class="border border-light p-3">
-                                <div class="mb-3">
-                                    <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan Korban:</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="konselingPsikologis" value="Konseling Psikologis">
-                                        <label class="form-check-label" for="konselingPsikologis">
-                                            Konseling Psikologis
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="konselingRohani" value="Konseling Rohani atau Spiritual">
-                                        <label class="form-check-label" for="konselingRohani">
-                                            Konseling Rohani/Spiritual
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="bantuanHukum" value="Bantuan Hukum">
-                                        <label class="form-check-label" for="bantuanHukum">
-                                            Bantuan Hukum
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="bantuanMedis" value="Bantuan Medis">
-                                        <label class="form-check-label " for="bantuanMedis">
-                                            Bantuan Medis
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="bantuanDigital" value="Bantuan Digital">
-                                        <label class="form-check-label" for="bantuanDigital">
-                                            Bantuan Digital
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label" for="lainnya">Lainnya :</label>
-                                        <input type="text" class="form-control" id="lainnya2Input"
-                                            name="kebutuhan_korban[]" placeholder="Opsional">
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban"
-                                            id="tidakMembutuhkan" value="Tidak Membutuhkan Pendampingan">
-                                        <label class="form-check-label" for="tidakMembutuhkan">
-                                            Tidak Membutuhkan Pendampingan
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                                // Mendapatkan referensi checkbox "Tidak Membutuhkan Pendampingan"
-                                var checkboxTidakMembutuhkan = document.getElementById("tidakMembutuhkan");
+ <div class="border border-light p-3">
+    <div class="mb-3">
+        <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan Korban:</label>
+        @php
+            $kebutuhanKorban = explode(', ', $pelapor->kebutuhan_korban);
+        @endphp
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="konselingPsikologis" value="Konseling Psikologis"
+                {{ in_array('Konseling Psikologis', $kebutuhanKorban) ? 'checked' : '' }}>
+            <label class="form-check-label" for="konselingPsikologis">
+                Konseling Psikologis
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="konselingRohani" value="Konseling Rohani atau Spiritual"
+                {{ in_array('Konseling Rohani atau Spiritual', $kebutuhanKorban) ? 'checked' : '' }}>
+            <label class="form-check-label" for="konselingRohani">
+                Konseling Rohani/Spiritual
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="bantuanHukum" value="Bantuan Hukum"
+                {{ in_array('Bantuan Hukum', $kebutuhanKorban) ? 'checked' : '' }}>
+            <label class="form-check-label" for="bantuanHukum">
+                Bantuan Hukum
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="bantuanMedis" value="Bantuan Medis"
+                {{ in_array('Bantuan Medis', $kebutuhanKorban) ? 'checked' : '' }}>
+            <label class="form-check-label" for="bantuanMedis">
+                Bantuan Medis
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="bantuanDigital" value="Bantuan Digital"
+                {{ in_array('Bantuan Digital', $kebutuhanKorban) ? 'checked' : '' }}>
+            <label class="form-check-label" for="bantuanDigital">
+                Bantuan Digital
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label" for="lainnya">Lainnya:</label>
+            <input type="text" class="form-control" id="lainnya2Input" name="kebutuhan_korban[]" placeholder="Opsional"
+                value="{{ in_array('Lainnya', $kebutuhanKorban) ? $kebutuhanKorban[array_search('Lainnya', $kebutuhanKorban) + 1] : '' }}">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="tidakMembutuhkan" value="Tidak Membutuhkan Pendampingan"
+                {{ in_array('Tidak Membutuhkan Pendampingan', $kebutuhanKorban) ? 'checked' : '' }}>
+            <label class="form-check-label" for="tidakMembutuhkan">
+                Tidak Membutuhkan Pendampingan
+            </label>
+        </div>
+    </div>
+</div>
 
-                                // Mendapatkan referensi checkbox lainnya
-                                var checkboxesLainnya = document.querySelectorAll('input[name="kebutuhan_korban"]:not(#tidakMembutuhkan)');
+<script>
+    // Mendapatkan referensi checkbox "Tidak Membutuhkan Pendampingan"
+    var checkboxTidakMembutuhkan = document.getElementById("tidakMembutuhkan");
 
-                                // Menambahkan event listener untuk checkbox "Tidak Membutuhkan Pendampingan"
-                                checkboxTidakMembutuhkan.addEventListener('change', function() {
-                                    // Jika checkbox "Tidak Membutuhkan Pendampingan" dicentang
-                                    if (checkboxTidakMembutuhkan.checked) {
-                                        // Mengatur semua checkbox lainnya menjadi tidak tercentang dan tidak dapat diubah
-                                        checkboxesLainnya.forEach(function(checkbox) {
-                                            checkbox.disabled = true;
-                                            checkbox.checked = false;
-                                        });
-                                    } else {
-                                        // Jika checkbox "Tidak Membutuhkan Pendampingan" tidak dicentang, mengatur checkbox lainnya agar bisa diubah
-                                        checkboxesLainnya.forEach(function(checkbox) {
-                                            checkbox.disabled = false;
-                                        });
-                                    }
-                                });
-                            </script>
+    // Mendapatkan referensi checkbox lainnya
+    var checkboxesLainnya = document.querySelectorAll('input[name="kebutuhan_korban[]"]:not(#tidakMembutuhkan)');
+
+    // Menambahkan event listener untuk checkbox "Tidak Membutuhkan Pendampingan"
+    checkboxTidakMembutuhkan.addEventListener('change', function() {
+        // Jika checkbox "Tidak Membutuhkan Pendampingan" dicentang
+        if (checkboxTidakMembutuhkan.checked) {
+            // Mengatur semua checkbox lainnya menjadi tidak tercentang dan tidak dapat diubah
+            checkboxesLainnya.forEach(function(checkbox) {
+                checkbox.disabled = true;
+                checkbox.checked = false;
+            });
+        } else {
+            // Jika checkbox "Tidak Membutuhkan Pendampingan" tidak dicentang, mengatur checkbox lainnya agar bisa diubah
+            checkboxesLainnya.forEach(function(checkbox) {
+                checkbox.disabled = false;
+            });
+        }
+    });
+
+    // Jika "Tidak Membutuhkan Pendampingan" sudah dicentang saat halaman dimuat
+    if (checkboxTidakMembutuhkan.checked) {
+        checkboxesLainnya.forEach(function(checkbox) {
+            checkbox.disabled = true;
+        });
+    }
+</script>
+
 
                             <div class="mb-3">
                                 <label for="tanggal">Tanggal Pelaporan:</label>

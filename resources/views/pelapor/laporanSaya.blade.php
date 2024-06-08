@@ -17,6 +17,7 @@
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>Pelaporan {{ $loop->iteration }}</td>
+                        
                         <td>
                             <a href="{{ route('editlaporan', ['id' => $tbl->id]) }}" type="button"
                                 class="btn btn-primary">Edit</a>

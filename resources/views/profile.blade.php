@@ -19,7 +19,7 @@
             </div>
         @endif
         <div class="mt-4">
-            <form action="{{ route('updateprofile', $user->id) }}" method="POST">
+            <form action="{{ route('updateprofile', $user->id) }}" method="POST"  enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="mb-3 col-md-6">
@@ -44,6 +44,20 @@
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                <div class="mb-3 col-md-6">
+                    <label for="tanda_tangan" class="form-label">Tanda Tangan Pelapor</label>
+                    <input type="file" class="form-control" id="tanda_tangan" name="tanda_tangan">
+                    @error('tanda_tangan')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                    {{-- @if($user->tanda_tangan)
+                        <div class="mb-3 col-md-6">
+                            <label for="tanda_tangan" class="form-label">Tanda Tangan Pelapor</label>
+                            <img src="{{ asset('storage/' . $user->tanda_tangan) }}" alt="Tanda Tangan" class="img-fluid">
+                        </div>
+                    @endif --}}
+                </div>
+                
                 <button type="submit" class="mt-2 btn btn-primary">Simpan</button>
             </form>
         </div>

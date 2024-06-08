@@ -11,7 +11,8 @@
                         <div class="mb-3">
                             <label for="namapelapor" class="form-label">Nama Pelapor</label>
                             <input type="text" class="form-control" id="namapelapor" name="nama_pelapor"
-                                value="{{ auth()->user()->nama }}">
+                                value="{{ auth()->user()->nama }}"  disabled >
+                            <input type="hidden" name="nama_pelapor" value="{{ auth()->user()->nama }}">
                         </div>
                         <div class="form-floating mb-3">
                             <select class="form-select" id="melaporsebagai" name="melapor_sebagai"
@@ -41,11 +42,16 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
-                            <input type="email" class="form-control" id="alamat_email" name="alamat_email"
-                                aria-describedby="emailHelp">
+                            <label for="alamat_email" class="form-label">Alamat Email</label>
+                            <input type="email" class="form-control" id="alamat_email_disabled" aria-describedby="emailHelp"
+                                value="{{ auth()->user()->email }}" disabled>
+                            <!-- Input dinonaktifkan tetapi nilai akan dikirim ke server -->
+                            <input type="hidden" name="alamat_email" value="{{ auth()->user()->email }}">
+                            <!-- Input tersembunyi untuk menyimpan nilai yang akan dikirim ke server -->
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
+                        
+                        
 
                         <div class="mb-3">
                             <label for="domisilipelapor" class="form-label">Domisili Pelapor</label>
@@ -177,7 +183,7 @@
                                 <option value="warga_kampus">Warga Kampus</option>
                                 <option value="masyarakat_kampus">Masyarakat Umum</option>
                             </select>
-                            <label for="status terlapor">Melapor Sebagai:</label>
+                            <label for="status terlapor">Status Terlapor:</label>
                         </div>
 
                         {{-- JavaScript untuk konfirmasi disabilitas --}}
@@ -195,14 +201,8 @@
                         </script>
 
                         <div class="mb-3">
-                            <label for="alsanpengaduan" class="form-label">Alasan Pengaduan</label>
-                            <input type="text" class="form-control" id="alsanpengaduan" name="alasan_pengaduan"
-                                aria-describedby="emailHelp">
-                        </div>
-                        <div class="form-floating mt-3" id="LainnyaInput" style="display: none;">
-                            <input type="text" class="form-control" id="Lainnya" name="Lainnya"
-                                placeholder="Lainnya">
-                            <label for="Lainnya">Alasan Lainnya</label>
+                            <label for="alasan_pengaduan" class="form-label">Alasan Pengaduan</label>
+                            <input type="text" class="form-control" id="alasan_pengaduan" name="alasan_pengaduan">
                         </div>
 
 
@@ -302,10 +302,9 @@
 
                         <div class="mb-3">
                             <label for="ttdpelapor" class="form-label">Tanda Tangan Pelapor</label>
-                            <input class="form-control" name="tanda_tangan_pelapor" type="file"
-                                id="tanda_tangan_pelapor" multiple>
+                            <input class="form-control" name="tanda_tangan" type="file" id="tanda_tangan" multiple>
                         </div>
-
+                        
 
 
                         <div class="mb-3 form-check">

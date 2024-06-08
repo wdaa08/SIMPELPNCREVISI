@@ -25,7 +25,7 @@ class CreatePelaporansTable extends Migration
             $table->text('kebutuhan_korban')->nullable();
             $table->date('tanggal_pelaporan');
             $table->string('tanda_tangan_pelapor')->nullable();
-            $table->string('respon')->default('DI BACA');
+            $table->string('respon')->default('TERKIRIM');
             $table->timestamps();
 
         });

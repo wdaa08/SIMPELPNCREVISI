@@ -22,6 +22,7 @@ class User extends Authenticatable
         'npm_nidn_npak',
         'email',
         'password',
+        'tanda_tangan',
     ];
 
     /**
@@ -41,5 +42,6 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+       
     ];
 }

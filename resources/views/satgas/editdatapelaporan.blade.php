@@ -78,7 +78,7 @@
                             <div class="mb-3">
                                 <label for="namapelapor" class="form-label">Respon</label>
                                 <select class="form-select" name="respon" id="respon">
-                                    <option value="DI BACA" @if ($pelapor->respon == 'DI BACA') selected @endif>DI BACA
+                                    <option value="TERKIRIM" @if ($pelapor->respon == 'TERKIRIM') selected @endif>TERKIRIM
                                     </option>
                                     <option value="PENYELIDIKAN" @if ($pelapor->respon == 'PENYELIDIKAN') selected @endif>
                                         PENYELIDIKAN</option>

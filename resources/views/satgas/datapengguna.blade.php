@@ -21,17 +21,34 @@
                                         <th scope="col">Nama</th>
                                         <th scope="col">NPM NIDN NPK</th>
                                         <th scope="col">Email</th>
-                                   
+                                        <th scope="col">Gambar</th>
+                                        <th scope="col">Tanda Tangan</th>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tabelpengguna as $item)
-                                    <tr>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->npm_nidn_npak }}</td>
-                                        <td>{{ $item->email }}</td>
-                                    </tr>
-                                    @endforeach
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($tabelpengguna as $item)
+                                        <tr>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->npm_nidn_npak }}</td>
+                                            <td>{{ $item->email }}</td>
+                                            <td>
+                                                @if ($item->gambar)
+                                                    <img src="{{ asset('storage/images/' . $item->gambar) }}" alt="Gambar">
+                                                @else
+                                                    Tidak ada gambar
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ($item->tanda_tangan)
+                                                    <img src="{{ asset('storage/tandatanganpelapor/' . $item->tanda_tangan) }}" alt="Tanda Tangan">
+                                                @else
+                                                    Tidak ada tanda tangan
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    
                                 </tbody>
                             </table>
                         </div>

@@ -95,3 +95,5 @@ Route::post('/chatbot/store', [ChatbotController::class, 'store'])->name('chatbo
 Route::get('/add_question', function () {
     return view('add_question');
 });
+
+

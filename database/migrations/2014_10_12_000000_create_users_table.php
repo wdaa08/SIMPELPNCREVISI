@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('npm_nidn_npak')->unique();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('tanda_tangan')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('role');

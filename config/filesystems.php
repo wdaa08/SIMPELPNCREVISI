@@ -56,6 +56,14 @@ return [
             'throw' => false,
         ],
 
+        'images' => [
+            'driver' => 'local',
+            'root' => public_path('images'), // Lokasi direktori penyimpanan tambahan saya
+            'url' => env('APP_URL').'/images', // URL untuk mengakses file
+            'visibility' => 'public',
+        ],
+        
+
     ],
 
     /*

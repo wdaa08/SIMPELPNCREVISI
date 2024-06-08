@@ -45,8 +45,8 @@
         <!-- Sign Up Start -->
         <div class="container-fluid">
             <div class="row h-100 align-items-center justify-content-center" style="min-height: 100vh;">
-                <div class="col-12 col-sm-5 col-md-4 col-lg-6 col-xl-3">
-                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-3 shadow">
+                <div class="col-12 col-sm-5 col-md-4 col-lg-6 col-xl-5">
+                     <div class="bg-light rounded p-4 p-sm-5 my-4 mx-7 shadow">
                         <div class="d-flex align-items-center justify-content-between mb-3">
                             <a href="">
                                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SIMPEL PNC</h3>
@@ -95,7 +95,13 @@
                                     <span class="text-danger">{{ $message }}</span>
                                 @enderror
                             </div>
-        
+                            <div class="mb-3">
+                                <label for="ttdpelapor" class="form-label">Tanda Tangan Pelapor</label>
+                                <input class="form-control" name="tanda_tangan" type="file" id="tanda_tangan" multiple>
+                                @error('tanda_tangan')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
+                            </div>
                             <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign Up</button>
                         </form>
                     </div>
