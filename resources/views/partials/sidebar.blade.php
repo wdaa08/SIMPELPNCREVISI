@@ -61,6 +61,7 @@
         <div class="navbar-nav w-100">
             <a href="{{ route('s.datapelaporan') }}" class="nav-item nav-link {{ \Route::is('s.datapelaporan') ? 'active' : ''}} "><i class="fa fa-tachometer-alt me-2"></i>Data Laporan</a>
             <a href="{{ route('s.datapengguna') }}" class="nav-item nav-link {{ \Route::is('s.datapengguna') ? 'active' : ''}} "><i class="fa fa-th me-2"></i>Data Pengguna</a>
+            <a href="{{ route('addquestion') }}" class="nav-item nav-link {{ \Route::is('addquestion') ? 'active' : ''}} "><i class="fa fa-th me-2"></i>Question ChatBot</a>
         </div>
         </div>
     </nav>

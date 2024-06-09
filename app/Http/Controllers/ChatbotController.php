@@ -7,25 +7,35 @@ use App\Models\Chatbot;
 
 class ChatbotController extends Controller
 {
+    public function index()
+    {
+        return view('chatbot');
+    }
+    public function questionindex()
+    {
+        return view('add_question');
+    }
+
     public function query(Request $request)
-{
-    $question = $request->input('question');
-    $keywords = explode(' ', $question); // Memecah pertanyaan menjadi kata kunci
+    {
+        $question = $request->input('question');
+        $keywords = explode(' ', $question); // Memecah pertanyaan menjadi kata kunci
 
-    // Membangun query untuk mencari pertanyaan yang mengandung salah satu kata kunci
-    $query = Chatbot::query();
-    foreach ($keywords as $keyword) {
-        $query->orWhere('question', 'like', '%' . $keyword . '%');
+        // Membangun query untuk mencari pertanyaan yang mengandung salah satu kata kunci
+        $query = Chatbot::query();
+        foreach ($keywords as $keyword) {
+            $query->orWhere('question', 'like', '%' . $keyword . '%');
+        }
+
+        $response = $query->first();
+
+        if ($response) {
+            return response()->json(['answer' => $response->answer]);
+        } else {
+            return response()->json(['answer' => 'Maaf, saya tidak mengerti pertanyaan Anda.']);
+        }
     }
 
-    $response = $query->first();
-
-    if ($response) {
-        return response()->json(['answer' => $response->answer]);
-    } else {
-        return response()->json(['answer' => 'Maaf, saya tidak mengerti pertanyaan Anda.']);
-    }
-}
 
     public function store(Request $request)
     {

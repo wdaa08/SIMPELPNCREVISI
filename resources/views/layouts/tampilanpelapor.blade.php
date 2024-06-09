@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>DASHMIN - Bootstrap Admin Template</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -10,6 +10,7 @@
 
     <!-- Favicon -->
     @include('partials.css')
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 

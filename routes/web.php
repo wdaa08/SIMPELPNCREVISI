@@ -66,7 +66,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
-
+    Route::get('/addquestion', [ChatbotController::class, 'questionindex'])->name('addquestion');
     // Tambahkan rute lain dalam grup ini
 
     //route pencarian
@@ -80,17 +80,18 @@ Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
     Route::get('/halamanpelaporan/laporan_saya', [PelaporanController::class, 'laporansaya'])->name('laporansaya');
     Route::get('/halamanpelaporan/laporan_saya/{id}/edit', [PelaporanController::class, 'editlaporan'])->name('editlaporan');
     Route::put('/halamanpelaporan/laporan_saya/{id}', [PelaporanController::class, 'updatelaporan'])->name('updatelaporan');
-
+    Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot');
+    Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
     // Tambahkan rute lain dalam grup ini
 });
 
 
 ///chabtbot
-Route::get('/chatbot', function () {
-    return view('chatbot');
-});
+// Route::get('/chatbot', function () {
+//     return view('chatbot');
+// });
 
-Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
+
 Route::post('/chatbot/store', [ChatbotController::class, 'store'])->name('chatbot.store');
 
 Route::get('/add_question', function () {
