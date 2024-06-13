@@ -24,6 +24,8 @@ class CreatePelaporansTable extends Migration
             $table->string('nomor_hp_pihak_lain')->nullable();
             $table->text('kebutuhan_korban')->nullable();
             $table->date('tanggal_pelaporan');
+            $table->string('bukti')->nullable();
+            $table->string('voicenote')->nullable();
             $table->string('respon')->default('TERKIRIM');
             $table->timestamps();
 

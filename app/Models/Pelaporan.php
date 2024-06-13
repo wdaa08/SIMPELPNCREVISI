@@ -27,6 +27,8 @@ class Pelaporan extends Model
         'tanggal_pelaporan',
         'tanda_tangan_pelapor',
         'respon',
+        'bukti',
+        'voicenote',
     ];
     
 }

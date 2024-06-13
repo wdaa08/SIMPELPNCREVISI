@@ -17,60 +17,77 @@ class PelaporanController extends Controller
     }
 
     public function store(Request $request)
-{
+    {
+        // Log::info('Request Data: ', $request->all());
+        // Validasi data
+        $validate = Validator::make($request->all(), [
+            'nama_pelapor' => 'required|string',
+            'melapor_sebagai' => 'required',
+            'nomor_hp' => 'required|string',
+            'alamat_email' => 'required|email',
+            'domisili_pelapor' => 'required|string',
+            'jenis_kekerasan_seksual' => 'required|string',
+            'cerita_peristiwa' => 'required|string',
+            'memiliki_disabilitas' => 'required',
+            'status_terlapor' => 'required',
+            'alasan_pengaduan' => 'required',
+            'tanggal_pelaporan' => 'required|date',
+            'nomor_hp_pihak_lain' => 'nullable|string',
+            'kebutuhan_korban' => 'nullable|array',
+            'voicenote' => 'required|mimes:audio/wav|max:2048',
+        ]);
 
-    Log::info('Request Data: ', $request->all());
-    // Validasi data
-    $validator = Validator::make($request->all(), [
-        'nama_pelapor' => 'required|string',
-        'melapor_sebagai' => 'required',
-        'nomor_hp' => 'required|string',
-        'alamat_email' => 'required|email',
-        'domisili_pelapor' => 'required|string',
-        'jenis_kekerasan_seksual' => 'required|string',
-        'cerita_peristiwa' => 'required|string',
-        'memiliki_disabilitas' => 'required',
-        'status_terlapor' => 'required',
-        'alasan_pengaduan' => 'required',
-        'tanggal_pelaporan' => 'required|date',
-        'nomor_hp_pihak_lain' => 'nullable|string',
-        'kebutuhan_korban' => 'nullable|array',
-    ]);
+        if ($validate->fails()) {
+            return redirect()->back()
+                ->withErrors($validate)
+                ->withInput();
+        }
 
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
+        $data = $request->all();  // Ambil semua data request
+
+        if ($request->hasFile('bukti')) {
+            $imagePath = $request->file('bukti')->store('bukti');
+            $data['bukti'] = $imagePath;  // Tambahkan path bukti ke dalam data yang sudah divalidasi
+        }
+        if ($request->hasFile('voicenote')) {
+            $voicePath = $request->file('voicenote')->store('voicenote');
+            $data['voicenote'] = $voicePath;
+        }
+
+        // Menggabungkan data inputan yang berupa array menjadi string
+        $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
+        $data['kebutuhan_korban'] = $combineKebutuhan;
+
+        // Simpan data ke database
+        $pelapor = new Pelaporan;
+        $pelapor->nama_pelapor = $data['nama_pelapor'];
+        $pelapor->melapor_sebagai = $data['melapor_sebagai'];
+        $pelapor->nomor_hp = $data['nomor_hp'];
+        $pelapor->alamat_email = $data['alamat_email'];
+        $pelapor->domisili_pelapor = $data['domisili_pelapor'];
+        $pelapor->jenis_kekerasan_seksual = $data['jenis_kekerasan_seksual'];
+        $pelapor->cerita_peristiwa = $data['cerita_peristiwa'];
+        $pelapor->memiliki_disabilitas = $data['memiliki_disabilitas'];
+        $pelapor->status_terlapor = $data['status_terlapor'];
+        $pelapor->alasan_pengaduan = $data['alasan_pengaduan'];
+        $pelapor->tanggal_pelaporan = $data['tanggal_pelaporan'];
+        $pelapor->nomor_hp_pihak_lain = $data['nomor_hp_pihak_lain'];
+        $pelapor->kebutuhan_korban = $data['kebutuhan_korban'];
+        $pelapor->bukti = $data['bukti'] ?? null;
+        $pelapor->voicenote = $data['voicenote'] ?? null;
+        $pelapor->respon = 'TERKIRIM';
+        
+        // Pastikan field ini ada di form jika diperlukan
+        if (isset($data['deskripsi_disabilitas'])) {
+            $pelapor->deskripsi_disabilitas = $data['deskripsi_disabilitas'];
+        }
+
+        $pelapor->save();
+
+        return redirect()->back()->with('success', 'Formulir pelaporan berhasil disimpan.');
     }
 
-    // Menggabungkan data inputan yang berupa array menjadi string
-    $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
-    $tandaTanganPengguna = auth()->user()->tanda_tangan;
 
-    // Simpan data ke database
-    $pelapor = new Pelaporan;
-    $pelapor->nama_pelapor = $request->nama_pelapor;
-    $pelapor->melapor_sebagai = $request->melapor_sebagai;
-    $pelapor->nomor_hp = $request->nomor_hp;
-    $pelapor->alamat_email = $request->alamat_email;
-    $pelapor->domisili_pelapor = $request->domisili_pelapor;
-    $pelapor->jenis_kekerasan_seksual = $request->jenis_kekerasan_seksual;
-    $pelapor->cerita_peristiwa = $request->cerita_peristiwa;
-    $pelapor->memiliki_disabilitas = $request->memiliki_disabilitas;
-    $pelapor->deskripsi_disabilitas = $request->deskripsi_disabilitas; // Pastikan field ini ada di form jika diperlukan
-    $pelapor->status_terlapor = $request->status_terlapor;
-    $pelapor->alasan_pengaduan = $request->alasan_pengaduan;
-    $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
-    $pelapor->kebutuhan_korban = $combineKebutuhan;
-    $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
-   
-
-    $pelapor->respon = 'TERKIRIM';
-        
-    $pelapor->save();
-
-    return redirect()->back()->with('success', 'Formulir pelaporan berhasil disimpan.');
-}
 
     public function datapelaporan()
     {
@@ -113,8 +130,8 @@ class PelaporanController extends Controller
     public function updatelaporan(Request $request, $id)
     {
         $pelapor = Pelaporan::findOrFail($id);
-    
-    
+
+
         // Validasi data
         $rules = [
             'nama_pelapor' => 'required|string',
@@ -132,24 +149,25 @@ class PelaporanController extends Controller
             'nomor_hp_pihak_lain' => 'nullable|string|max:14',
             'kebutuhan_korban' => 'nullable|array',
             'deskripsi_disabilitas' => 'nullable|string',
+            'bukti' => 'nullable|image|mimes:jpeg,png,jpg',
         ];
-    
+
         $messages = [
             'nama_pelapor.required' => 'Nama Pelapor tidak boleh kosong!',
             'nomor_hp.max' => 'Nomor HP tidak boleh lebih dari 14 angka!',
             'nomor_hp_pihak_lain.max' => 'Nomor HP pihak lain tidak boleh lebih dari 14 angka!',
         ];
-    
+
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-    
+
         // Menggabungkan data inputan yang berupa array menjadi string
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
-    
+
         // Update data pelapor
         $pelapor->nama_pelapor = $request->nama_pelapor;
         $pelapor->melapor_sebagai = $request->melapor_sebagai;
@@ -159,26 +177,32 @@ class PelaporanController extends Controller
         $pelapor->jenis_kekerasan_seksual = $request->jenis_kekerasan_seksual;
         $pelapor->cerita_peristiwa = $request->cerita_peristiwa;
         $pelapor->memiliki_disabilitas = $request->memiliki_disabilitas;
-    
+
         if ($request->memiliki_disabilitas == 'memiliki') {
             $pelapor->deskripsi_disabilitas = $request->deskripsi_disabilitas;
         } else {
             $pelapor->deskripsi_disabilitas = null;
         }
-    
+
+        if ($request->hasFile('bukti')) {
+            $imagePath = $request->file('bukti')->store('bukti');
+            $rules['bukti'] = $imagePath;
+        }
+
+
         $pelapor->status_terlapor = $request->status_terlapor;
         $pelapor->alasan_pengaduan = $request->alasan_pengaduan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
         $pelapor->kebutuhan_korban = $combineKebutuhan;
         $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
-    
+        $pelapor->bukti = $request->bukti;
 
 
         $pelapor->save();
-    
+
         return redirect()->route('laporansaya')->with('success', 'Formulir pelaporan berhasil diupdate.');
     }
-    
+
 
     public function ttdview($id)
     {
