@@ -307,13 +307,82 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="voiceInput">Rekam Suara:</label>
+                            <label for="voicenote">Rekam Suara:</label>
                             <br>
                             <button type="button" id="recordButton" class="btn btn-primary">Mulai Rekam</button>
-                            <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti
-                                Rekam</button>
-                            <input type="file" id="voiceInput" name="voicenote" style="display: none;">
+                            <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti Rekam</button>
+                            <input type="file" id="voicenote" name="voicenote" style="display: none;">
+                            <p id="recordingTime">Durasi: 0s</p>
+                            <audio id="audioPreview" controls style="display: none;"></audio>
                         </div>
+                        
+                                    <script>
+                                    let mediaRecorder;
+                                                                let recordedChunks = [];
+                                                                let startTime;
+                                                                let durationInterval;
+
+                                                                const recordButton = document.getElementById('recordButton');
+                                                                const stopButton = document.getElementById('stopButton');
+                                                                const voiceInput = document.getElementById('voicenote');
+                                                                const recordingTime = document.getElementById('recordingTime');
+                                                                const audioPreview = document.getElementById('audioPreview');
+
+                                                                recordButton.addEventListener('click', async () => {
+                                                                    try {
+                                                                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                                                                        mediaRecorder = new MediaRecorder(stream);
+                                                                        
+                                                                        mediaRecorder.ondataavailable = (event) => {
+                                                                            if (event.data.size > 0) {
+                                                                                recordedChunks.push(event.data);
+                                                                            }
+                                                                        };
+
+                                                                        mediaRecorder.onstop = () => {
+                                                                            const blob = new Blob(recordedChunks, { type: 'audio/wav' });
+                                                                            const url = URL.createObjectURL(blob);
+                                                                            
+                                                                            // Set audio preview
+                                                                            audioPreview.src = url;
+                                                                            audioPreview.style.display = 'block';
+                                                                            
+                                                                            // Set input file for form submission
+                                                                            const file = new File([blob], 'voicenote.wav', { type: 'audio/wav' });
+                                                                            const dataTransfer = new DataTransfer();
+                                                                            dataTransfer.items.add(file);
+                                                                            voiceInput.files = dataTransfer.files;
+                                                                        };
+
+                                                                        mediaRecorder.start();
+                                                                        startTime = Date.now();
+                                                                        durationInterval = setInterval(updateRecordingTime, 1000);
+                                                                        recordingTime.textContent = 'Durasi: 0s';
+                                                                        recordedChunks = [];
+
+                                                                        recordButton.disabled = true;
+                                                                        stopButton.disabled = false;
+                                                                    } catch (err) {
+                                                                        console.error('Error accessing audio stream', err);
+                                                                    }
+                                                                });
+
+                                                                stopButton.addEventListener('click', () => {
+                                                                    if (mediaRecorder) {
+                                                                        mediaRecorder.stop();
+                                                                        clearInterval(durationInterval);
+                                                                    }
+
+                                                                    recordButton.disabled = false;
+                                                                    stopButton.disabled = true;
+                                                                });
+
+                                                                function updateRecordingTime() {
+                                                                    const duration = Math.floor((Date.now() - startTime) / 1000);
+                                                                    recordingTime.textContent = `Durasi: ${duration}s`;
+                                                                }
+    
+                                        </script>                        
 
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="exampleCheck1">
@@ -343,80 +412,3 @@
     }
 </script>
 
-
-
-
-
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-<script>
-    $(document).ready(function() {
-        let mediaRecorder;
-        let audioChunks = [];
-
-        $('#recordButton').on('click', async function() {
-            let stream = await navigator.mediaDevices.getUserMedia({
-                audio: true
-            });
-            mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.start();
-
-            mediaRecorder.addEventListener('dataavailable', function(event) {
-                audioChunks.push(event.data);
-            });
-
-            mediaRecorder.addEventListener('stop', function() {
-                let audioBlob = new Blob(audioChunks, {
-                    type: 'audio/wav'
-                });
-                let file = new File([audioBlob], 'voice.wav', {
-                    type: 'audio/wav'
-                });
-
-                let dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                $('#voiceInput').prop('files', dataTransfer.files);
-            });
-
-            $(this).prop('disabled', true);
-            $('#stopButton').prop('disabled', false);
-        });
-
-        $('#stopButton').on('click', function() {
-            mediaRecorder.stop();
-            $('#recordButton').prop('disabled', false);
-            $(this).prop('disabled', true);
-        });
-    });
-</script>
-
-
-@if ($errors->any())
-    <script>
-        Swal.fire({
-            icon: 'error',
-            title: 'Validation Error',
-            html: '<ul>@foreach ($errors->all() as $error)<li>{{ $error }}</li>@endforeach</ul>',
-            confirmButtonText: 'OK'
-        });
-    </script>
-@endif
-
-@if (session('success'))
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: '{{ session('success') }}',
-            });
-        });
-    </script>
-@endif
-
-@if (session('message'))
-    <div class="alert alert-info">
-        {{ session('message') }}
-    </div>
-@endif

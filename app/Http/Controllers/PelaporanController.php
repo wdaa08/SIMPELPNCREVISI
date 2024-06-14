@@ -16,48 +16,71 @@ class PelaporanController extends Controller
         return view('layouts.tampilanpelapor');
     }
 
-    public function store(Request $request)
-    {
-        // Log::info('Request Data: ', $request->all());
-        // Validasi data
-        $validate = Validator::make($request->all(), [
-            'nama_pelapor' => 'required|string',
-            'melapor_sebagai' => 'required',
-            'nomor_hp' => 'required|string',
-            'alamat_email' => 'required|email',
-            'domisili_pelapor' => 'required|string',
-            'jenis_kekerasan_seksual' => 'required|string',
-            'cerita_peristiwa' => 'required|string',
-            'memiliki_disabilitas' => 'required',
-            'status_terlapor' => 'required',
-            'alasan_pengaduan' => 'required',
-            'tanggal_pelaporan' => 'required|date',
-            'nomor_hp_pihak_lain' => 'nullable|string',
-            'kebutuhan_korban' => 'nullable|array',
-            'voicenote' => 'required|mimes:audio/wav|max:2048',
-        ]);
+public function store(Request $request)
+{
+    
+    // Validasi data
+    $validate = Validator::make($request->all(), [
+        'nama_pelapor' => 'required|string',
+        'melapor_sebagai' => 'required',
+        'nomor_hp' => 'required|string|max:14',
+        'alamat_email' => 'required|email',
+        'domisili_pelapor' => 'required|string',
+        'jenis_kekerasan_seksual' => 'required|string',
+        'cerita_peristiwa' => 'required|string',
+        'memiliki_disabilitas' => 'required',
+        'deskripsi_disabilitas' => 'nullable|string',
+        'status_terlapor' => 'required',
+        'alasan_pengaduan' => 'required|string',
+        'tanggal_pelaporan' => 'required|date',
+        'nomor_hp_pihak_lain' => 'nullable|string|max:14',
+        'kebutuhan_korban' => 'nullable|array',
+        'bukti' => 'nullable|mimes:jpeg,jpg,png,pdf',
+        'voicenote' => 'nullable',
+      
+    ]);
+    
 
-        if ($validate->fails()) {
-            return redirect()->back()
-                ->withErrors($validate)
-                ->withInput();
+    if ($validate->fails()) {
+        // Tambahkan log untuk validasi gagal
+        Log::error('Validation failed', $validate->errors()->all());
+        return redirect()->back()
+            ->withErrors($validate)
+            ->withInput();
+    }
+
+    $data = $request->all();
+
+    // Debugging: log all request data
+    Log::debug('Request data:', $data);
+
+    // Mengelola upload file bukti
+    if ($request->hasFile('bukti')) {
+        $imagePath = $request->file('bukti')->store('bukti');
+        $data['bukti'] = $imagePath;
+    }
+
+    if ($request->file('voicenote')) {
+        if ($request->file('voicenote')->isValid()) {
+            $voicenotePath = $request->file('voicenote')->store('voicenote');
+            $data['voicenote'] = $voicenotePath;
+    
+            // Debug: Log voicenote path
+            Log::info('Voicenote path:', ['path' => $voicenotePath]);
+        } else {
+            Log::error('Invalid voicenote file');
         }
+    }
+    
+    // Menggabungkan data inputan yang berupa array menjadi string
+    $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
+    $data['kebutuhan_korban'] = $combineKebutuhan;
 
-        $data = $request->all();  // Ambil semua data request
+    // Debugging: log data before saving
+    Log::info('Data before saving:', $data);
 
-        if ($request->hasFile('bukti')) {
-            $imagePath = $request->file('bukti')->store('bukti');
-            $data['bukti'] = $imagePath;  // Tambahkan path bukti ke dalam data yang sudah divalidasi
-        }
-        if ($request->hasFile('voicenote')) {
-            $voicePath = $request->file('voicenote')->store('voicenote');
-            $data['voicenote'] = $voicePath;
-        }
-
-        // Menggabungkan data inputan yang berupa array menjadi string
-        $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
-        $data['kebutuhan_korban'] = $combineKebutuhan;
-
+    try {
+        
         // Simpan data ke database
         $pelapor = new Pelaporan;
         $pelapor->nama_pelapor = $data['nama_pelapor'];
@@ -76,7 +99,7 @@ class PelaporanController extends Controller
         $pelapor->bukti = $data['bukti'] ?? null;
         $pelapor->voicenote = $data['voicenote'] ?? null;
         $pelapor->respon = 'TERKIRIM';
-        
+
         // Pastikan field ini ada di form jika diperlukan
         if (isset($data['deskripsi_disabilitas'])) {
             $pelapor->deskripsi_disabilitas = $data['deskripsi_disabilitas'];
@@ -84,8 +107,20 @@ class PelaporanController extends Controller
 
         $pelapor->save();
 
-        return redirect()->back()->with('success', 'Formulir pelaporan berhasil disimpan.');
+        // Debugging: log after data is saved
+        Log::info('Data saved successfully:', $pelapor->toArray());
+    } catch (\Exception $e) {
+        // Catch any exceptions and log them
+        Log::error('Error saving data:', ['error' => $e->getMessage()]);
+        return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
     }
+    // Simpan pesan sukses dalam session
+    // Simpan pesan sukses dalam session
+        session()->flash('success', 'Alhamdulilah,Formulir pelaporan berhasil Terkirim.');
+        session()->flash('error', 'Mohon isi data yang kosong!');
+        return redirect()->back();
+
+}
 
 
 
@@ -129,9 +164,11 @@ class PelaporanController extends Controller
 
     public function updatelaporan(Request $request, $id)
     {
+        // Tambahkan log untuk melacak eksekusi fungsi
+        Log::info('Memulai fungsi updatelaporan untuk pelapor ID: ' . $id);
+    
         $pelapor = Pelaporan::findOrFail($id);
-
-
+    
         // Validasi data
         $rules = [
             'nama_pelapor' => 'required|string',
@@ -150,24 +187,26 @@ class PelaporanController extends Controller
             'kebutuhan_korban' => 'nullable|array',
             'deskripsi_disabilitas' => 'nullable|string',
             'bukti' => 'nullable|image|mimes:jpeg,png,jpg',
+            'voicenote' => 'nullable',
         ];
-
+    
         $messages = [
             'nama_pelapor.required' => 'Nama Pelapor tidak boleh kosong!',
             'nomor_hp.max' => 'Nomor HP tidak boleh lebih dari 14 angka!',
             'nomor_hp_pihak_lain.max' => 'Nomor HP pihak lain tidak boleh lebih dari 14 angka!',
         ];
-
+    
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
+            Log::warning('Validasi gagal untuk pelapor ID: ' . $id, ['errors' => $validator->errors()]);
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
         }
-
+    
         // Menggabungkan data inputan yang berupa array menjadi string
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
-
+    
         // Update data pelapor
         $pelapor->nama_pelapor = $request->nama_pelapor;
         $pelapor->melapor_sebagai = $request->melapor_sebagai;
@@ -177,31 +216,51 @@ class PelaporanController extends Controller
         $pelapor->jenis_kekerasan_seksual = $request->jenis_kekerasan_seksual;
         $pelapor->cerita_peristiwa = $request->cerita_peristiwa;
         $pelapor->memiliki_disabilitas = $request->memiliki_disabilitas;
-
+    
         if ($request->memiliki_disabilitas == 'memiliki') {
             $pelapor->deskripsi_disabilitas = $request->deskripsi_disabilitas;
         } else {
             $pelapor->deskripsi_disabilitas = null;
         }
-
+    
         if ($request->hasFile('bukti')) {
             $imagePath = $request->file('bukti')->store('bukti');
             $rules['bukti'] = $imagePath;
+            Log::info('File bukti disimpan: ' . $imagePath);
         }
-
-
+    
         $pelapor->status_terlapor = $request->status_terlapor;
         $pelapor->alasan_pengaduan = $request->alasan_pengaduan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
         $pelapor->kebutuhan_korban = $combineKebutuhan;
         $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
         $pelapor->bukti = $request->bukti;
-
-
+    
+        if ($request->hasFile('voicenote')) {
+            // Log untuk mengidentifikasi adanya file voice note baru
+            Log::info('Ada file voice note baru yang diunggah oleh pelapor dengan ID: ' . $pelapor->id);
+            
+            // Hapus file voice note lama jika ada
+            if ($pelapor->voicenote) {
+                Log::info('Menghapus file voice note lama: ' . $pelapor->voicenote);
+                Storage::delete($pelapor->voicenote);
+            }
+        
+            // Simpan file voice note baru
+            $filePath = $request->file('voicenote')->store('voicenotes');
+            $pelapor->voicenote = $filePath;
+            Log::info('File voice note baru disimpan: ' . $filePath);
+        } else {
+            Log::warning('Tidak ada file voicenote dalam request.');
+        }
+    
         $pelapor->save();
-
+    
+        Log::info('Pelapor ID: ' . $pelapor->id . ' berhasil diupdate.');
+    
         return redirect()->route('laporansaya')->with('success', 'Formulir pelaporan berhasil diupdate.');
     }
+    
 
 
     public function ttdview($id)

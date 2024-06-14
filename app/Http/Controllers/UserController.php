@@ -40,21 +40,10 @@ class UserController extends Controller
         ]);
 
         if($request->file('tanda_tangan')) {
-            $validatedData['tanda_tangan'] = $request->file('tanda_tangan')->store('profile');
+            $validatedData['tanda_tangan'] = $request->fikwekjele('tanda_tangan')->store('profile');
         }
 
 
-
-
-        // if ($request->hasFile('tanda_tangan')) {
-        //     // Hapus tanda tangan lama jika ada
-        //     if ($user->tanda_tangan) {
-        //         Storage::delete('public/tanda_tangan/' . $user->tanda_tangan);
-        //     }
-        //     // Simpan tanda tangan baru
-        //     $imagePath = $request->file('tanda_tangan')->store('images');
-        //     $user->tanda_tangan = $imagePath;
-        // }
     
 
         // Update data pengguna

@@ -12,6 +12,10 @@
     @include('partials.css')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <!-- Include Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
 </head>
 
 <body>
@@ -49,7 +53,49 @@
         @include('partials.js')
     </div>
 
+    <!-- Toastr JavaScript -->
+    @if(session('success') || session('error'))
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            toastr.options = {
+                "closeButton": false,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            @if(session('success'))
+                toastr["success"]("{{ session('success') }}");
+            @elseif(session('error'))
+                toastr["error"]("{{ session('error') }}");
+            @endif
+        });
+    </script>
+    @endif
+
+    @if ($errors->any())
+    <script>
+        $(document).ready(function() {
+            toastr.error("Terdapat kesalahan validasi pada formulir Anda.");
+        });
+    </script>
+@endif
 
 </body>
+
+
+
 
 </html>
