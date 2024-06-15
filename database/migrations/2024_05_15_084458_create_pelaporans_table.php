@@ -10,6 +10,7 @@ class CreatePelaporansTable extends Migration
     {
         Schema::create('pelaporans', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('nama_pelapor');
             $table->string('melapor_sebagai');
             $table->string('nomor_hp');
@@ -29,6 +30,7 @@ class CreatePelaporansTable extends Migration
             $table->string('respon')->default('TERKIRIM');
             $table->timestamps();
 
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

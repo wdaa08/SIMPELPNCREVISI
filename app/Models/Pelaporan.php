@@ -11,6 +11,7 @@ class Pelaporan extends Model
 
     protected $table = "pelaporans";
     protected $fillable = [
+        'user_id',
         'nama_pelapor',
         'melapor_sebagai',
         'nomor_hp',
