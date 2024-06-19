@@ -12,8 +12,7 @@
     @include('partials.css')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- Include Toastr CSS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
 
 
 </head>
@@ -43,6 +42,7 @@
 
             <!-- Form untuk pelaporan -->
             @yield('container')
+            <h1>testt pelapor</h1>
             <!-- Content End -->
 
             <!-- Back to Top -->
@@ -53,46 +53,40 @@
         @include('partials.js')
     </div>
 
-    <!-- Toastr JavaScript -->
-    @if(session('success') || session('error'))
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
-        $(document).ready(function() {
-            toastr.options = {
-                "closeButton": false,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": false,
-                "positionClass": "toast-top-center",
-                "preventDuplicates": false,
-                "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-            };
+        @if (Session('success'))
+            Swal.fire({
+            title: 'Pengaduan Berhasil Dikirim',
+            text: '',
+            icon: 'success',
+            });
+        @endif
+        @if (Session('error'))
+            Swal.fire({
+            title: 'Pengaduan Gagal Dikirim',
+            text: '{{ session('error') }}',
+            icon: 'error',
+            });
+            
+        @endif 
+         // Menampilkan pesan kesalahan validasi jika ada
+         @if($errors->any())
+                let errorMessages = '';
+                @foreach ($errors->all() as $error)
+                    errorMessages += '{{ $error }}<br>';
+                @endforeach
 
-            @if(session('success'))
-                toastr["success"]("{{ session('success') }}");
-            @elseif(session('error'))
-                toastr["error"]("{{ session('error') }}");
-            @endif
-        });
+                Swal.fire({
+                    title: 'pengaduan gagal!',
+                    html: `<div style="text-align: left;">${errorMessages}</div>`,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            @endif         
     </script>
-    @endif
-
-    @if ($errors->any())
-    <script>
-        $(document).ready(function() {
-            toastr.error("Terdapat kesalahan validasi pada formulir Anda.");
-        });
-    </script>
-@endif
-
+    
 </body>
 
 

@@ -27,7 +27,7 @@
                         <div class="mb-3">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="nomorhp">Nomor HP</label>
-                                <input type="number" id="nomorhp" name="nomor_hp" class="form-control" />
+                                <input type="number" id="nomorhp" name="nomor_hp" value="{{ old('nomor_hp') }}" class="form-control"  />
                                 <script>
                                     document.getElementById("nomorhp").addEventListener("input", function() {
                                         var input = this.value.replace(/\s+/g, '');
@@ -56,162 +56,97 @@
                         <div class="mb-3">
                             <label for="domisilipelapor" class="form-label">Domisili Pelapor</label>
                             <input type="text" class="form-control" id="domisili_pelapor" name="domisili_pelapor"
-                                aria-describedby="emailHelp">
+                                value="{{ old('domisili_pelapor') }}">
                         </div>
 
-                        <div class="form-floating mb-3">
-                            <select class="form-select" id="jenis_kekerasan_seksual" name="jenis_kekerasan_seksual"
-                                aria-label="Floating label select example">
-                                <option selected>-- pilih salah satu --</option>
-                                <option
-                                    value="Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban">
-                                    Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh,
-                                    dan/atau identitas gender Korban</option>
-
-                                <option value="Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban">
-                                    Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban</option>
-
-                                <option
-                                    value="Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban">
-                                    Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual
-                                    pada Korban</option>
-
-                                <option value="Menatap Korban dengan nuansa seksual dan/atau tidak nyaman">Menatap Korban
-                                    dengan nuansa seksual dan/atau tidak nyaman</option>
-
-                                <option
-                                    value="Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban">
-                                    Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada
-                                    Korban meskipun sudah dilarang Korban</option>
-
-                                <option
-                                    value="Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban">
-                                    Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual
-                                    Korban yang bernuansa seksual tanpa persetujuan Korban</option>
-
-                                <option
-                                    value="Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban">
-                                    Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa
-                                    persetujuan Korban</option>
-
-                                <option
-                                    value="Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban">
-                                    Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa
-                                    persetujuan Korban</option>
-
-                                <option
-                                    value="Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi">
-                                    Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara
-                                    pribadi dan/atau pada ruang yang bersifat pribadi</option>
-
-                                <option
-                                    value="Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban">
-                                    Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan
-                                    transaksi atau kegiatan seksual yang tidak disetujui oleh Korban</option>
-
-                                <option value="Memberi hukuman atau sanksi yang bernuansa seksual">Memberi hukuman atau
-                                    sanksi yang bernuansa seksual</option>
-
-                                <option
-                                    value="Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban">
-                                    Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian
-                                    tubuhnya pada tubuh Korban tanpa persetujuan Korban</option>
-
-                                <option value="Membuka pakaian Korban tanpa persetujuan Korban">Membuka pakaian Korban tanpa
-                                    persetujuan Korban</option>
-
-                                <option value="Memaksa Korban untuk melakukan transaksi atau kegiatan seksual">Memaksa
-                                    Korban untuk melakukan transaksi atau kegiatan seksual</option>
-
-                                <option
-                                    value="Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual">
-                                    Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang
-                                    bernuansa Kekerasan Seksual</option>
-
-                                <option value="Melakukan percobaan perkosaan, namun penetrasi tidak terjadi">Melakukan
-                                    percobaan perkosaan, namun penetrasi tidak terjadi</option>
-
-                                <option
-                                    value="Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin">
-                                    Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat
-                                    kelamin</option>
-
-                                <option value="Memaksa atau memperdayai Korban untuk melakukan aborsi">Memaksa atau
-                                    memperdayai Korban untuk melakukan aborsi</option>
-
-                                <option value="Memaksa atau memperdayai Korban untuk hamil">Memaksa atau memperdayai Korban
-                                    untuk hamil</option>
-
-                                <option value="Membiarkan terjadinya Kekerasan Seksual dengan sengaja">Membiarkan terjadinya
-                                    Kekerasan Seksual dengan sengaja</option>
-
-                                <option value="Melakukan perbuatan Kekerasan Seksual lainnya">Melakukan perbuatan Kekerasan
-                                    Seksual lainnya</option>
-
-                            </select>
-                            <label for="jenis_kekerasan_seksual">Jenis Kekerasan Seksual:</label>
+                        <label for="" class="form-label mt-3">Silahkan Narasikan Jenis Kekerasan Seksual </label>
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="narasipelapor" name="jenis_kekerasan_seksual"  id="floatingTextarea"
+                                style="height: 150px;" >{{ old('jenis_kekerasan_seksual') }}</textarea>
                         </div>
+ 
                         <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="narasipelapor" name="cerita_peristiwa" id="floatingTextarea"
-                                style="height: 150px;"></textarea>
+                                style="height: 150px;">{{ old('cerita_peristiwa') }}</textarea>
                         </div>
 
                         <div class="form-floating mt-3">
-                            <select class="form-select" id="hasDisability" name="memiliki_disabilitas"
-                                aria-label="Floating label select example" onchange="showDisabilityInput()">
-                                <option selected>pilih salah satu</option>
-                                <option value="tidak">Tidak</option>
-                                <option value="memiliki">Memiliki</option>
+                            <select class="form-select" id="hasDisability" name="memiliki_disabilitas" aria-label="Floating label select example" onchange="showDisabilityInput()">
+                                <option value="" disabled {{ old('memiliki_disabilitas') === null ? 'selected' : '' }}>pilih salah satu</option>
+                                <option value="tidak" {{ old('memiliki_disabilitas') === 'tidak' ? 'selected' : '' }}>Tidak</option>
+                                <option value="memiliki" {{ old('memiliki_disabilitas') === 'memiliki' ? 'selected' : '' }}>Memiliki</option>
                             </select>
                             <label for="hasDisability">Memiliki Disabilitas?</label>
                         </div>
+                        
 
-                        <div class="form-floating mt-3" id="disabilityInput" style="display: none;">
-                            <input type="text" class="form-control" id="deskripsidisabilitas"
-                                name="deskripsi_disabilitas" placeholder="Deskripsi Disabilitas">
-                            <label for="disabilityDescription">Deskripsi Disabilitas</label>
+                        <div  id="disabilityInput" style="display: {{ old('memiliki_disabilitas') === 'memiliki' ? 'block' : 'none' }};">
+                            <label for="deskripsi_disabilitas" class="form-label mt-3">Deskripsi Disabilitas</label>
+                            <input type class="form-control" placeholder="Deskripsi disabilitas" name="deskripsi_disabilitas" id="deskripsi_disabilitas" style="height: 80px;">{{ old('deskripsi_disabilitas') }}</input>
                         </div>
+
+                        
 
                         <div class="form-floating mb-3 mt-3">
                             <select class="form-select" id="statusterlapor" name="status_terlapor"
                                 aria-label="Floating label select example">
-                                <option selected>-- pilih salah satu --</option>
-                                <option value="Mahasiswa">Mahasiswa</option>
-                                <option value="Pendidik">Pendidik</option>
-                                <option value="tenaga_kependidikan">Tenaga Kependidikan</option>
-                                <option value="warga_kampus">Warga Kampus</option>
-                                <option value="masyarakat_kampus">Masyarakat Umum</option>
+                                <option value="" disabled {{ old('status_terlapor') === null ? 'selected' : '' }}>-- pilih salah satu --</option>
+                                <option value="Mahasiswa" {{ old('status_terlapor') === 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
+                                <option value="Pendidik" {{ old('status_terlapor') === 'Pendidik' ? 'selected' : '' }}>Pendidik</option>
+                                <option value="tenaga_kependidikan" {{ old('status_terlapor') === 'tenaga_kependidikan' ? 'selected' : '' }}>Tenaga Kependidikan</option>
+                                <option value="warga_kampus" {{ old('status_terlapor') === 'warga_kampus' ? 'selected' : '' }}>Warga Kampus</option>
+                                <option value="masyarakat_kampus" {{ old('status_terlapor') === 'masyarakat_kampus' ? 'selected' : '' }}>Masyarakat Umum</option>
                             </select>
                             <label for="status terlapor">Status Terlapor:</label>
                         </div>
 
-                        {{-- JavaScript untuk konfirmasi disabilitas --}}
-                        <script>
-                            function showDisabilityInput() {
-                                var selectValue = document.getElementById("hasDisability").value;
-                                var disabilityInput = document.getElementById("disabilityInput");
 
-                                if (selectValue === "memiliki") {
-                                    disabilityInput.style.display = "block";
-                                } else {
-                                    disabilityInput.style.display = "none";
-                                }
-                            }
-                        </script>
 
-                        <div class="mb-3">
-                            <label for="alasan_pengaduan" class="form-label">Alasan Pengaduan</label>
-                            <input type="text" class="form-control" id="alasan_pengaduan" name="alasan_pengaduan">
-                        </div>
-
+                        <div class="border border-light p-3">
+                            <div class="mb-3">
+                                <label for="alasanPengaduan" class="form-label">Silahkan centang salah satu atau lebih alasan pengaduan</label>
+                        
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="khawatirKorban" value="Saya seorang saksi yang khawatir dengan keadaan korban" {{ in_array('Saya seorang saksi yang khawatir dengan keadaan korban', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="khawatirKorban">
+                                        Saya seorang saksi yang khawatir dengan keadaan korban
+                                    </label>
+                                </div>
+                        
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="bantuanPemulihan" value="Saya seorang korban yang memerlukan bantuan pemulihan" {{ in_array('Saya seorang korban yang memerlukan bantuan pemulihan', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="bantuanPemulihan">
+                                        Saya seorang korban yang memerlukan bantuan pemulihan
+                                    </label>
+                                </div>
+                        
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="tindakTegasLaporan" value="Saya ingin perguruan tinggi menindak tegas terlapor" {{ in_array('Saya ingin perguruan tinggi menindak tegas terlapor', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="tindakTegasLaporan">
+                                        Saya ingin perguruan tinggi menindak tegas terlapor
+                                    </label>
+                                </div>
+                        
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="dokumentasiKejadian" value="Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya" {{ in_array('Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <label class="form-check-label" for="dokumentasiKejadian">
+                                        Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya
+                                    </label>
+                                </div>
+                        
+                                <div class="form-check">
+                                    <label class="form-check-label" for="lainnya">Lainnya :</label>
+                                    <input type="text" class="form-control" id="lainnyaInput" name="alasan_pengaduan[lainnya]" placeholder="Opsional" value="{{ old('alasan_pengaduan.lainnya') }}">
+                                </div>
+                                
 
                         <div class="mb-3">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="typeNumber">Nomor HP Pihak lain yang dapat
                                     dikonfirmasi</label>
                                 <input type="number" id="nomorhppihaklain" name="nomor_hp_pihak_lain"
-                                    class="form-control" />
+                                    class="form-control" value="{{ old('nomor_hp_pihak_lain') }}" />
                             </div>
                         </div>
                         <script>
@@ -225,6 +160,7 @@
                                 }
                             });
                         </script>
+                        
                         <div class="border border-light p-3">
                             <div class="mb-3">
                                 <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan Korban:</label>
@@ -294,11 +230,21 @@
                                 }
                             });
                         </script>
+                    <div class="mb-3">
+                        <label for="tanggal">Tanggal Pelaporan:</label>
+                        <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan">
+                    </div>
 
-                        <div class="mb-3">
-                            <label for="tanggal">Tanggal Pelaporan:</label>
-                            <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan">
-                        </div>
+                    <script>
+                        // Mendapatkan elemen input tanggal
+                        var inputTanggal = document.getElementById('tanggalpelaporan');
+                        
+                        // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+                        var today = new Date().toISOString().split('T')[0];
+                        
+                        // Mengatur nilai default input tanggal ke tanggal hari ini
+                        inputTanggal.value = today;
+                    </script>
 
                         <label for="tanggal">Bukti: </label>
                         <div class="input-group mb-3">
@@ -410,5 +356,10 @@
             disabilityInput.style.display = "none";
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Panggil fungsi showDisabilityInput() saat halaman dimuat untuk memeriksa nilai old()
+        showDisabilityInput();
+    });
 </script>
 

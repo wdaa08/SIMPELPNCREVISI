@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pelaporan;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -32,24 +33,35 @@ class PelaporanController extends Controller
             'memiliki_disabilitas' => 'required',
             'deskripsi_disabilitas' => 'nullable|string',
             'status_terlapor' => 'required',
-            'alasan_pengaduan' => 'required|string',
+            'alasan_pengaduan' => 'nullable|array',
             'tanggal_pelaporan' => 'required|date',
             'nomor_hp_pihak_lain' => 'nullable|string|max:14',
             'kebutuhan_korban' => 'nullable|array',
             'bukti' => 'nullable|mimes:jpeg,jpg,png,pdf',
             'voicenote' => 'nullable',
-
+        ], [
+            'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong.',
+            'melapor_sebagai.required' => 'Melapor sebagai tidak boleh kosong.',
+            'nomor_hp.required' => 'Nomor HP tidak boleh kosong.',
+            'alamat_email.required' => 'Alamat email tidak boleh kosong.',
+            'alamat_email.email' => 'Format alamat email tidak valid.',
+            'domisili_pelapor.required' => 'Domisili pelapor tidak boleh kosong.',
+            'jenis_kekerasan_seksual.required' => 'Jenis kekerasan seksual tidak boleh kosong.',
+            'cerita_peristiwa.required' => 'Cerita peristiwa tidak boleh kosong.',
+            'memiliki_disabilitas.required' => 'Memiliki disabilitas tidak boleh kosong.',
+            'status_terlapor.required' => 'Status terlapor tidak boleh kosong.',
+            'tanggal_pelaporan.required' => 'Tanggal pelaporan tidak boleh kosong.',
+            'tanggal_pelaporan.date' => 'Format tanggal pelaporan tidak valid.',
         ]);
 
         $user = Auth::user();
 
 
         if ($validate->fails()) {
-            // Tambahkan log untuk validasi gagal
-            Log::error('Validation failed', $validate->errors()->all());
             return redirect()->back()
                 ->withErrors($validate)
-                ->withInput();
+                ->withInput()
+                ->with('error', 'Mohon isi data yang kosong!');
         }
 
         $data = $request->all();
@@ -78,6 +90,10 @@ class PelaporanController extends Controller
         // Menggabungkan data inputan yang berupa array menjadi string
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
         $data['kebutuhan_korban'] = $combineKebutuhan;
+
+                // Menggabungkan data inputan yang berupa array menjadi string
+                $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
+                $data['alasan_pengaduan'] = $combineAlasan;
 
         // Debugging: log data before saving
         Log::info('Data before saving:', $data);
@@ -110,6 +126,7 @@ class PelaporanController extends Controller
             }
             
             $pelapor->save();
+            
 
             // Debugging: log after data is saved
             Log::info('Data saved successfully:', $pelapor->toArray());
@@ -119,10 +136,9 @@ class PelaporanController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
         // Simpan pesan sukses dalam session
-        // Simpan pesan sukses dalam session
-        session()->flash('success', 'Alhamdulilah,Formulir pelaporan berhasil Terkirim.');
-        session()->flash('error', 'Mohon isi data yang kosong!');
-        return redirect()->back();
+        
+       
+        return redirect()->back()->with('success', 'Alhamdulilah,Formulir pelaporan berhasil Terkirim.');
     }
 
 
