@@ -1,4 +1,4 @@
-@extends('layouts.tampilansatgas')
+@extends('layouts.tampilanpelapor')
 
 @section('container')
     <div class="container my-4">

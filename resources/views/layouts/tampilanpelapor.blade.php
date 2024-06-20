@@ -42,7 +42,7 @@
 
             <!-- Form untuk pelaporan -->
             @yield('container')
-            <h1>testt pelapor</h1>
+     
             <!-- Content End -->
 
             <!-- Back to Top -->
@@ -59,6 +59,13 @@
         @if (Session('success'))
             Swal.fire({
             title: 'Pengaduan Berhasil Dikirim',
+            text: '',
+            icon: 'success',
+            });
+        @endif
+        @if (Session('edit.success'))
+            Swal.fire({
+            title: 'edit Berhasil Dikirim',
             text: '',
             icon: 'success',
             });

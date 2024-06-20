@@ -57,96 +57,12 @@
                                     value="{{ $pelapor->domisili_pelapor }}" aria-describedby="emailHelp">
                             </div>
 
-                            <div class="form-group">
-                                <label for="jenis_kekerasan_seksual">Jenis Kekerasan Seksual</label>
-                                <select class="form-select" id="jenis_kekerasan_seksual" name="jenis_kekerasan_seksual">
-                                    <option value="">-- pilih salah satu --</option>
-                                    <option value="Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban' ? 'selected' : '' }}>
-                                        Menyampaikan ujaran yang mendiskriminasi atau melecehkan tampilan fisik, kondisi tubuh, dan/atau identitas gender Korban
-                                    </option>
-                                    <option value="Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban' ? 'selected' : '' }}>
-                                        Memperlihatkan alat kelaminnya dengan sengaja tanpa persetujuan Korban
-                                    </option>
-                                    <option value="Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban' ? 'selected' : '' }}>
-                                        Menyampaikan ucapan yang memuat rayuan, lelucon, dan/atau siulan yang bernuansa seksual pada Korban
-                                    </option>
-                                    <option value="Menatap Korban dengan nuansa seksual dan/atau tidak nyaman"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Menatap Korban dengan nuansa seksual dan/atau tidak nyaman' ? 'selected' : '' }}>
-                                        Menatap Korban dengan nuansa seksual dan/atau tidak nyaman
-                                    </option>
-                                    <option value="Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban' ? 'selected' : '' }}>
-                                        Mengirimkan pesan, lelucon, gambar, foto, audio, dan/atau video bernuansa seksual kepada Korban meskipun sudah dilarang Korban
-                                    </option>
-                                    <option value="Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban' ? 'selected' : '' }}>
-                                        Mengambil, merekam, dan/atau mengedarkan foto dan/atau rekaman audio dan/atau visual Korban yang bernuansa seksual tanpa persetujuan Korban
-                                    </option>
-                                    <option value="Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban' ? 'selected' : '' }}>
-                                        Mengunggah foto tubuh dan/atau informasi pribadi Korban yang bernuansa seksual tanpa persetujuan Korban
-                                    </option>
-                                    <option value="Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban' ? 'selected' : '' }}>
-                                        Menyebarkan informasi terkait tubuh dan/atau pribadi Korban yang bernuansa seksual tanpa persetujuan Korban
-                                    </option>
-                                    <option value="Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi' ? 'selected' : '' }}>
-                                        Mengintip atau dengan sengaja melihat Korban yang sedang melakukan kegiatan secara pribadi dan/atau pada ruang yang bersifat pribadi
-                                    </option>
-                                    <option value="Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban' ? 'selected' : '' }}>
-                                        Membujuk, menjanjikan, menawarkan sesuatu, atau mengancam Korban untuk melakukan transaksi atau kegiatan seksual yang tidak disetujui oleh Korban
-                                    </option>
-                                    <option value="Memberi hukuman atau sanksi yang bernuansa seksual"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Memberi hukuman atau sanksi yang bernuansa seksual' ? 'selected' : '' }}>
-                                        Memberi hukuman atau sanksi yang bernuansa seksual
-                                    </option>
-                                    <option value="Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban' ? 'selected' : '' }}>
-                                        Menyentuh, mengusap, meraba, memegang, memeluk, mencium dan/atau menggosokkan bagian tubuhnya pada tubuh Korban tanpa persetujuan Korban
-                                    </option>
-                                    <option value="Membuka pakaian Korban tanpa persetujuan Korban"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Membuka pakaian Korban tanpa persetujuan Korban' ? 'selected' : '' }}>
-                                        Membuka pakaian Korban tanpa persetujuan Korban
-                                    </option>
-                                    <option value="Memaksa Korban untuk melakukan transaksi atau kegiatan seksual"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa Korban untuk melakukan transaksi atau kegiatan seksual' ? 'selected' : '' }}>
-                                        Memaksa Korban untuk melakukan transaksi atau kegiatan seksual
-                                    </option>
-                                    <option value="Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual' ? 'selected' : '' }}>
-                                        Mempraktikkan budaya komunitas Mahasiswa, Pendidik, dan Tenaga Kependidikan yang bernuansa Kekerasan Seksual
-                                    </option>
-                                    <option value="Melakukan percobaan perkosaan, namun penetrasi tidak terjadi"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Melakukan percobaan perkosaan, namun penetrasi tidak terjadi' ? 'selected' : '' }}>
-                                        Melakukan percobaan perkosaan, namun penetrasi tidak terjadi
-                                    </option>
-                                    <option value="Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin' ? 'selected' : '' }}>
-                                        Melakukan perkosaan termasuk penetrasi dengan benda atau bagian tubuh selain alat kelamin
-                                    </option>
-                                    <option value="Memaksa atau memperdayai Korban untuk melakukan aborsi"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa atau memperdayai Korban untuk melakukan aborsi' ? 'selected' : '' }}>
-                                        Memaksa atau memperdayai Korban untuk melakukan aborsi
-                                    </option>
-                                    <option value="Memaksa atau memperdayai Korban untuk hamil"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa atau memperdayai Korban untuk hamil' ? 'selected' : '' }}>
-                                        Memaksa atau memperdayai Korban untuk hamil
-                                    </option>
-                                    <option value="Membiarkan terjadinya Kekerasan Seksual dengan sengaja"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Membiarkan terjadinya Kekerasan Seksual dengan sengaja' ? 'selected' : '' }}>
-                                        Membiarkan terjadinya Kekerasan Seksual dengan sengaja
-                                    </option>
-                                    <option value="Melakukan perbuatan Kekerasan Seksual lainnya"
-                                        {{ $pelapor->jenis_kekerasan_seksual == 'Melakukan perbuatan Kekerasan Seksual lainnya' ? 'selected' : '' }}>
-                                        Melakukan perbuatan Kekerasan Seksual lainnya
-                                    </option>
-                                </select>
+                            <label for="" class="form-label mt-3">Silahkan Narasikan Jenis Kekerasan Seksual </label>
+                            <div class="form-floating">
+                                <textarea class="form-control" placeholder="narasipelapor" name="jenis_kekerasan_seksual" id="floatingTextarea"
+                                    style="height: 150px;">{{ $pelapor->jenis_kekerasan_seksual }}</textarea>
                             </div>
+                            
 
                             <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
                             <div class="form-floating">
@@ -165,13 +81,10 @@
                                 </select>
                                 <label for="hasDisability">Memiliki Disabilitas?</label>
                             </div>
-
-                            <div class="form-floating mt-3" id="disabilityInput" style="display: none;">
-                                <input type="text" class="form-control" id="deskripsidisabilitas"
-                                    name="deskripsi_disabilitas" placeholder="Deskripsi Disabilitas">
-                                <label for="disabilityDescription">Deskripsi Disabilitas</label>
+                            <div class="form-floating mt-3" id="disabilityInput" style="display: @if ($pelapor->memiliki_disabilitas == 'memiliki') block @else none @endif;">
+                                <input type="text" class="form-control" id="deskripsidisabilitas" name="deskripsi_disabilitas" placeholder="Deskripsi Disabilitas" value="{{ $pelapor->deskripsi_disabilitas }}">
+                                <label for="deskripsidisabilitas">Deskripsi Disabilitas</label>
                             </div>
-
                             <div class="form-floating mb-3 mt-3">
                                 <select class="form-select" id="statusterlapor" name="status_terlapor" aria-label="Floating label select example">
                                     <option value="">-- Pilih salah satu --</option>
@@ -185,12 +98,50 @@
                             </div>
                             
 
-                            <div class="mb-3">
-                                <label for="alasan_pengaduan" class="form-label">Alasan Pengaduan</label>
-                                <input type="text" class="form-control" id="alasan_pengaduan" name="alasan_pengaduan"
-                                value="{{ $pelapor->alasan_pengaduan }}">
-                                    
+                            <div class="border border-light p-3">
+                                <div class="mb-3">
+                                    <label for="alasanPengaduan" class="form-label">Silahkan centang salah satu atau lebih alasan pengaduan</label>
+                                    @php
+                                        // Inisialisasi opsi alasan pengaduan yang telah dipilih
+                                        $alasanPengaduan = old('alasan_pengaduan', explode(', ', $pelapor->alasan_pengaduan));
+                                    @endphp
+                            
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="khawatirKorban" value="Saya seorang saksi yang khawatir dengan keadaan korban" {{ in_array('Saya seorang saksi yang khawatir dengan keadaan korban', $alasanPengaduan) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="khawatirKorban">
+                                            Saya seorang saksi yang khawatir dengan keadaan korban
+                                        </label>
+                                    </div>
+                            
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="bantuanPemulihan" value="Saya seorang korban yang memerlukan bantuan pemulihan" {{ in_array('Saya seorang korban yang memerlukan bantuan pemulihan', $alasanPengaduan) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="bantuanPemulihan">
+                                            Saya seorang korban yang memerlukan bantuan pemulihan
+                                        </label>
+                                    </div>
+                            
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="tindakTegasLaporan" value="Saya ingin perguruan tinggi menindak tegas terlapor" {{ in_array('Saya ingin perguruan tinggi menindak tegas terlapor', $alasanPengaduan) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="tindakTegasLaporan">
+                                            Saya ingin perguruan tinggi menindak tegas terlapor
+                                        </label>
+                                    </div>
+                            
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="dokumentasiKejadian" value="Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya" {{ in_array('Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya', $alasanPengaduan) ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="dokumentasiKejadian">
+                                            Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya
+                                        </label>
+                                    </div>
+                            
+                                    <div class="form-check">
+                                        <label class="form-check-label" for="lainnya">Lainnya :</label>
+                                        <input type="text" class="form-control" id="lainnyaInput" name="alasan_pengaduan[lainnya]" placeholder="Opsional" value="{{ $pelapor->lainnya }}">
+                                    </div>
+                                </div>
                             </div>
+                            
+                            
 
                                 <div class="mb-3">
                                     <div data-mdb-input-init class="form-outline">

@@ -225,6 +225,7 @@ class PelaporanController extends Controller
 
         // Menggabungkan data inputan yang berupa array menjadi string
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
+        $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
 
         // Update data pelapor
         $pelapor->nama_pelapor = $request->nama_pelapor;
@@ -249,7 +250,7 @@ class PelaporanController extends Controller
         }
 
         $pelapor->status_terlapor = $request->status_terlapor;
-        $pelapor->alasan_pengaduan = $request->alasan_pengaduan;
+        $pelapor->alasan_pengaduan = $combineAlasan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
         $pelapor->kebutuhan_korban = $combineKebutuhan;
         $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
@@ -273,11 +274,12 @@ class PelaporanController extends Controller
             Log::warning('Tidak ada file voicenote dalam request.');
         }
 
+        
         $pelapor->save();
 
         Log::info('Pelapor ID: ' . $pelapor->id . ' berhasil diupdate.');
 
-        return redirect()->route('laporansaya')->with('success', 'Formulir pelaporan berhasil diupdate.');
+        return redirect()->route('laporansaya')->with('edit.success', 'Formulir pelaporan berhasil diupdate.');
     }
 
 
