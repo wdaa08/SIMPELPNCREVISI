@@ -67,7 +67,6 @@
     </style>
 
     <div class="container my-4">
-        <div class="container">
             <h2>Tambah Pertanyaan</h2>
             @if (session('success'))
                 <div>{{ session('success') }}</div>

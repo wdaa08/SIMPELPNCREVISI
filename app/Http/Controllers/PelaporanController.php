@@ -205,7 +205,7 @@ class PelaporanController extends Controller
             'nomor_hp_pihak_lain' => 'nullable|string|max:14',
             'kebutuhan_korban' => 'nullable|array',
             'deskripsi_disabilitas' => 'nullable|string',
-            'bukti' => 'nullable|image|mimes:jpeg,png,jpg',
+            'bukti' => 'image|file',
             'voicenote' => 'nullable',
         ];
 
@@ -243,12 +243,7 @@ class PelaporanController extends Controller
             $pelapor->deskripsi_disabilitas = null;
         }
 
-        if ($request->hasFile('bukti')) {
-            $imagePath = $request->file('bukti')->store('bukti');
-            $rules['bukti'] = $imagePath;
-            Log::info('File bukti disimpan: ' . $imagePath);
-        }
-
+    
         $pelapor->status_terlapor = $request->status_terlapor;
         $pelapor->alasan_pengaduan = $combineAlasan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
@@ -274,6 +269,25 @@ class PelaporanController extends Controller
             Log::warning('Tidak ada file voicenote dalam request.');
         }
 
+
+        if ($request->hasFile('bukti')) {
+            // Log untuk mengidentifikasi adanya file bukti baru
+            Log::info('Ada file bukti baru yang diunggah oleh pelapor dengan ID: ' . $pelapor->id);
+        
+            // Hapus file bukti lama jika ada
+            if ($pelapor->bukti) {
+                Log::info('Menghapus file bukti lama: ' . $pelapor->bukti);
+                Storage::delete($pelapor->bukti);
+            }
+        
+            // Simpan file bukti baru
+            $imagePath = $request->file('bukti')->store('bukti');
+            $pelapor->bukti = $imagePath;
+            Log::info('File bukti baru disimpan: ' . $imagePath);
+        } else {
+            Log::warning('Tidak ada file bukti dalam request.');
+        }
+        
         
         $pelapor->save();
 
@@ -308,4 +322,31 @@ class PelaporanController extends Controller
         $pelapor->save();
         return redirect()->route('s.datapelaporan')->with('success', 'Formulir pelaporan berhasil diupdate.');
     }
+
+          // Method untuk mengupdate respon pelaporan
+          public function updateRespon(Request $request, $id)
+          {
+              $pelaporan = Pelaporan::findOrFail($id); // Mengambil data pelaporan berdasarkan ID
+      
+              // Validasi data request
+              $request->validate([
+                  'respon' => 'required|string', // Contoh: Memastikan respon tidak kosong dan bertipe string
+              ]);
+      
+              // Update respon pelaporan
+              $pelaporan->respon = $request->input('respon');
+              $pelaporan->save(); // Menyimpan perubahan ke dalam database
+      
+              return response()->json($pelaporan); // Mengembalikan data pelaporan yang telah diupdate dalam format JSON
+          }
+
+          public function show($id)
+          {
+              $pelaporan = Pelaporan::find($id);
+              return response()->json($pelaporan);
+          }
+
+
+
+
 }

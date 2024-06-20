@@ -256,6 +256,12 @@
                                     <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan" value="{{ old('tanggal_pelaporan', $formattedDate) }}">
                                 </div>
 
+                                <label for="tanggal">Bukti: </label>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" id="bukti" name="bukti">
+                                    <label class="input-group-text" for="bukti" name="bukti">Upload</label>
+                                </div>
+
                                 <div class="form-group">
                                     <label for="voicenote">Rekam Suara:</label>
                                     <br>

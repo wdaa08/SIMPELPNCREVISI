@@ -58,24 +58,34 @@ Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('ac
 Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
 Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('updateprofile');
 
+Route::put('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
+    // Rute untuk mendapatkan detail pelaporan
+    Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
+  
+
+
 Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     // Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.dashboard');
-    Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('s.datapelaporan');
+    // Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('s.datapelaporan');
     Route::get('/datapelaporan/{id}/edit', [PelaporanController::class, 'editdatapelaporan'])->name('s.editdatapelaporan');
     Route::put('/datapelaporan/{id}/edit', [PelaporanController::class, 'updatedatapelaporan'])->name('s.updatedatapelaporan');
     Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/addquestion', [ChatbotController::class, 'questionindex'])->name('addquestion');
+
+    Route::get('/datapelaporan', [DashboardSatgasController::class, 'index']);
+    Route::get('/datapelaporan/{id}', [DashboardSatgasController::class, 'show']);
+    Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.datapelaporan');
+
+
     // Tambahkan rute lain dalam grup ini
 
-    //route pencarian
-    Route::get('/datapelaporan/search', [PelaporanController::class, 'search'])->name('s.datapelaporan.search');
 });
 
 Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
     Route::post('/tambah_laporan', [PelaporanController::class, 'store'])->name('tambah_laporan');
-    Route::get('/halamanpelaporan', [PelaporanController::class, 'index'])->name('p.halamanpelaporan');
+    Route::get('/dashboardpelapor', [PelaporanController::class, 'index'])->name('p.dashboardpelapor');
     Route::get('/halamanpelaporan/pelaporan', [PelaporanController::class, 'pelaporan'])->name('pelaporan');
     Route::get('/halamanpelaporan/laporan_saya', [PelaporanController::class, 'laporansaya'])->name('laporansaya');
     Route::get('/halamanpelaporan/laporan_saya/{id}/edit', [PelaporanController::class, 'editlaporan'])->name('editlaporan');
