@@ -58,9 +58,13 @@ Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('ac
 Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
 Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('updateprofile');
 
-Route::put('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
+Route::post('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
+
+// Route::put('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
     // Rute untuk mendapatkan detail pelaporan
     Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
+
+    
   
 
 

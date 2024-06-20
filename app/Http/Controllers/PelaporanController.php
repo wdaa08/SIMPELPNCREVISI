@@ -326,19 +326,24 @@ class PelaporanController extends Controller
           // Method untuk mengupdate respon pelaporan
           public function updateRespon(Request $request, $id)
           {
-              $pelaporan = Pelaporan::findOrFail($id); // Mengambil data pelaporan berdasarkan ID
-      
-              // Validasi data request
+              // Validasi request jika diperlukan
               $request->validate([
-                  'respon' => 'required|string', // Contoh: Memastikan respon tidak kosong dan bertipe string
+                  'respon' => 'required|string',
               ]);
-      
-              // Update respon pelaporan
-              $pelaporan->respon = $request->input('respon');
-              $pelaporan->save(); // Menyimpan perubahan ke dalam database
-      
-              return response()->json($pelaporan); // Mengembalikan data pelaporan yang telah diupdate dalam format JSON
+          
+              // Cari pelaporan berdasarkan ID
+              $pelaporan = Pelaporan::findOrFail($id);
+          
+              // Update respon
+              $pelaporan->respon = $request->respon;
+              $pelaporan->save();
+          
+              // Mengembalikan data yang diperbarui dalam format JSON
+              return response()->json([
+                  'respon' => $pelaporan->respon,
+              ]);
           }
+          
 
           public function show($id)
           {

@@ -102,13 +102,14 @@
         var modalDetailBody = document.getElementById('modalDetailBody');
 
         editResponButtons.forEach(button => {
-            button.addEventListener('click', function () {
-                var pelaporanId = this.getAttribute('data-id');
-                pelaporanIdField.value = pelaporanId;
-                var currentRespon = document.getElementById('respon' + pelaporanId).textContent;
-                modalResponInput.value = currentRespon;
-            });
+        button.addEventListener('click', function () {
+            var pelaporanId = this.getAttribute('data-id');
+            pelaporanIdField.value = pelaporanId;
+            var currentRespon = document.getElementById('respon' + pelaporanId).textContent;
+            modalResponInput.value = currentRespon;
         });
+    });
+
 
         detailPelaporanButtons.forEach(button => {
             button.addEventListener('click', function () {
@@ -202,27 +203,42 @@
                     });
             });
         });
-
         simpanResponBtn.addEventListener('click', function () {
-            var pelaporanId = pelaporanIdField.value;
-            var updatedRespon = modalResponInput.value;
+        var pelaporanId = pelaporanIdField.value;
+        var updatedRespon = modalResponInput.value;
 
-            fetch(`/pelaporans/${pelaporanId}/updateRespon`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                },
-                body: JSON.stringify({ respon: updatedRespon })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('respon' + pelaporanId).textContent = data.respon;
-                var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'));
-                exampleModal.hide();
+        fetch(`/pelaporans/${pelaporanId}/updateRespon`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ respon: updatedRespon })
+        })
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('respon' + pelaporanId).textContent = data.respon;
+            var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+            exampleModal.hide();
+
+            // Tampilkan SweetAlert2 untuk memberitahu berhasil
+            Swal.fire({
+                icon: 'success',
+                title: 'Berhasil!',
+                text: 'Respon berhasil diperbarui.',
+                showConfirmButton: false,
+                timer: 1500
             });
-            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Terjadi kesalahan saat memperbarui respon.',
+            });
         });
     });
+});
 </script>
 @endsection
