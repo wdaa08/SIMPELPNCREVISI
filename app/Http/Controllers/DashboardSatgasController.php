@@ -18,8 +18,17 @@ class DashboardSatgasController extends Controller
 
     public function show($id)
     {
-        $pelaporan = Pelaporan::findOrFail($id);
-        return response()->json($pelaporan);
+        try {
+            $pelaporan = Pelaporan::with('user')->findOrFail($id); // Eager load user untuk mengakses tanda tangan
+
+            return view('detail_pelaporan', compact('pelaporan'));
+        } catch (\Exception $e) {
+            // Tangkap dan log error jika terjadi masalah
+            Log::error('Gagal menampilkan detail pelaporan: ' . $e->getMessage());
+
+            // Tampilkan halaman error atau redirect ke halaman lain
+            return back()->withError('Gagal menampilkan detail pelaporan.');
+        }
 
     }
 

@@ -92,7 +92,20 @@
                     confirmButtonText: 'OK'
                 });
             @endif         
+
+            @if (Session('success.edit.profil'))
+            Swal.fire({
+            title: 'Pengaduan Berhasil Dikirim',
+            text: '',
+            icon: 'success',
+            });
+        @endif
+
+
+            
     </script>
+
+    
     
 </body>
 

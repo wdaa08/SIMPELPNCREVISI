@@ -14,6 +14,7 @@
                             <th>Respon</th>
                             <th>Berikan Respon</th>
                             <th>Selengkapnya</th>
+                            <th>Cetak Laporan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -34,7 +35,11 @@
                                         data-bs-target="#modalDetailPelaporan" data-id="{{ $pelaporan->id }}">
                                     Selengkapnya
                                 </button>
-                            </td>                        
+                            </td>
+                            <td>
+    <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}" class="btn btn-link btn-primary">Cetak PDF</a>
+</td>
+                        
                         </tr>
                         @endforeach
                     </tbody>

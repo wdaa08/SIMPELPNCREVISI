@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardSatgasController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PelaporanController;
 // use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserController;
@@ -82,6 +83,11 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapelaporan/{id}', [DashboardSatgasController::class, 'show']);
     Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.datapelaporan');
 
+    
+// cetak pdf detail pelaporan
+    Route::get('/pelaporans/{id}/cetak-pdf', [PdfController::class, 'cetakPdf'])->name('pelaporans.cetakPdf');
+
+
 
     // Tambahkan rute lain dalam grup ini
 
@@ -112,4 +118,7 @@ Route::get('/add_question', function () {
     return view('add_question');
 });
 
+
+///route cetak pdf
+Route::get('/generate-pdf', [PdfController::class, 'generatePdf']);
 

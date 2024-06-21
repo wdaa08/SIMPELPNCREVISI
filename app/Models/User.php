@@ -44,4 +44,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
        
     ];
+
+        // Definisikan relasi user memiliki banyak pelaporan
+        public function pelaporans()
+        {
+            return $this->hasMany(Pelaporan::class);
+        }
 }

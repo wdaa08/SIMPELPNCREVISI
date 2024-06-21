@@ -32,4 +32,11 @@ class Pelaporan extends Model
         'voicenote',
     ];
     
+
+
+    // Jika diperlukan, definisikan relasi dengan User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
