@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,54 +10,69 @@
             font-family: Arial, sans-serif;
             font-size: 12px;
         }
+
         .kop-surat {
             text-align: center;
             margin-bottom: 20px;
         }
+
         .kop-surat img {
             width: 80px;
             height: auto;
         }
-        .kop-surat h1, .kop-surat h2, .kop-surat p {
+
+        .kop-surat h1,
+        .kop-surat h2,
+        .kop-surat p {
             margin: 0;
             padding: 0;
         }
+
         .kop-surat .header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-bottom: 10px;
         }
+
         .line {
             border: 1px solid black;
             margin: 10px 0;
         }
+
         .content {
             margin-top: 20px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
+
+        th,
+        td {
             border: 1px solid black;
             padding: 8px;
             text-align: left;
         }
+
         .signature {
             margin-top: 30px;
             text-align: center;
         }
+
         .signature img {
             width: 150px;
             height: auto;
         }
     </style>
 </head>
+
 <body>
     <div class="kop-surat">
         <div class="header">
-            <img src="{{ asset('storage\app\public\bukti\9OZggbXpAW1hD4Q5afGA987AIQe4BPDTmpbjvXRG.png') }}" alt="Logo Kiri">
+            <img src="{{ public_path('storage/bukti/kardus.jpg') }}"
+                alt="Logo Kiri">
             <div>
                 <h1>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h1>
                 <h2>POLITEKNIK NEGERI CILACAP</h2>
@@ -65,7 +81,7 @@
                 <p>Telepon: (0282) 533329, Fax: (0282) 537992</p>
                 <p>www.pnc.ac.id, Email: sekretariat@pnc.ac.id</p>
             </div>
-            <img src="{{ asset('images/logo2.png') }}" alt="Logo Kanan">
+            <img src="{{ asset('storage/profile/0PnTgdcEJysUNwMTNUh1BoYT7haD6a414axa5R9E.jpg') }}" alt="Logo Kanan">
         </div>
         <div class="line"></div>
         <p>FORM PELAPORAN KASUS KEKERASAN SEKSUAL</p>
@@ -74,14 +90,14 @@
     <div class="content">
         <h2>Detail Pelaporan</h2>
         <table>
-            <tr>
+            {{-- <tr>
                 <th>ID</th>
                 <td>{{ $pelaporan->id }}</td>
             </tr>
             <tr>
                 <th>ID User</th>
                 <td>{{ $pelaporan->user_id }}</td>
-            </tr>
+            </tr> --}}
             <tr>
                 <th>Nama Pelapor</th>
                 <td>{{ $pelaporan->nama_pelapor }}</td>
@@ -140,7 +156,7 @@
             </tr>
             <tr>
                 <th>Bukti</th>
-                <img src="{{  }}" alt="">
+                {{-- <img src="{{ $data['tanda_tangan'] }}" alt="TTD"> --}}
             </tr>
             <tr>
                 <th>Voice Note</th>
@@ -162,13 +178,15 @@
         </table>
         <div class="signature">
             <p>Tanda Tangan:</p>
-            @if ($pelaporan->bukti)
-            <a href="{{ asset(Storage::url($pelaporan->bukti)) }}" target="_blank">Lihat Bukti</a>
-        @else
-            <p>Tidak ada bukti yang diunggah.</p>
-        @endif
+            @if ($user->tanda_tangan)
+                {{-- <a href="{{ asset(Storage::url($pelaporan->bukti)) }}" target="_blank">Lihat Bukti</a> --}}
+                <img src="{{ $data['tanda_tangan'] }}" alt="TTD">
+            @else
+                <p>Tidak ada bukti yang diunggah.</p>
+            @endif
         </div>
-        
+
     </div>
 </body>
+
 </html>

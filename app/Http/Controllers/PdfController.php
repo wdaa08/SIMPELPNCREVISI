@@ -1,21 +1,30 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Pelaporan;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
 
 class PdfController extends Controller
 {
     public function cetakPdf($id)
     {
-        $pelaporan = Pelaporan::findOrFail($id);
+        $pelaporan = Pelaporan::with('user')->findOrFail($id);
+        $user = $pelaporan->user;
 
+        // Path untuk folder bukti
         $path = storage_path('app/public/bukti');
-        $files = File::files($path); // Penggunaan yang benar dari alias File
+        $files = File::files($path);
 
-        $imagePath=public_path('public\storage\bukti\9OZggbXpAW1hD4Q5afGA987AIQe4BPDTmpbjvXRG.png');
+        // Path gambar statis
+        $imagePath = public_path('storage/bukti/9OZggbXpAW1hD4Q5afGA987AIQe4BPDTmpbjvXRG.png');
+
+
+        $tanda_tangan = public_path('storage/' . $user->tanda_tangan);
+        // dd($tanda_tangan);
 
         $images = [];
         foreach ($files as $file) {
@@ -24,14 +33,15 @@ class PdfController extends Controller
 
         $data = [
             'images' => $images,
+            'tanda_tangan' => $tanda_tangan
         ];
 
-        // Jika Anda ingin menggabungkan data dari $pelaporan dan gambar dalam satu PDF,
-        // Anda harus menggabungkannya dalam satu view. Misal, di view 'pdf_view'.
-        $pdf = Pdf::loadView('satgas.detail-pelaporan-pdf', compact('pelaporan', 'data'));
+        $pdf = Pdf::loadView('satgas.detail-pelaporan-pdf', compact('pelaporan', 'data', 'user'))
+            ->setPaper('a4')
+            ->setWarnings(false)
+            ->setOption('isHtml5ParserEnabled', true)
+            ->setOption('isRemoteEnabled', true);
 
-        return $pdf->download('satgas.detail-pelaporan-pdf'.$id.'.pdf');
+        return $pdf->download('satgas.detail-pelaporan-pdf-' . $id . '.pdf');
     }
 }
-
-

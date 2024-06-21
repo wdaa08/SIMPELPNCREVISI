@@ -91,9 +91,9 @@ class PelaporanController extends Controller
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
         $data['kebutuhan_korban'] = $combineKebutuhan;
 
-                // Menggabungkan data inputan yang berupa array menjadi string
-                $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
-                $data['alasan_pengaduan'] = $combineAlasan;
+        // Menggabungkan data inputan yang berupa array menjadi string
+        $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
+        $data['alasan_pengaduan'] = $combineAlasan;
 
         // Debugging: log data before saving
         Log::info('Data before saving:', $data);
@@ -124,9 +124,9 @@ class PelaporanController extends Controller
             if (isset($data['deskripsi_disabilitas'])) {
                 $pelapor->deskripsi_disabilitas = $data['deskripsi_disabilitas'];
             }
-            
+
             $pelapor->save();
-            
+
 
             // Debugging: log after data is saved
             Log::info('Data saved successfully:', $pelapor->toArray());
@@ -136,8 +136,8 @@ class PelaporanController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
         // Simpan pesan sukses dalam session
-        
-       
+
+
         return redirect()->back()->with('success', 'Alhamdulilah,Formulir pelaporan berhasil Terkirim.');
     }
 
@@ -146,6 +146,8 @@ class PelaporanController extends Controller
     public function datapelaporan()
     {
         $tabellaporan = Pelaporan::all();
+        // dd($tabellaporan);
+
         return view('satgas.datapelaporan', compact('tabellaporan'));
     }
 
@@ -243,7 +245,7 @@ class PelaporanController extends Controller
             $pelapor->deskripsi_disabilitas = null;
         }
 
-    
+
         $pelapor->status_terlapor = $request->status_terlapor;
         $pelapor->alasan_pengaduan = $combineAlasan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
@@ -273,13 +275,13 @@ class PelaporanController extends Controller
         if ($request->hasFile('bukti')) {
             // Log untuk mengidentifikasi adanya file bukti baru
             Log::info('Ada file bukti baru yang diunggah oleh pelapor dengan ID: ' . $pelapor->id);
-        
+
             // Hapus file bukti lama jika ada
             if ($pelapor->bukti) {
                 Log::info('Menghapus file bukti lama: ' . $pelapor->bukti);
                 Storage::delete($pelapor->bukti);
             }
-        
+
             // Simpan file bukti baru
             $imagePath = $request->file('bukti')->store('bukti');
             $pelapor->bukti = $imagePath;
@@ -287,8 +289,8 @@ class PelaporanController extends Controller
         } else {
             Log::warning('Tidak ada file bukti dalam request.');
         }
-        
-        
+
+
         $pelapor->save();
 
         Log::info('Pelapor ID: ' . $pelapor->id . ' berhasil diupdate.');
@@ -323,35 +325,31 @@ class PelaporanController extends Controller
         return redirect()->route('s.datapelaporan')->with('success', 'Formulir pelaporan berhasil diupdate.');
     }
 
-          // Method untuk mengupdate respon pelaporan
-          public function updateRespon(Request $request, $id)
-          {
-              // Validasi request jika diperlukan
-              $request->validate([
-                  'respon' => 'required|string',
-              ]);
-          
-              // Cari pelaporan berdasarkan ID
-              $pelaporan = Pelaporan::findOrFail($id);
-          
-              // Update respon
-              $pelaporan->respon = $request->respon;
-              $pelaporan->save();
-          
-              // Mengembalikan data yang diperbarui dalam format JSON
-              return response()->json([
-                  'respon' => $pelaporan->respon,
-              ]);
-          }
-          
+    // Method untuk mengupdate respon pelaporan
+    public function updateRespon(Request $request, $id)
+    {
+        // Validasi request jika diperlukan
+        $request->validate([
+            'respon' => 'required|string',
+        ]);
 
-          public function show($id)
-          {
-              $pelaporan = Pelaporan::find($id);
-              return response()->json($pelaporan);
-          }
+        // Cari pelaporan berdasarkan ID
+        $pelaporan = Pelaporan::findOrFail($id);
+
+        // Update respon
+        $pelaporan->respon = $request->respon;
+        $pelaporan->save();
+
+        // Mengembalikan data yang diperbarui dalam format JSON
+        return response()->json([
+            'respon' => $pelaporan->respon,
+        ]);
+    }
 
 
-
-
+    public function show($id)
+    {
+        $pelaporan = Pelaporan::find($id);
+        return response()->json($pelaporan);
+    }
 }

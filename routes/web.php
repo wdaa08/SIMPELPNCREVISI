@@ -62,11 +62,11 @@ Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('upd
 Route::post('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
 
 // Route::put('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
-    // Rute untuk mendapatkan detail pelaporan
-    Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
+// Rute untuk mendapatkan detail pelaporan
+Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
 
-    
-  
+
+
 
 
 Route::prefix('satgas')->middleware('check.role:1')->group(function () {
@@ -75,6 +75,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapelaporan/{id}/edit', [PelaporanController::class, 'editdatapelaporan'])->name('s.editdatapelaporan');
     Route::put('/datapelaporan/{id}/edit', [PelaporanController::class, 'updatedatapelaporan'])->name('s.updatedatapelaporan');
     Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
+    // Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('datapelaporan');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/addquestion', [ChatbotController::class, 'questionindex'])->name('addquestion');
@@ -83,8 +84,8 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapelaporan/{id}', [DashboardSatgasController::class, 'show']);
     Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.datapelaporan');
 
-    
-// cetak pdf detail pelaporan
+
+    // cetak pdf detail pelaporan
     Route::get('/pelaporans/{id}/cetak-pdf', [PdfController::class, 'cetakPdf'])->name('pelaporans.cetakPdf');
 
 
@@ -121,4 +122,3 @@ Route::get('/add_question', function () {
 
 ///route cetak pdf
 Route::get('/generate-pdf', [PdfController::class, 'generatePdf']);
-
