@@ -22,20 +22,22 @@ class PdfController extends Controller
         // Path gambar statis
         $imagePath = public_path('storage/bukti/9OZggbXpAW1hD4Q5afGA987AIQe4BPDTmpbjvXRG.png');
 
-
         $tanda_tangan = public_path('storage/' . $user->tanda_tangan);
-        // dd($tanda_tangan);
+        $bukti = public_path('storage/' . $pelaporan->bukti);
+
+        
 
         $images = [];
         foreach ($files as $file) {
             $images[] = $file->getPathname();
         }
-
+        
         $data = [
             'images' => $images,
-            'tanda_tangan' => $tanda_tangan
+            'tanda_tangan' => $tanda_tangan,
+            'bukti' => $bukti,
         ];
-
+        
         $pdf = Pdf::loadView('satgas.detail-pelaporan-pdf', compact('pelaporan', 'data', 'user'))
             ->setPaper('a4')
             ->setWarnings(false)

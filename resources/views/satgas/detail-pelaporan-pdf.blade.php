@@ -156,7 +156,7 @@
             </tr>
             <tr>
                 <th>Bukti</th>
-                {{-- <img src="{{ $data['tanda_tangan'] }}" alt="TTD"> --}}
+                <img src="{{ $data['bukti'] }}" alt="bukti">
             </tr>
             <tr>
                 <th>Voice Note</th>
