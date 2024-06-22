@@ -71,7 +71,7 @@
 <body>
     <div class="kop-surat">
         <div class="header">
-            <img src="{{ public_path('storage/bukti/kardus.jpg') }}"
+            <img src="{{ public_path('public/img/user.jpg') }}"
                 alt="Logo Kiri">
             <div>
                 <h1>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h1>
@@ -156,7 +156,14 @@
             </tr>
             <tr>
                 <th>Bukti</th>
-                {{-- <img src="{{ $data['tanda_tangan'] }}" alt="TTD"> --}}
+                <td>
+                    @if ($pelaporan->bukti)
+              
+                    <img src="{{ $data['bukti'] }}" alt="TTD">
+                @else
+                    <p>Tidak ada bukti yang diunggah.</p>
+                @endif
+                </td>
             </tr>
             <tr>
                 <th>Voice Note</th>
@@ -179,10 +186,10 @@
         <div class="signature">
             <p>Tanda Tangan:</p>
             @if ($user->tanda_tangan)
-                {{-- <a href="{{ asset(Storage::url($pelaporan->bukti)) }}" target="_blank">Lihat Bukti</a> --}}
+              
                 <img src="{{ $data['tanda_tangan'] }}" alt="TTD">
             @else
-                <p>Tidak ada bukti yang diunggah.</p>
+                <p>Tidak ada ttd yang diunggah.</p>
             @endif
         </div>
 

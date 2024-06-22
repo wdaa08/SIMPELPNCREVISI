@@ -5,7 +5,7 @@
         </a>
 
         <div class="navbar-nav w-100">
-            
+            <a href="{{route ('dashboardpelapor')}}" class="nav-item nav-link {{ \Route::is('dashboardpelapor') ? 'active' : ''}}"><i class="bi bi-file-earmark-ppt-fill me-2"></i>Dashboard</a>
             <a href="{{route ('pelaporan')}}" class="nav-item nav-link {{ \Route::is('pelaporan') ? 'active' : ''}}"><i class="bi bi-file-earmark-ppt-fill me-2"></i>Pelaporan</a>
             <a href="{{route ('laporansaya')}}" class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : ''}}"><i class="fa fa-keyboard me-2"></i>Laporan Saya</a>
             <a href="{{route ('chatbot')}}" class="nav-item nav-link {{ \Route::is('chatbot') ? 'active' : ''}}"><i class="bi bi-chat-right-text me-2"></i>ChatBot</a>

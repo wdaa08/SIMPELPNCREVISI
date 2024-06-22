@@ -11,8 +11,10 @@ class DashboardSatgasController extends Controller
     public function index()
     {
         
-        $pelaporans = Pelaporan::all(); // Mengambil semua data pelaporan
+        $pelaporans = Pelaporan::orderBy('created_at', 'desc')->paginate(10);
         return view('satgas.datapelaporan', compact('pelaporans'));
+
+        
         
     }
 

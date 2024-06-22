@@ -182,6 +182,10 @@ class PelaporanController extends Controller
         $formattedDate = isset($pelapor->tanggal_pelaporan) ? \Carbon\Carbon::parse($pelapor->tanggal_pelaporan)->format('Y-m-d') : '';
         return view('pelapor.edit_laporan', compact('pelapor', 'formattedDate'));
     }
+    public function dashboardpelapor()
+    {
+        return view('pelapor.dashboardpelapor');
+    }
 
     public function updatelaporan(Request $request, $id)
     {

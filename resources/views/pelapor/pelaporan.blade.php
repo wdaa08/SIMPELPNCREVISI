@@ -245,12 +245,11 @@
                         // Mengatur nilai default input tanggal ke tanggal hari ini
                         inputTanggal.value = today;
                     </script>
-
-                        <label for="tanggal">Bukti: </label>
-                        <div class="input-group mb-3">
-                            <input type="file" class="form-control" id="bukti" name="bukti">
-                            <label class="input-group-text" for="bukti" name="bukti">Upload</label>
-                        </div>
+                    <label for="bukti">Bukti: </label>
+                    <div class="input-group mb-3">
+                        <input type="file" class="form-control" id="bukti" name="bukti[]" multiple>
+                        <label class="input-group-text" for="bukti">Browse</label>
+                    </div>
 
                         <div class="form-group">
                             <label for="voicenote">Rekam Suara:</label>

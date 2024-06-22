@@ -9,6 +9,8 @@ class Pelaporan extends Model
 {
     use HasFactory;
 
+    
+
     protected $table = "pelaporans";
     protected $fillable = [
         'user_id',

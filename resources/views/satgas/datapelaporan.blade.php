@@ -4,50 +4,49 @@
     <div class="container my-4">
         <div class="row g-4">
             <div class="col-sm-12 col-xl-0">
-                <div class="bg-light rounded h-100 p-4">
-                    <h1 class="card-title">Daftar Pelaporan</h1>
+               <div class="bg-light rounded h-100 p-4 table-responsive">
+                    <h3 class="card-title">Data Laporan Masuk</h3>
                     <table class="table">
-                        <thead>
+                        <thead class="thead-dark">
                             <tr>
-                                <th>ID</th>
+                                <th>Tanggal</th>
                                 <th>Nama</th>
                                 <th>Respon</th>
-                                <th>Berikan Respon</th>
-                                <th>Selengkapnya</th>
-                                <th>Cetak Laporan</th>
+                                <th style="width: 200px;">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody> 
                             @foreach ($pelaporans as $pelaporan)
                                 <tr>
-                                    <td>{{ $pelaporan->id }}</td>
+                                    <td>{{ $pelaporan->tanggal_pelaporan }}</td>
                                     <td>{{ $pelaporan->nama_pelapor }}</td>
                                     <td>
                                         <span id="respon{{ $pelaporan->id }}">{{ $pelaporan->respon }}</span>
                                     </td>
                                     <td>
-                                        <button type="button" class="btn btn-link edit-respon-btn btn-warning"
-                                            data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                            data-id="{{ $pelaporan->id }}">
-                                            Ubah
-                                        </button>
+                                        <div class="btn-group" role="group" aria-label="Aksi">
+                                            <button type="button" class="btn btn-link btn-warning edit-respon-btn" style="color: white;"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                data-id="{{ $pelaporan->id }}">
+                                                Respon
+                                            </button>
+                                            <button type="button" class="btn btn-link btn-primary detail-pelaporan-btn"
+                                                data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
+                                                data-id="{{ $pelaporan->id }}">
+                                                Lihat
+                                            </button>
+                                            <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
+                                                class="btn btn-link btn-danger" style="color: white;">Cetak PDF</a>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <button type="button" class="btn btn-link btn-primary detail-pelaporan-btn"
-                                            data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
-                                            data-id="{{ $pelaporan->id }}">
-                                            Selengkapnya
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
-                                            class="btn btn-link btn-primary">Cetak PDF</a>
-                                    </td>
+                                    
+                                    
 
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
+                    {{ $pelaporans->links() }}
                 </div>
             </div>
         </div>
@@ -101,7 +100,7 @@
         </div>
     </div>
 
-    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
+    <script src="{{ mix('js/app.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var editResponButtons = document.querySelectorAll('.edit-respon-btn');
@@ -196,13 +195,13 @@
                             </tr>
                             <tr>
                                 <th scope="row">Bukti</th>
-                                <td>${data.bukti}</td>
+                                <td>${data.bukti ? `<img src="/storage/${data.bukti}" width="100" height="100" alt="TTD">` : 'Tidak ada bukti yang diunggah.'}</td>
                             </tr>
                                  <tr>
                                 <th class="mb-3" colspan="2">
                                     <label for="detailVoiceNote" class="form-label">Voice Note:</label><br>
                                     ${data.voicenote ? `<audio controls><source src="/storage/${data.voicenote}" type="audio/webm">Your browser does not support the audio element.</audio>` : 'Tidak ada voice note yang diunggah.'}
-                                </th>
+                                </th> 
                             </tr>
 
                             <tr>

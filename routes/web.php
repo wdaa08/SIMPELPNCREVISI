@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 //landingpage
 
 Route::get('/', function () {
-    return view('landingpage/index');
+    return view('welcome');
 });
 
 Route::get('landingpage/about', function () {
@@ -89,7 +89,6 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/pelaporans/{id}/cetak-pdf', [PdfController::class, 'cetakPdf'])->name('pelaporans.cetakPdf');
 
 
-
     // Tambahkan rute lain dalam grup ini
 
 });
@@ -98,11 +97,13 @@ Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
     Route::post('/tambah_laporan', [PelaporanController::class, 'store'])->name('tambah_laporan');
     Route::get('/dashboardpelapor', [PelaporanController::class, 'index'])->name('p.dashboardpelapor');
     Route::get('/halamanpelaporan/pelaporan', [PelaporanController::class, 'pelaporan'])->name('pelaporan');
+    Route::get('/halamanpelaporan/dashboardpelapor', [PelaporanController::class, 'dashboardpelapor'])->name('dashboardpelapor');
     Route::get('/halamanpelaporan/laporan_saya', [PelaporanController::class, 'laporansaya'])->name('laporansaya');
     Route::get('/halamanpelaporan/laporan_saya/{id}/edit', [PelaporanController::class, 'editlaporan'])->name('editlaporan');
     Route::put('/halamanpelaporan/laporan_saya/{id}', [PelaporanController::class, 'updatelaporan'])->name('updatelaporan');
     Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot');
     Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
+    
     // Tambahkan rute lain dalam grup ini
 });
 
