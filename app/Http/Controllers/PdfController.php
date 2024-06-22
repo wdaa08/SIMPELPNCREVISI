@@ -35,7 +35,11 @@ class PdfController extends Controller
         $data = [
             'images' => $images,
             'tanda_tangan' => $tanda_tangan,
+<<<<<<< HEAD
             'bukti' => $bukti
+=======
+            'bukti' => $bukti,
+>>>>>>> 365a057def248517b0b22e7fd5f08542d3c4c010
         ];
         
         $pdf = Pdf::loadView('satgas.detail-pelaporan-pdf', compact('pelaporan', 'data', 'user'))

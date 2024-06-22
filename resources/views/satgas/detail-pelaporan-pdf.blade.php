@@ -156,6 +156,7 @@
             </tr>
             <tr>
                 <th>Bukti</th>
+<<<<<<< HEAD
                 <td>
                     @if ($pelaporan->bukti)
               
@@ -164,6 +165,9 @@
                     <p>Tidak ada bukti yang diunggah.</p>
                 @endif
                 </td>
+=======
+                <img src="{{ $data['bukti'] }}" alt="bukti">
+>>>>>>> 365a057def248517b0b22e7fd5f08542d3c4c010
             </tr>
             <tr>
                 <th>Voice Note</th>
