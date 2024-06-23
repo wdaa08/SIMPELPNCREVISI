@@ -30,7 +30,7 @@
 
 
         <!-- Sidebar Start -->
-        @include('pelapor.sidebar')
+        @include('partials.sidebar')
         <!-- Sidebar End -->
 
 

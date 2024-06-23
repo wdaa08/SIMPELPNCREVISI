@@ -39,7 +39,7 @@ class PelaporanController extends Controller
                 'nomor_hp_pihak_lain' => 'nullable|string|max:14',
                 'kebutuhan_korban' => 'nullable|array',
                 'bukti' => 'nullable|max:2048', // Menambahkan ukuran maksimum file
-                'voicenote' => 'nullable|mimes:mp3,wav|max:10240', // Menambahkan validasi file voicenote
+                'voicenote' => 'nullable|max:10240', // Menambahkan validasi file voicenote
             ],
             [
                 'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong.',

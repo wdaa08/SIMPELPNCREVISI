@@ -54,15 +54,38 @@
                 <i class="bi bi-person-lines-fill"></i>
             </div>
             <div class="ms-3">
-                <h6 class="mb-0">{{auth()->user()->nama}}</h6>
-                <span>{{auth()->user()->npm_nidn_npak}}</span>
+                <h6 class="mb-0">{{ auth()->user()->nama }}</h6>
+                <span>{{ auth()->user()->npm_nidn_npak }}</span>
             </div>
         </div>
         <div class="navbar-nav w-100">
-            <a href="{{ route('s.datapelaporan') }}" class="nav-item nav-link {{ \Route::is('datapelaporan') ? 'active' : ''}} "><i class="fa fa-tachometer-alt me-2"></i>Data Laporan</a>
-            <a href="{{ route('s.datapengguna') }}" class="nav-item nav-link {{ \Route::is('s.datapengguna') ? 'active' : ''}} "><i class="fa fa-th me-2"></i>Data Pengguna</a>
-            <a href="{{ route('addquestion') }}" class="nav-item nav-link {{ \Route::is('addquestion') ? 'active' : ''}} "><i class="fa fa-th me-2"></i>Question ChatBot</a>
+            @if (auth()->user()->role_id == 1)
+                <a href="{{ route('s.datapelaporan') }}"
+                    class="nav-item nav-link {{ \Route::is('datapelaporan') ? 'active' : '' }} "><i
+                        class="fa fa-tachometer-alt me-2"></i>Data Laporan</a>
+                <a href="{{ route('s.datapengguna') }}"
+                    class="nav-item nav-link {{ \Route::is('s.datapengguna') ? 'active' : '' }} "><i
+                        class="fa fa-th me-2"></i>Data Pengguna</a>
+                <a href="{{ route('addquestion') }}"
+                    class="nav-item nav-link {{ \Route::is('addquestion') ? 'active' : '' }} "><i
+                        class="fa fa-th me-2"></i>Question ChatBot</a>
+            @endif
+
+            @if (auth()->user()->role_id == 2)
+                <a href="{{ route('dashboardpelapor') }}"
+                    class="nav-item nav-link {{ \Route::is('dashboardpelapor') ? 'active' : '' }}"><i
+                        class="bi bi-file-earmark-ppt-fill me-2"></i>Dashboard</a>
+                <a href="{{ route('pelaporan') }}"
+                    class="nav-item nav-link {{ \Route::is('pelaporan') ? 'active' : '' }}"><i
+                        class="bi bi-file-earmark-ppt-fill me-2"></i>Pelaporan</a>
+                <a href="{{ route('laporansaya') }}"
+                    class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : '' }}"><i
+                        class="fa fa-keyboard me-2"></i>Laporan Saya</a>
+                <a href="{{ route('chatbot') }}"
+                    class="nav-item nav-link {{ \Route::is('chatbot') ? 'active' : '' }}"><i
+                        class="bi bi-chat-right-text me-2"></i>ChatBot</a>
+            @endif
         </div>
-        </div>
-    </nav>
+</div>
+</nav>
 </div>
