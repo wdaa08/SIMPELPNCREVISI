@@ -27,7 +27,8 @@
                         <div class="mb-3">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="nomorhp">Nomor HP</label>
-                                <input type="number" id="nomorhp" name="nomor_hp" value="{{ old('nomor_hp') }}" class="form-control"  />
+                                <input type="number" id="nomorhp" name="nomor_hp" value="{{ old('nomor_hp') }}"
+                                    class="form-control" />
                                 <script>
                                     document.getElementById("nomorhp").addEventListener("input", function() {
                                         var input = this.value.replace(/\s+/g, '');
@@ -61,10 +62,10 @@
 
                         <label for="" class="form-label mt-3">Silahkan Narasikan Jenis Kekerasan Seksual </label>
                         <div class="form-floating">
-                            <textarea class="form-control" placeholder="narasipelapor" name="jenis_kekerasan_seksual"  id="floatingTextarea"
-                                style="height: 150px;" >{{ old('jenis_kekerasan_seksual') }}</textarea>
+                            <textarea class="form-control" placeholder="narasipelapor" name="jenis_kekerasan_seksual" id="floatingTextarea"
+                                style="height: 150px;">{{ old('jenis_kekerasan_seksual') }}</textarea>
                         </div>
- 
+
                         <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="narasipelapor" name="cerita_peristiwa" id="floatingTextarea"
@@ -72,31 +73,46 @@
                         </div>
 
                         <div class="form-floating mt-3">
-                            <select class="form-select" id="hasDisability" name="memiliki_disabilitas" aria-label="Floating label select example" onchange="showDisabilityInput()">
-                                <option value="" disabled {{ old('memiliki_disabilitas') === null ? 'selected' : '' }}>pilih salah satu</option>
-                                <option value="tidak" {{ old('memiliki_disabilitas') === 'tidak' ? 'selected' : '' }}>Tidak</option>
-                                <option value="memiliki" {{ old('memiliki_disabilitas') === 'memiliki' ? 'selected' : '' }}>Memiliki</option>
+                            <select class="form-select" id="hasDisability" name="memiliki_disabilitas"
+                                aria-label="Floating label select example" onchange="showDisabilityInput()">
+                                <option value="" disabled
+                                    {{ old('memiliki_disabilitas') === null ? 'selected' : '' }}>pilih salah satu</option>
+                                <option value="tidak" {{ old('memiliki_disabilitas') === 'tidak' ? 'selected' : '' }}>
+                                    Tidak</option>
+                                <option value="memiliki"
+                                    {{ old('memiliki_disabilitas') === 'memiliki' ? 'selected' : '' }}>Memiliki</option>
                             </select>
                             <label for="hasDisability">Memiliki Disabilitas?</label>
                         </div>
-                        
 
-                        <div  id="disabilityInput" style="display: {{ old('memiliki_disabilitas') === 'memiliki' ? 'block' : 'none' }};">
+
+                        <div id="disabilityInput"
+                            style="display: {{ old('memiliki_disabilitas') === 'memiliki' ? 'block' : 'none' }};">
                             <label for="deskripsi_disabilitas" class="form-label mt-3">Deskripsi Disabilitas</label>
-                            <input type class="form-control" placeholder="Deskripsi disabilitas" name="deskripsi_disabilitas" id="deskripsi_disabilitas" style="height: 80px;">{{ old('deskripsi_disabilitas') }}</input>
+                            <input type class="form-control" placeholder="Deskripsi disabilitas"
+                                name="deskripsi_disabilitas" id="deskripsi_disabilitas"
+                                style="height: 80px;">{{ old('deskripsi_disabilitas') }}</input>
                         </div>
 
-                        
+
 
                         <div class="form-floating mb-3 mt-3">
                             <select class="form-select" id="statusterlapor" name="status_terlapor"
                                 aria-label="Floating label select example">
-                                <option value="" disabled {{ old('status_terlapor') === null ? 'selected' : '' }}>-- pilih salah satu --</option>
-                                <option value="Mahasiswa" {{ old('status_terlapor') === 'Mahasiswa' ? 'selected' : '' }}>Mahasiswa</option>
-                                <option value="Pendidik" {{ old('status_terlapor') === 'Pendidik' ? 'selected' : '' }}>Pendidik</option>
-                                <option value="tenaga_kependidikan" {{ old('status_terlapor') === 'tenaga_kependidikan' ? 'selected' : '' }}>Tenaga Kependidikan</option>
-                                <option value="warga_kampus" {{ old('status_terlapor') === 'warga_kampus' ? 'selected' : '' }}>Warga Kampus</option>
-                                <option value="masyarakat_kampus" {{ old('status_terlapor') === 'masyarakat_kampus' ? 'selected' : '' }}>Masyarakat Umum</option>
+                                <option value="" disabled {{ old('status_terlapor') === null ? 'selected' : '' }}>--
+                                    pilih salah satu --</option>
+                                <option value="Mahasiswa" {{ old('status_terlapor') === 'Mahasiswa' ? 'selected' : '' }}>
+                                    Mahasiswa</option>
+                                <option value="Pendidik" {{ old('status_terlapor') === 'Pendidik' ? 'selected' : '' }}>
+                                    Pendidik</option>
+                                <option value="tenaga_kependidikan"
+                                    {{ old('status_terlapor') === 'tenaga_kependidikan' ? 'selected' : '' }}>Tenaga
+                                    Kependidikan</option>
+                                <option value="warga_kampus"
+                                    {{ old('status_terlapor') === 'warga_kampus' ? 'selected' : '' }}>Warga Kampus</option>
+                                <option value="masyarakat_kampus"
+                                    {{ old('status_terlapor') === 'masyarakat_kampus' ? 'selected' : '' }}>Masyarakat Umum
+                                </option>
                             </select>
                             <label for="status terlapor">Status Terlapor:</label>
                         </div>
@@ -105,235 +121,257 @@
 
                         <div class="border border-light p-3">
                             <div class="mb-3">
-                                <label for="alasanPengaduan" class="form-label">Silahkan centang salah satu atau lebih alasan pengaduan</label>
-                        
+                                <label for="alasanPengaduan" class="form-label">Silahkan centang salah satu atau lebih
+                                    alasan pengaduan</label>
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="khawatirKorban" value="Saya seorang saksi yang khawatir dengan keadaan korban" {{ in_array('Saya seorang saksi yang khawatir dengan keadaan korban', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
+                                        id="khawatirKorban" value="Saya seorang saksi yang khawatir dengan keadaan korban"
+                                        {{ in_array('Saya seorang saksi yang khawatir dengan keadaan korban', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="khawatirKorban">
                                         Saya seorang saksi yang khawatir dengan keadaan korban
                                     </label>
                                 </div>
-                        
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="bantuanPemulihan" value="Saya seorang korban yang memerlukan bantuan pemulihan" {{ in_array('Saya seorang korban yang memerlukan bantuan pemulihan', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
+                                        id="bantuanPemulihan"
+                                        value="Saya seorang korban yang memerlukan bantuan pemulihan"
+                                        {{ in_array('Saya seorang korban yang memerlukan bantuan pemulihan', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="bantuanPemulihan">
                                         Saya seorang korban yang memerlukan bantuan pemulihan
                                     </label>
                                 </div>
-                        
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="tindakTegasLaporan" value="Saya ingin perguruan tinggi menindak tegas terlapor" {{ in_array('Saya ingin perguruan tinggi menindak tegas terlapor', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
+                                        id="tindakTegasLaporan"
+                                        value="Saya ingin perguruan tinggi menindak tegas terlapor"
+                                        {{ in_array('Saya ingin perguruan tinggi menindak tegas terlapor', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="tindakTegasLaporan">
                                         Saya ingin perguruan tinggi menindak tegas terlapor
                                     </label>
                                 </div>
-                        
+
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]" id="dokumentasiKejadian" value="Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya" {{ in_array('Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
+                                    <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
+                                        id="dokumentasiKejadian"
+                                        value="Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya"
+                                        {{ in_array('Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya', old('alasan_pengaduan', [])) ? 'checked' : '' }}>
                                     <label class="form-check-label" for="dokumentasiKejadian">
-                                        Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya
+                                        Saya ingin satuan tugas mendokumentasikan kejadiannya, meningkatkan keamanan
+                                        perguruan tinggi dari kekerasan seksual, dan memberi perlindungan bagi saya
                                     </label>
                                 </div>
-                        
+
                                 <div class="form-check">
                                     <label class="form-check-label" for="lainnya">Lainnya :</label>
-                                    <input type="text" class="form-control" id="lainnyaInput" name="alasan_pengaduan[lainnya]" placeholder="Opsional" value="{{ old('alasan_pengaduan.lainnya') }}">
+                                    <input type="text" class="form-control" id="lainnyaInput"
+                                        name="alasan_pengaduan[lainnya]" placeholder="Opsional"
+                                        value="{{ old('alasan_pengaduan.lainnya') }}">
                                 </div>
-                                
 
-                        <div class="mb-3">
-                            <div data-mdb-input-init class="form-outline">
-                                <label class="form-label" for="typeNumber">Nomor HP Pihak lain yang dapat
-                                    dikonfirmasi</label>
-                                <input type="number" id="nomorhppihaklain" name="nomor_hp_pihak_lain"
-                                    class="form-control" value="{{ old('nomor_hp_pihak_lain') }}" />
-                            </div>
-                        </div>
-                        <script>
-                            document.getElementById("nomorhppihaklain").addEventListener("input", function() {
-                                var input = this.value.replace(/\s+/g, '');
-                                if (input.length > 14) {
-                                    alert("Masukan maksimal 14 angka");
-                                    this.setCustomValidity("Input harus memiliki panjang maksimal 14 angka.");
-                                } else {
-                                    this.setCustomValidity("");
-                                }
-                            });
-                        </script>
-                        
-                        <div class="border border-light p-3">
-                            <div class="mb-3">
-                                <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan Korban:</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                        id="konselingPsikologis" value="Konseling Psikologis">
-                                    <label class="form-check-label" for="konselingPsikologis">
-                                        Konseling Psikologis
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                        id="konselingRohani" value="Konseling Rohani atau Spiritual">
-                                    <label class="form-check-label" for="konselingRohani">
-                                        Konseling Rohani/Spiritual
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                        id="bantuanHukum" value="Bantuan Hukum">
-                                    <label class="form-check-label" for="bantuanHukum">
-                                        Bantuan Hukum
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                        id="bantuanMedis" value="Bantuan Medis">
-                                    <label class="form-check-label " for="bantuanMedis">
-                                        Bantuan Medis
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                        id="bantuanDigital" value="Bantuan Digital">
-                                    <label class="form-check-label" for="bantuanDigital">
-                                        Bantuan Digital
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <label class="form-check-label" for="lainnya">Lainnya :</label>
-                                    <input type="text" class="form-control" id="lainnya2Input"
-                                        name="kebutuhan_korban[]" placeholder="Opsional">
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="kebutuhan_korban"
-                                        id="tidakMembutuhkan" value="Tidak Membutuhkan Pendampingan">
-                                    <label class="form-check-label" for="tidakMembutuhkan">
-                                        Tidak Membutuhkan Pendampingan
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <script>
-                            var checkboxTidakMembutuhkan = document.getElementById("tidakMembutuhkan");
-                            var checkboxesLainnya = document.querySelectorAll('input[name="kebutuhan_korban[]"]:not(#tidakMembutuhkan)');
 
-                            checkboxTidakMembutuhkan.addEventListener('change', function() {
-                                if (checkboxTidakMembutuhkan.checked) {
-                                    checkboxesLainnya.forEach(function(checkbox) {
-                                        checkbox.disabled = true;
-                                        checkbox.checked = false;
+                                <div class="mb-3">
+                                    <div data-mdb-input-init class="form-outline">
+                                        <label class="form-label" for="typeNumber">Nomor HP Pihak lain yang dapat
+                                            dikonfirmasi</label>
+                                        <input type="number" id="nomorhppihaklain" name="nomor_hp_pihak_lain"
+                                            class="form-control" value="{{ old('nomor_hp_pihak_lain') }}" />
+                                    </div>
+                                </div>
+                                <script>
+                                    document.getElementById("nomorhppihaklain").addEventListener("input", function() {
+                                        var input = this.value.replace(/\s+/g, '');
+                                        if (input.length > 14) {
+                                            alert("Masukan maksimal 14 angka");
+                                            this.setCustomValidity("Input harus memiliki panjang maksimal 14 angka.");
+                                        } else {
+                                            this.setCustomValidity("");
+                                        }
                                     });
-                                } else {
-                                    checkboxesLainnya.forEach(function(checkbox) {
-                                        checkbox.disabled = false;
+                                </script>
+
+                                <div class="border border-light p-3">
+                                    <div class="mb-3">
+                                        <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan
+                                            Korban:</label>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
+                                                id="konselingPsikologis" value="Konseling Psikologis">
+                                            <label class="form-check-label" for="konselingPsikologis">
+                                                Konseling Psikologis
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
+                                                id="konselingRohani" value="Konseling Rohani atau Spiritual">
+                                            <label class="form-check-label" for="konselingRohani">
+                                                Konseling Rohani/Spiritual
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
+                                                id="bantuanHukum" value="Bantuan Hukum">
+                                            <label class="form-check-label" for="bantuanHukum">
+                                                Bantuan Hukum
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
+                                                id="bantuanMedis" value="Bantuan Medis">
+                                            <label class="form-check-label " for="bantuanMedis">
+                                                Bantuan Medis
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
+                                                id="bantuanDigital" value="Bantuan Digital">
+                                            <label class="form-check-label" for="bantuanDigital">
+                                                Bantuan Digital
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <label class="form-check-label" for="lainnya">Lainnya :</label>
+                                            <input type="text" class="form-control" id="lainnya2Input"
+                                                name="kebutuhan_korban[]" placeholder="Opsional">
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="kebutuhan_korban"
+                                                id="tidakMembutuhkan" value="Tidak Membutuhkan Pendampingan">
+                                            <label class="form-check-label" for="tidakMembutuhkan">
+                                                Tidak Membutuhkan Pendampingan
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <script>
+                                    var checkboxTidakMembutuhkan = document.getElementById("tidakMembutuhkan");
+                                    var checkboxesLainnya = document.querySelectorAll('input[name="kebutuhan_korban[]"]:not(#tidakMembutuhkan)');
+
+                                    checkboxTidakMembutuhkan.addEventListener('change', function() {
+                                        if (checkboxTidakMembutuhkan.checked) {
+                                            checkboxesLainnya.forEach(function(checkbox) {
+                                                checkbox.disabled = true;
+                                                checkbox.checked = false;
+                                            });
+                                        } else {
+                                            checkboxesLainnya.forEach(function(checkbox) {
+                                                checkbox.disabled = false;
+                                            });
+                                        }
                                     });
-                                }
-                            });
-                        </script>
-                    <div class="mb-3">
-                        <label for="tanggal">Tanggal Pelaporan:</label>
-                        <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan">
-                    </div>
+                                </script>
+                                <div class="mb-3">
+                                    <label for="tanggal">Tanggal Pelaporan:</label>
+                                    <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan">
+                                </div>
 
-                    <script>
-                        // Mendapatkan elemen input tanggal
-                        var inputTanggal = document.getElementById('tanggalpelaporan');
-                        
-                        // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
-                        var today = new Date().toISOString().split('T')[0];
-                        
-                        // Mengatur nilai default input tanggal ke tanggal hari ini
-                        inputTanggal.value = today;
-                    </script>
-                    <label for="bukti">Bukti: </label>
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" id="bukti" name="bukti[]" multiple>
-                        <label class="input-group-text" for="bukti">Browse</label>
-                    </div>
+                                <script>
+                                    // Mendapatkan elemen input tanggal
+                                    var inputTanggal = document.getElementById('tanggalpelaporan');
 
-                        <div class="form-group">
-                            <label for="voicenote">Rekam Suara:</label>
-                            <br>
-                            <button type="button" id="recordButton" class="btn btn-primary">Mulai Rekam</button>
-                            <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti Rekam</button>
-                            <input type="file" id="voicenote" name="voicenote" style="display: none;">
-                            <p id="recordingTime">Durasi: 0s</p>
-                            <audio id="audioPreview" controls style="display: none;"></audio>
-                        </div>
-                        
-                                    <script>
+                                    // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
+                                    var today = new Date().toISOString().split('T')[0];
+
+                                    // Mengatur nilai default input tanggal ke tanggal hari ini
+                                    inputTanggal.value = today;
+                                </script>
+                                <label for="bukti">Bukti: </label>
+                                <div class="input-group mb-3">
+                                    <input type="file" class="form-control" id="bukti" name="bukti" multiple>
+                                    <label class="input-group-text" for="bukti">Browse</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="voicenote">Rekam Suara:</label>
+                                    <br>
+                                    <button type="button" id="recordButton" class="btn btn-primary">Mulai Rekam</button>
+                                    <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti
+                                        Rekam</button>
+                                    <input type="file" id="voicenote" name="voicenote" style="display: none;">
+                                    <p id="recordingTime">Durasi: 0s</p>
+                                    <audio id="audioPreview" controls style="display: none;"></audio>
+                                </div>
+
+                                <script>
                                     let mediaRecorder;
-                                                                let recordedChunks = [];
-                                                                let startTime;
-                                                                let durationInterval;
+                                    let recordedChunks = [];
+                                    let startTime;
+                                    let durationInterval;
 
-                                                                const recordButton = document.getElementById('recordButton');
-                                                                const stopButton = document.getElementById('stopButton');
-                                                                const voiceInput = document.getElementById('voicenote');
-                                                                const recordingTime = document.getElementById('recordingTime');
-                                                                const audioPreview = document.getElementById('audioPreview');
+                                    const recordButton = document.getElementById('recordButton');
+                                    const stopButton = document.getElementById('stopButton');
+                                    const voiceInput = document.getElementById('voicenote');
+                                    const recordingTime = document.getElementById('recordingTime');
+                                    const audioPreview = document.getElementById('audioPreview');
 
-                                                                recordButton.addEventListener('click', async () => {
-                                                                    try {
-                                                                        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                                                                        mediaRecorder = new MediaRecorder(stream);
-                                                                        
-                                                                        mediaRecorder.ondataavailable = (event) => {
-                                                                            if (event.data.size > 0) {
-                                                                                recordedChunks.push(event.data);
-                                                                            }
-                                                                        };
+                                    recordButton.addEventListener('click', async () => {
+                                        try {
+                                            const stream = await navigator.mediaDevices.getUserMedia({
+                                                audio: true
+                                            });
+                                            mediaRecorder = new MediaRecorder(stream);
 
-                                                                        mediaRecorder.onstop = () => {
-                                                                            const blob = new Blob(recordedChunks, { type: 'audio/wav' });
-                                                                            const url = URL.createObjectURL(blob);
-                                                                            
-                                                                            // Set audio preview
-                                                                            audioPreview.src = url;
-                                                                            audioPreview.style.display = 'block';
-                                                                            
-                                                                            // Set input file for form submission
-                                                                            const file = new File([blob], 'voicenote.wav', { type: 'audio/wav' });
-                                                                            const dataTransfer = new DataTransfer();
-                                                                            dataTransfer.items.add(file);
-                                                                            voiceInput.files = dataTransfer.files;
-                                                                        };
+                                            mediaRecorder.ondataavailable = (event) => {
+                                                if (event.data.size > 0) {
+                                                    recordedChunks.push(event.data);
+                                                }
+                                            };
 
-                                                                        mediaRecorder.start();
-                                                                        startTime = Date.now();
-                                                                        durationInterval = setInterval(updateRecordingTime, 1000);
-                                                                        recordingTime.textContent = 'Durasi: 0s';
-                                                                        recordedChunks = [];
+                                            mediaRecorder.onstop = () => {
+                                                const blob = new Blob(recordedChunks, {
+                                                    type: 'audio/wav'
+                                                });
+                                                const url = URL.createObjectURL(blob);
 
-                                                                        recordButton.disabled = true;
-                                                                        stopButton.disabled = false;
-                                                                    } catch (err) {
-                                                                        console.error('Error accessing audio stream', err);
-                                                                    }
-                                                                });
+                                                // Set audio preview
+                                                audioPreview.src = url;
+                                                audioPreview.style.display = 'block';
 
-                                                                stopButton.addEventListener('click', () => {
-                                                                    if (mediaRecorder) {
-                                                                        mediaRecorder.stop();
-                                                                        clearInterval(durationInterval);
-                                                                    }
+                                                // Set input file for form submission
+                                                const file = new File([blob], 'voicenote.wav', {
+                                                    type: 'audio/wav'
+                                                });
+                                                const dataTransfer = new DataTransfer();
+                                                dataTransfer.items.add(file);
+                                                voiceInput.files = dataTransfer.files;
+                                            };
 
-                                                                    recordButton.disabled = false;
-                                                                    stopButton.disabled = true;
-                                                                });
+                                            mediaRecorder.start();
+                                            startTime = Date.now();
+                                            durationInterval = setInterval(updateRecordingTime, 1000);
+                                            recordingTime.textContent = 'Durasi: 0s';
+                                            recordedChunks = [];
 
-                                                                function updateRecordingTime() {
-                                                                    const duration = Math.floor((Date.now() - startTime) / 1000);
-                                                                    recordingTime.textContent = `Durasi: ${duration}s`;
-                                                                }
-    
-                                        </script>                        
+                                            recordButton.disabled = true;
+                                            stopButton.disabled = false;
+                                        } catch (err) {
+                                            console.error('Error accessing audio stream', err);
+                                        }
+                                    });
 
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button class="btn btn-danger" type="submit">Kirim Laporan</button>
+                                    stopButton.addEventListener('click', () => {
+                                        if (mediaRecorder) {
+                                            mediaRecorder.stop();
+                                            clearInterval(durationInterval);
+                                        }
+
+                                        recordButton.disabled = false;
+                                        stopButton.disabled = true;
+                                    });
+
+                                    function updateRecordingTime() {
+                                        const duration = Math.floor((Date.now() - startTime) / 1000);
+                                        recordingTime.textContent = `Durasi: ${duration}s`;
+                                    }
+                                </script>
+
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                                </div>
+                                <button class="btn btn-danger" type="submit">Kirim Laporan</button>
                     </form>
                 </div>
             </div>
@@ -356,9 +394,8 @@
         }
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         // Panggil fungsi showDisabilityInput() saat halaman dimuat untuk memeriksa nilai old()
         showDisabilityInput();
     });
 </script>
-

@@ -9,7 +9,7 @@
             <a href="{{route ('pelaporan')}}" class="nav-item nav-link {{ \Route::is('pelaporan') ? 'active' : ''}}"><i class="bi bi-file-earmark-ppt-fill me-2"></i>Pelaporan</a>
             <a href="{{route ('laporansaya')}}" class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : ''}}"><i class="fa fa-keyboard me-2"></i>Laporan Saya</a>
             <a href="{{route ('chatbot')}}" class="nav-item nav-link {{ \Route::is('chatbot') ? 'active' : ''}}"><i class="bi bi-chat-right-text me-2"></i>ChatBot</a>
-          
+
             {{-- <a href="{{route ('laporan_saya')}}" class="nav-item nav-link {{ \Route::is('laporan_saya') ? 'active' : ''}}"><i class="fa fa-keyboard me-2"></i>Laporan Saya</a> --}}
     </div>
         </div>

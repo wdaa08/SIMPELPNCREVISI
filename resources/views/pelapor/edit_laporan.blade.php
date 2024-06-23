@@ -6,7 +6,6 @@
                 <div class="col-sm-12 col-xl-0">
                     <div class="bg-light rounded h-100 p-4">
                         <h6 class="mb-4">Formulir Pelaporan</h6>
-                        <H1>TEST</H1>
                         <form method="post" action="{{ route('updatelaporan', $pelapor->id) }}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf

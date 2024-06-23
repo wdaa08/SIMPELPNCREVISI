@@ -20,42 +20,45 @@ class PelaporanController extends Controller
 
     public function store(Request $request)
     {
-
         // Validasi data
-        $validate = Validator::make($request->all(), [
-            'nama_pelapor' => 'required|string',
-            'melapor_sebagai' => 'required',
-            'nomor_hp' => 'required|string|max:14',
-            'alamat_email' => 'required|email',
-            'domisili_pelapor' => 'required|string',
-            'jenis_kekerasan_seksual' => 'required|string',
-            'cerita_peristiwa' => 'required|string',
-            'memiliki_disabilitas' => 'required',
-            'deskripsi_disabilitas' => 'nullable|string',
-            'status_terlapor' => 'required',
-            'alasan_pengaduan' => 'nullable|array',
-            'tanggal_pelaporan' => 'required|date',
-            'nomor_hp_pihak_lain' => 'nullable|string|max:14',
-            'kebutuhan_korban' => 'nullable|array',
-            'bukti' => 'nullable|mimes:jpeg,jpg,png,pdf',
-            'voicenote' => 'nullable',
-        ], [
-            'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong.',
-            'melapor_sebagai.required' => 'Melapor sebagai tidak boleh kosong.',
-            'nomor_hp.required' => 'Nomor HP tidak boleh kosong.',
-            'alamat_email.required' => 'Alamat email tidak boleh kosong.',
-            'alamat_email.email' => 'Format alamat email tidak valid.',
-            'domisili_pelapor.required' => 'Domisili pelapor tidak boleh kosong.',
-            'jenis_kekerasan_seksual.required' => 'Jenis kekerasan seksual tidak boleh kosong.',
-            'cerita_peristiwa.required' => 'Cerita peristiwa tidak boleh kosong.',
-            'memiliki_disabilitas.required' => 'Memiliki disabilitas tidak boleh kosong.',
-            'status_terlapor.required' => 'Status terlapor tidak boleh kosong.',
-            'tanggal_pelaporan.required' => 'Tanggal pelaporan tidak boleh kosong.',
-            'tanggal_pelaporan.date' => 'Format tanggal pelaporan tidak valid.',
-        ]);
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'nama_pelapor' => 'required|string',
+                'melapor_sebagai' => 'required',
+                'nomor_hp' => 'required|string|max:14',
+                'alamat_email' => 'required|email',
+                'domisili_pelapor' => 'required|string',
+                'jenis_kekerasan_seksual' => 'required|string',
+                'cerita_peristiwa' => 'required|string',
+                'memiliki_disabilitas' => 'required',
+                'deskripsi_disabilitas' => 'nullable|string',
+                'status_terlapor' => 'required',
+                'alasan_pengaduan' => 'nullable|array',
+                'tanggal_pelaporan' => 'required|date',
+                'nomor_hp_pihak_lain' => 'nullable|string|max:14',
+                'kebutuhan_korban' => 'nullable|array',
+                'bukti' => 'nullable|max:2048', // Menambahkan ukuran maksimum file
+                'voicenote' => 'nullable|mimes:mp3,wav|max:10240', // Menambahkan validasi file voicenote
+            ],
+            [
+                'nama_pelapor.required' => 'Nama pelapor tidak boleh kosong.',
+                'melapor_sebagai.required' => 'Melapor sebagai tidak boleh kosong.',
+                'nomor_hp.required' => 'Nomor HP tidak boleh kosong.',
+                'alamat_email.required' => 'Alamat email tidak boleh kosong.',
+                'alamat_email.email' => 'Format alamat email tidak valid.',
+                'domisili_pelapor.required' => 'Domisili pelapor tidak boleh kosong.',
+                'jenis_kekerasan_seksual.required' => 'Jenis kekerasan seksual tidak boleh kosong.',
+                'cerita_peristiwa.required' => 'Cerita peristiwa tidak boleh kosong.',
+                'memiliki_disabilitas.required' => 'Memiliki disabilitas tidak boleh kosong.',
+                'status_terlapor.required' => 'Status terlapor tidak boleh kosong.',
+                'tanggal_pelaporan.required' => 'Tanggal pelaporan tidak boleh kosong.',
+                'tanggal_pelaporan.date' => 'Format tanggal pelaporan tidak valid.',
+            ]
+        );
 
-        $user = Auth::user();
-
+        // Log validasi
+        Log::debug('Validasi:', $validate->messages()->toArray());
 
         if ($validate->fails()) {
             return redirect()->back()
@@ -73,14 +76,14 @@ class PelaporanController extends Controller
         if ($request->hasFile('bukti')) {
             $imagePath = $request->file('bukti')->store('bukti');
             $data['bukti'] = $imagePath;
+            Log::info('Bukti path:', ['path' => $imagePath]);
         }
 
-        if ($request->file('voicenote')) {
+        // Mengelola upload file voicenote
+        if ($request->hasFile('voicenote')) {
             if ($request->file('voicenote')->isValid()) {
                 $voicenotePath = $request->file('voicenote')->store('voicenote');
                 $data['voicenote'] = $voicenotePath;
-
-                // Debug: Log voicenote path
                 Log::info('Voicenote path:', ['path' => $voicenotePath]);
             } else {
                 Log::error('Invalid voicenote file');
@@ -88,21 +91,16 @@ class PelaporanController extends Controller
         }
 
         // Menggabungkan data inputan yang berupa array menjadi string
-        $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
-        $data['kebutuhan_korban'] = $combineKebutuhan;
-
-        // Menggabungkan data inputan yang berupa array menjadi string
-        $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
-        $data['alasan_pengaduan'] = $combineAlasan;
+        $data['kebutuhan_korban'] = implode(', ', $request->input('kebutuhan_korban', []));
+        $data['alasan_pengaduan'] = implode(', ', $request->input('alasan_pengaduan', []));
 
         // Debugging: log data before saving
         Log::info('Data before saving:', $data);
 
         try {
-
             // Simpan data ke database
             $pelapor = new Pelaporan;
-            $pelapor->user_id = $user->id;
+            $pelapor->user_id = Auth::id();
             $pelapor->nama_pelapor = $data['nama_pelapor'];
             $pelapor->melapor_sebagai = $data['melapor_sebagai'];
             $pelapor->nomor_hp = $data['nomor_hp'];
@@ -127,7 +125,6 @@ class PelaporanController extends Controller
 
             $pelapor->save();
 
-
             // Debugging: log after data is saved
             Log::info('Data saved successfully:', $pelapor->toArray());
         } catch (\Exception $e) {
@@ -135,11 +132,10 @@ class PelaporanController extends Controller
             Log::error('Error saving data:', ['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
-        // Simpan pesan sukses dalam session
 
-
-        return redirect()->back()->with('success', 'Alhamdulilah,Formulir pelaporan berhasil Terkirim.');
+        return redirect()->back()->with('success', 'Alhamdulilah, Formulir pelaporan berhasil Terkirim.');
     }
+
 
 
 

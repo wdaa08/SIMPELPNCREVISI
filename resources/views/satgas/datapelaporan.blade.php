@@ -100,7 +100,7 @@
         </div>
     </div>
 
-    <script src="{{ mix('js/app.js') }}"></script>
+    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var editResponButtons = document.querySelectorAll('.edit-respon-btn');
