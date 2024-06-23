@@ -133,6 +133,8 @@
             <tr>
                 <th>Deskripsi Disabilitas</th>
                 <td>{{ $pelaporan->deskripsi_disabilitas }}</td>
+                <td>{{ $pelaporan->deskripsi_disabilitas }}</td>
+                
             </tr>
             <tr>
                 <th>Status Terlapor</th>
