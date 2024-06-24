@@ -11,6 +11,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\isLogin;
 use App\Models\Pelaporan;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -87,6 +89,11 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
 
     // cetak pdf detail pelaporan
     Route::get('/pelaporans/{id}/cetak-pdf', [PdfController::class, 'cetakPdf'])->name('pelaporans.cetakPdf');
+
+
+
+    Route::post('/users/import', [UserController::class, 'import'])->name('users.import.post');
+    Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
 
 
     // Tambahkan rute lain dalam grup ini

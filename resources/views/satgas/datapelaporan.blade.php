@@ -1,56 +1,138 @@
 @extends('layouts.tampilansatgas')
 
 @section('container')
-    <div class="container my-4">
-        <div class="row g-4">
-            <div class="col-sm-12 col-xl-0">
-               <div class="bg-light rounded h-100 p-4 table-responsive">
-                    <h3 class="card-title">Data Laporan Masuk</h3>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Nama</th>
-                                <th>Respon</th>
-                                <th style="width: 200px;">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody> 
-                            @foreach ($pelaporans as $pelaporan)
-                                <tr>
-                                    <td>{{ $pelaporan->tanggal_pelaporan }}</td>
-                                    <td>{{ $pelaporan->nama_pelapor }}</td>
-                                    <td>
-                                        <span id="respon{{ $pelaporan->id }}">{{ $pelaporan->respon }}</span>
-                                    </td>
-                                    <td>
-                                        <div class="btn-group" role="group" aria-label="Aksi">
-                                            <button type="button" class="btn btn-link btn-warning edit-respon-btn" style="color: white;"
-                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                data-id="{{ $pelaporan->id }}">
-                                                Respon
-                                            </button>
-                                            <button type="button" class="btn btn-link btn-primary detail-pelaporan-btn"
-                                                data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
-                                                data-id="{{ $pelaporan->id }}">
-                                                Lihat
-                                            </button>
-                                            <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
-                                                class="btn btn-link btn-danger" style="color: white;">Cetak PDF</a>
-                                        </div>
-                                    </td>
-                                    
-                                    
+            <style>
+                /* CSS untuk tabel dengan border tebal */
+                .thick-border-table {
+                    border-collapse: collapse;
+                    width: 100%;
+                }
 
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    {{ $pelaporans->links() }}
+                .thick-border-table th, .thick-border-table td {
+                    border: 2px solid #000; /* Tebal dan warna garis sesuai kebutuhan */
+                    padding: 8px; /* Padding untuk sel */
+                    text-align: left; /* Penyusunan teks dalam sel */
+                }
+
+                .thick-border-table th {
+                    background-color: #009CFF; /* Warna latar header */
+                    color: rgb(0, 0, 0); /* Warna teks header */
+                }
+
+                .thick-border-table tr:nth-child(even) {
+                    background-color: #f2f2f2; /* Warna latar baris genap */
+                }
+
+                .thick-border-table tr:hover {
+                    background-color: #ddd; /* Warna latar saat hover */
+                }
+
+                .center-image {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            </style>
+
+            <div class="container my-4">
+                <div class="row g-4">
+                    <div class="col-sm-12 col-xl-0">
+                        <div class="bg-light rounded h-100 p-4 table-responsive">
+                            <h3 class="card-title">Data Laporan Masuk</h3>
+                            <table class="table thick-border-table">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Tanggal</th>
+                                        <th>Nama</th>
+                                        <th>Respon</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pelaporans as $index => $pelaporan)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $pelaporan->tanggal_pelaporan }}</td>
+                                        <td>{{ $pelaporan->nama_pelapor }}</td>
+                                        <td>
+                                            <span id="respon{{ $pelaporan->id }}">{{ $pelaporan->respon }}</span>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <button type="button" class="btn btn-warning edit-respon-btn"
+                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                    data-id="{{ $pelaporan->id }}">
+                                                    <i class="fas fa-pencil-alt"></i> <!-- Ganti dengan ikon Edit -->
+                                                </button>
+                                                <button type="button" class="btn btn-primary detail-pelaporan-btn"
+                                                    data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
+                                                    data-id="{{ $pelaporan->id }}">
+                                                    <i class="fas fa-eye"></i> <!-- Ganti dengan ikon Eye -->
+                                                </button>
+                                                <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
+                                                    class="btn btn-danger">
+                                                    <i class="fas fa-file-pdf"></i> <!-- Ganti dengan ikon PDF -->
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                            {{ $pelaporans->links() }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Detail Pelaporan -->
+                <div class="modal fade" id="modalDetailPelaporan" tabindex="-1" aria-labelledby="modalDetailPelaporanLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalDetailPelaporanLabel">Detail Pelaporan</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <table class="table">
+                                    <tbody id="modalDetailBody">
+                                        <!-- Data pelaporan akan dimuat di sini secara dinamis -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal Ubah Respon -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ubah Respon</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formEditRespon">
+                                    <div class="mb-3">
+                                        <label for="responInput" class="form-label">Respon:</label>
+                                        <textarea class="form-control" id="responInput" rows="3"></textarea>
+                                    </div>
+                                    <input type="hidden" id="pelaporanId" name="pelaporanId" value="">
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-primary" id="simpanResponBtn">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
         <!-- Modal Detail Pelaporan -->
         <div class="modal fade" id="modalDetailPelaporan" tabindex="-1" aria-labelledby="modalDetailPelaporanLabel"
             aria-hidden="true">

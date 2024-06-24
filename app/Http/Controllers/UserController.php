@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use App\Imports\UsersImport;
 
 class UserController extends Controller
 {
@@ -63,4 +66,27 @@ class UserController extends Controller
         return redirect()->route('profile', ['id' => $id])->with('edit.success', 'Profil berhasil diperbarui.');
     }
     
+
+    public function showImportForm()
+    {
+        return view('users.import'); // Buat view untuk menampilkan formulir import
+    }
+
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls', // Validasi untuk tipe file Excel
+        ]);
+
+        Excel::import(new UsersImport, $request->file('file')); // Proses import menggunakan kelas UsersImport
+
+        return redirect()->route('datapengguna')->with('success', 'Pengguna berhasil diimpor.'); // Redirect ke halaman setelah import selesai
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.xlsx');
+    }
+
+
 }
