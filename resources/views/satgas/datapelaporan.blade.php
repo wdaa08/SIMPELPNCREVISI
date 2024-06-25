@@ -1,90 +1,91 @@
 @extends('layouts.tampilansatgas')
 
 @section('container')
-            <style>
-                /* CSS untuk tabel dengan border tebal */
-                .thick-border-table {
-                    border-collapse: collapse;
-                    width: 100%;
-                }
+<style>
+    /* CSS tambahan untuk tabel */
+    .thick-border-table th, .thick-border-table td {
+        border: 0px solid #000; /* Tebal dan warna garis sesuai kebutuhan */
+        padding: 8px; /* Padding untuk sel */
+        text-align: center; /* Penyusunan teks dalam sel */
+    }
 
-                .thick-border-table th, .thick-border-table td {
-                    border: 2px solid #000; /* Tebal dan warna garis sesuai kebutuhan */
-                    padding: 8px; /* Padding untuk sel */
-                    text-align: left; /* Penyusunan teks dalam sel */
-                }
+    .thick-border-table th {
+        background-color: #009CFF; /* Warna latar header */
+        color: rgb(0, 0, 0); /* Warna teks header */
+    }
 
-                .thick-border-table th {
-                    background-color: #009CFF; /* Warna latar header */
-                    color: rgb(0, 0, 0); /* Warna teks header */
-                }
+    .center-image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .icon-small {
+        font-size: 0.75em; /* Atur ukuran font untuk ikon */
+    }
 
-                .thick-border-table tr:nth-child(even) {
-                    background-color: #f2f2f2; /* Warna latar baris genap */
-                }
+</style>
 
-                .thick-border-table tr:hover {
-                    background-color: #ddd; /* Warna latar saat hover */
-                }
-
-                .center-image {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-            </style>
-
-            <div class="container my-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-0">
-                        <div class="bg-light rounded h-100 p-4 table-responsive">
-                            <h3 class="card-title">Data Laporan Masuk</h3>
-                            <table class="table thick-border-table">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tanggal</th>
-                                        <th>Nama</th>
-                                        <th>Respon</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($pelaporans as $index => $pelaporan)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $pelaporan->tanggal_pelaporan }}</td>
-                                        <td>{{ $pelaporan->nama_pelapor }}</td>
-                                        <td>
-                                            <span id="respon{{ $pelaporan->id }}">{{ $pelaporan->respon }}</span>
-                                        </td>
-                                        <td>
-                                            <div>
-                                                <button type="button" class="btn btn-warning edit-respon-btn"
-                                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                    data-id="{{ $pelaporan->id }}">
-                                                    <i class="fas fa-pencil-alt"></i> <!-- Ganti dengan ikon Edit -->
-                                                </button>
-                                                <button type="button" class="btn btn-primary detail-pelaporan-btn"
-                                                    data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
-                                                    data-id="{{ $pelaporan->id }}">
-                                                    <i class="fas fa-eye"></i> <!-- Ganti dengan ikon Eye -->
-                                                </button>
-                                                <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
-                                                    class="btn btn-danger">
-                                                    <i class="fas fa-file-pdf"></i> <!-- Ganti dengan ikon PDF -->
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            {{ $pelaporans->links() }}
-                        </div>
-                    </div>
-                </div>
-
+<div class="container my-4">
+    <div class="row g-4">
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <h6 class="mb-4">Hoverable Table</h6>
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Tanggal</th>
+                            <th>Nama</th>
+                            <th>Respon</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($pelaporans as $index => $pelaporan)
+                        <tr>
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ $pelaporan->tanggal_pelaporan }}</td>
+                            <td>{{ $pelaporan->nama_pelapor }}</td>
+                            
+                            <td>
+                                <div>
+                                    <!-- Tampilkan respon terakhir -->
+                                    <span id="respon{{ $pelaporan->id }}" style="display: block; margin-bottom: 5px;">{{ $pelaporan->respon }}</span>
+                                    
+                                    <!-- Tampilkan informasi pemberi respon -->
+                                    @if ($pelaporan->respon_dari_user)
+                                        <small style="color: #3b914f;">Pemberi Respon Terakhir: {{ $pelaporan->respon_dari_user->nama }}</small>
+                                    @else
+                                        <small style="color: #3b914f;">Belum ada respon.</small>
+                                    @endif
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <button type="button" class="btn btn-warning edit-respon-btn icon-small"
+                                        data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                        data-id="{{ $pelaporan->id }}">
+                                        <i class="fas fa-pencil-alt"></i> <!-- Ganti dengan ikon Edit -->
+                                    </button>
+                                    <button type="button" class="btn btn-primary detail-pelaporan-btn icon-small"
+                                        data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
+                                        data-id="{{ $pelaporan->id }}">
+                                        <i class="fas fa-eye"></i> <!-- Ganti dengan ikon Eye -->
+                                    </button>
+                                    <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
+                                        class="btn btn-danger icon-small" >
+                                        <i class="fas fa-file-pdf"></i> <!-- Ganti dengan ikon PDF -->
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                {{ $pelaporans->links() }}
+            </div>
+        </div>
+    </div>
                 <!-- Modal Detail Pelaporan -->
                 <div class="modal fade" id="modalDetailPelaporan" tabindex="-1" aria-labelledby="modalDetailPelaporanLabel"
                     aria-hidden="true">

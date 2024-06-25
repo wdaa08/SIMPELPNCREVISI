@@ -300,11 +300,6 @@ class PelaporanController extends Controller
 
 
 
-    public function ttdview($id)
-    {
-        $pelapor = Pelaporan::findOrFail($id);
-        return view('satgas.ttdView', compact('pelapor'));
-    }
 
     public function editdatapelaporan($id)
     {

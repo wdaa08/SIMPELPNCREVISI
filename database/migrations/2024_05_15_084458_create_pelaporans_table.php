@@ -28,6 +28,8 @@ class CreatePelaporansTable extends Migration
             $table->string('bukti')->nullable();
             $table->string('voicenote')->nullable();
             $table->string('respon')->default('TERKIRIM');
+            $table->unsignedBigInteger('respon_dari')->nullable();
+            $table->foreign('respon_dari')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

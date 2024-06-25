@@ -156,7 +156,6 @@
             </tr>
             <tr>
                 <th>Bukti</th>
-<<<<<<< HEAD
                 <td>
                     @if ($pelaporan->bukti)
               
@@ -165,26 +164,6 @@
                     <p>Tidak ada bukti yang diunggah.</p>
                 @endif
                 </td>
-=======
-                <img src="{{ $data['bukti'] }}" alt="bukti">
->>>>>>> 365a057def248517b0b22e7fd5f08542d3c4c010
-            </tr>
-            <tr>
-                <th>Voice Note</th>
-                <td>
-                    @if ($pelaporan->voicenote)
-                        <audio controls>
-                            <source src="{{ asset('storage/' . $pelaporan->voicenote) }}" type="audio/webm">
-                            Your browser does not support the audio element.
-                        </audio>
-                    @else
-                        Tidak ada voice note yang diunggah.
-                    @endif
-                </td>
-            </tr>
-            <tr>
-                <th>Respon</th>
-                <td>{{ $pelaporan->respon }}</td>
             </tr>
         </table>
         <div class="signature">

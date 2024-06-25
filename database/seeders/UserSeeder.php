@@ -18,12 +18,22 @@ class Userseeder extends Seeder
     {
         User::create([
             'role_id' => '1',
-            'nama' => 'satgas',
-            'npm_nidn_npak' => '210202048',
+            'nama' => 'Dodi Satriawan',
+            'npm_nidn_npak' => '210202090',
             'email' => 'satgas@gmail.com',
             'password' => Hash::make('satgas'),
             'remember_token' => Str::random(60),
         ]);
+
+        User::create([
+            'role_id' => '1',
+            'nama' => 'Willy Devin',
+            'npm_nidn_npak' => '210202048',
+            'email' => 'satgas1@gmail.com',
+            'password' => Hash::make('satgas'),
+            'remember_token' => Str::random(60),
+        ]);
+        
         
         User::create([
             'role_id' => '2',

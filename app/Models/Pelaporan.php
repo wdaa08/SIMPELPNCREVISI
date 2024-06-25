@@ -39,6 +39,6 @@ class Pelaporan extends Model
     // Jika diperlukan, definisikan relasi dengan User
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id'); //relasi
     }
 }
