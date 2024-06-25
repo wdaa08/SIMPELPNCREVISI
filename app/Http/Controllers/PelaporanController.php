@@ -328,18 +328,24 @@ class PelaporanController extends Controller
             'respon' => 'required|string',
         ]);
 
+        $user = auth()->user();
+
         // Cari pelaporan berdasarkan ID
         $pelaporan = Pelaporan::findOrFail($id);
 
-        // Update respon
+        // Update respon dan simpan ID pengguna
         $pelaporan->respon = $request->respon;
+        $pelaporan->respon_dari = $user->id; // Menyimpan ID pengguna yang memberikan respon
         $pelaporan->save();
 
         // Mengembalikan data yang diperbarui dalam format JSON
         return response()->json([
             'respon' => $pelaporan->respon,
+            'user_nama' => $user->nama // Mengembalikan nama pengguna
         ]);
     }
+
+
 
 
     public function show($id)

@@ -53,10 +53,10 @@
                                     <span id="respon{{ $pelaporan->id }}" style="display: block; margin-bottom: 5px;">{{ $pelaporan->respon }}</span>
                                     
                                     <!-- Tampilkan informasi pemberi respon -->
-                                    @if ($pelaporan->respon_dari_user)
-                                        <small style="color: #3b914f;">Pemberi Respon Terakhir: {{ $pelaporan->respon_dari_user->nama }}</small>
+                                    @if ($pelaporan->responDariUser)
+                                        <small id="pemberiRespon{{ $pelaporan->id }}" style="color: #3b914f;">Pemberi Respon Terakhir: {{ $pelaporan->responDariUser->nama }}</small>
                                     @else
-                                        <small style="color: #3b914f;">Belum ada respon.</small>
+                                        <small id="pemberiRespon{{ $pelaporan->id }}" style="color: #3b914f;">Belum ada respon.</small>
                                     @endif
                                 </div>
                             </td>
@@ -280,7 +280,7 @@
                                 <th scope="row">Bukti</th>
                                 <td>${data.bukti ? `<img src="/storage/${data.bukti}" width="100" height="100" alt="TTD">` : 'Tidak ada bukti yang diunggah.'}</td>
                             </tr>
-                                 <tr>
+                                <tr>
                                 <th class="mb-3" colspan="2">
                                     <label for="detailVoiceNote" class="form-label">Voice Note:</label><br>
                                     ${data.voicenote ? `<audio controls><source src="/storage/${data.voicenote}" type="audio/webm">Your browser does not support the audio element.</audio>` : 'Tidak ada voice note yang diunggah.'}
@@ -312,6 +312,7 @@
                     .then(response => response.json())
                     .then(data => {
                         document.getElementById('respon' + pelaporanId).textContent = data.respon;
+                        document.getElementById('pemberiRespon' + pelaporanId).textContent = 'Pemberi Respon Terakhir: {{ auth()->user()->nama }}'; // Perbarui dengan nama pengguna yang login
                         var exampleModal = new bootstrap.Modal(document.getElementById('exampleModal'));
                         exampleModal.hide();
 

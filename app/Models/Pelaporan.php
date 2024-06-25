@@ -30,6 +30,7 @@ class Pelaporan extends Model
         'tanggal_pelaporan',
         'tanda_tangan_pelapor',
         'respon',
+        'respon_dari',
         'bukti',
         'voicenote',
     ];
@@ -40,5 +41,10 @@ class Pelaporan extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id'); //relasi
+    }
+
+    public function responDariUser()
+    {
+        return $this->belongsTo(User::class, 'respon_dari');
     }
 }
