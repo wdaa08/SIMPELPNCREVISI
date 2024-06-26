@@ -93,33 +93,52 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        // Validasi data
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
             'jabatan' => 'nullable|string',
             'unit_kerja' => 'nullable|string',
             'prodi' => 'nullable|string',
             'jurusan' => 'nullable|string',
+            'role_id' => 'required|exists:roles,id', // Pastikan input role_id valid dan ada di tabel roles
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong.',
+            'npm_nidn_npak.required' => 'NPM/NIDN/NPAK tidak boleh kosong.',
+            'email.required' => 'Email tidak boleh kosong.',
+            'password.required' => 'Password tidak boleh kosong.',
+            'password.min' => 'Password minimal harus 8 karakter.',
+            'role_id.required' => 'Role harus dipilih.',
+            'role_id.exists' => 'Role yang dipilih tidak valid.',
         ]);
     
-        Log::info('Validated Data:', $validatedData); // Logging for debugging
+        // Logging untuk debug
+        Log::info('Validated Data:', $validatedData);
     
-        User::create([
-            'nama' => $validatedData['nama'],
-            'npm_nidn_npak' => $validatedData['npm_nidn_npak'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'jabatan' => $validatedData['jabatan'],
-            'unit_kerja' => $validatedData['unit_kerja'],
-            'prodi' => $validatedData['prodi'],
-            'jurusan' => $validatedData['jurusan'],
-        ]);
+        try {
+            // Simpan data pengguna ke database
+            $user = User::create([
+                'nama' => $validatedData['nama'],
+                'npm_nidn_npak' => $validatedData['npm_nidn_npak'],
+                'email' => $validatedData['email'],
+                'password' => Hash::make($validatedData['password']),
+                'jabatan' => $validatedData['jabatan'],
+                'unit_kerja' => $validatedData['unit_kerja'],
+                'prodi' => $validatedData['prodi'],
+                'jurusan' => $validatedData['jurusan'],
+                'role_id' => $validatedData['role_id'], // Simpan role_id dari form ke dalam kolom role_id di tabel users
+            ]);
     
-        return redirect()->route('s.datapengguna')->with('success', 'Pengguna berhasil ditambahkan.');
+            // Redirect dengan pesan sukses jika berhasil
+            return redirect()->route('s.datapengguna')->with('success', 'Pengguna berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            // Tangkap error jika terjadi dan log pesan error
+            Log::error('Error saving user data:', ['error' => $e->getMessage()]);
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data pengguna. Silakan coba lagi.');
+        }
     }
     
-
 
 }

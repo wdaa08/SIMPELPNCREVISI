@@ -29,6 +29,7 @@ class User extends Authenticatable
         'unit_kerja', // New field
         'prodi', // New field
         'jurusan', // New field
+        'role_id',
     ];
 
     /**

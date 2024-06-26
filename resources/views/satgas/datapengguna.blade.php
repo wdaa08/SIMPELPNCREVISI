@@ -1,12 +1,6 @@
 @extends('layouts.tampilansatgas')
 
 @section('container')
-    <style>
-        .thick-border-table th, .thick-border-table td {
-            border: 2px solid #000; /* Adjust the thickness and color as needed */
-        }
-    </style>
-
     <div class="container my-4">
         <div class="row">
             <div class="col-12">
@@ -27,20 +21,24 @@
                         </button>
                         
                         <div class="table-responsive">
-                            <table class="table table-striped table-bordered thick-border-table text-nowrap">
+                            <table class="table table-hover">
                                 <thead class="thead-dark">
                                     <tr>
+                                        <th scope="col">#</th>
                                         <th scope="col">Nama</th>
                                         <th scope="col">NPM NIDN NPK</th>
+                                        <th scope="col">Jabatan</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Tanda Tangan</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($tabelpengguna as $item)
+                                    @foreach ($tabelpengguna as $key => $item)
                                     <tr>
+                                        <th scope="row">{{ $key + 1 }}</th>
                                         <td>{{ $item->nama }}</td>
                                         <td>{{ $item->npm_nidn_npak }}</td>
+                                        <td>{{ $item->jabatan }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>
                                             @if ($item->tanda_tangan)
@@ -138,6 +136,22 @@
                             <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ old('jurusan') }}">
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label for="role_id">Role</label>
+                        <select class="form-control" id="role_id" name="role_id" required>
+                            <option value="">Pilih Role</option>
+                            <option value="1" {{ old('role_id') == '1' ? 'selected' : '' }}>Role 1</option>
+                            <option value="2" {{ old('role_id') == '2' ? 'selected' : '' }}>Role 2</option>
+                        </select>
+                        @error('role_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Tambah Pengguna</button>

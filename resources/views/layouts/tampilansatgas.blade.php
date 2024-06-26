@@ -73,6 +73,50 @@
  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
  <!-- Include any other JS files your layout depends on -->
 
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+ <script>
+     @if (Session('success'))
+         Swal.fire({
+         title: 'pengguna baru berhasil',
+         text: '',
+         icon: 'success',
+         });
+     @endif
+     @if (Session('edit.success'))
+         Swal.fire({
+         title: 'edit Berhasil Dikirim',
+         text: '',
+         icon: 'success',
+         });
+     @endif
+     @if (Session('error'))
+         Swal.fire({
+         title: 'Pengaduan Gagal Dikirim',
+         text: '{{ session('error') }}',
+         icon: 'error',
+         });
+         
+     @endif 
+      // Menampilkan pesan kesalahan validasi jika ada
+      @if($errors->any())
+             let errorMessages = '';
+             @foreach ($errors->all() as $error)
+                 errorMessages += '{{ $error }}<br>';
+             @endforeach
+
+             Swal.fire({
+                 title: 'gagal!',
+                 html: `<div style="text-align: left;">${errorMessages}</div>`,
+                 icon: 'error',
+                 confirmButtonText: 'OK'
+             });
+         @endif         
+
+
+         
+ </script>
+
+
 </body>
 
 </html>
