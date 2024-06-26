@@ -66,6 +66,7 @@
         }
     </style>
 
+<div>
     <div class="container my-4">
             <h2>Tambah Pertanyaan</h2>
             @if (session('success'))

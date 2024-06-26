@@ -1,35 +1,12 @@
 @extends('layouts.tampilansatgas')
 
 @section('container')
-<style>
-    /* CSS tambahan untuk tabel */
-    .thick-border-table th, .thick-border-table td {
-        border: 0px solid #000; /* Tebal dan warna garis sesuai kebutuhan */
-        padding: 8px; /* Padding untuk sel */
-        text-align: center; /* Penyusunan teks dalam sel */
-    }
-
-    .thick-border-table th {
-        background-color: #009CFF; /* Warna latar header */
-        color: rgb(0, 0, 0); /* Warna teks header */
-    }
-
-    .center-image {
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .icon-small {
-        font-size: 0.75em; /* Atur ukuran font untuk ikon */
-    }
-
-</style>
-
 <div class="container my-4">
-    <div class="row g-4">
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Hoverable Table</h6>
+    <div class="row">
+        <div class="col-12">
+            <h1 style="text-align:center;">Data Pengguna Website SIMPEL PNC</h1>
+            <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
+                <div class="card-body">
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -156,6 +133,7 @@
                 </div>
             </div>
         </div>
+
 
         <!-- Modal Ubah Respon -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

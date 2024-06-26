@@ -68,7 +68,7 @@
                         class="fa fa-th me-2"></i>Data Pengguna</a>
                 <a href="{{ route('addquestion') }}"
                     class="nav-item nav-link {{ \Route::is('addquestion') ? 'active' : '' }} "><i
-                        class="fa fa-th me-2"></i>Question ChatBot</a>
+                        class="fa fa-th me-2"></i>Olah Data Chatbot</a>
             @endif
 
             @if (auth()->user()->role_id == 2)
