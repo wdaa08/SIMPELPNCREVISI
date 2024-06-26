@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('tanda_tangan')->nullable();
+            $table->string('jabatan')->nullable(); // New field
+            $table->string('unit_kerja')->nullable(); // New field
+            $table->string('prodi')->nullable(); // New field
+            $table->string('jurusan')->nullable(); // New field
             $table->rememberToken();
             $table->timestamps();
             $table->foreign('role_id')->references('id')->on('role');

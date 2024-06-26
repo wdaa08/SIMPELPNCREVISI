@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
 use App\Exports\UsersExport;
-use Maatwebsite\Excel\Facades\Excel;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 use App\Imports\UsersImport;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -87,6 +89,37 @@ class UserController extends Controller
     {
         return Excel::download(new UsersExport, 'users.xlsx');
     }
+
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'npm_nidn_npak' => 'required|string|unique:users',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed',
+            'jabatan' => 'nullable|string',
+            'unit_kerja' => 'nullable|string',
+            'prodi' => 'nullable|string',
+            'jurusan' => 'nullable|string',
+        ]);
+    
+        Log::info('Validated Data:', $validatedData); // Logging for debugging
+    
+        User::create([
+            'nama' => $validatedData['nama'],
+            'npm_nidn_npak' => $validatedData['npm_nidn_npak'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'jabatan' => $validatedData['jabatan'],
+            'unit_kerja' => $validatedData['unit_kerja'],
+            'prodi' => $validatedData['prodi'],
+            'jurusan' => $validatedData['jurusan'],
+        ]);
+    
+        return redirect()->route('s.datapengguna')->with('success', 'Pengguna berhasil ditambahkan.');
+    }
+    
 
 
 }

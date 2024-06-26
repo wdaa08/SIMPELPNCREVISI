@@ -25,6 +25,10 @@ class User extends Authenticatable
         'email',
         'password',
         'tanda_tangan',
+        'jabatan', // New field
+        'unit_kerja', // New field
+        'prodi', // New field
+        'jurusan', // New field
     ];
 
     /**

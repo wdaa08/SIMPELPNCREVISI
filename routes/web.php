@@ -76,7 +76,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     // Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('s.datapelaporan');
     Route::get('/datapelaporan/{id}/edit', [PelaporanController::class, 'editdatapelaporan'])->name('s.editdatapelaporan');
     Route::put('/datapelaporan/{id}/edit', [PelaporanController::class, 'updatedatapelaporan'])->name('s.updatedatapelaporan');
-    Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
+    
     // Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('datapelaporan');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
@@ -91,9 +91,11 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/pelaporans/{id}/cetak-pdf', [PdfController::class, 'cetakPdf'])->name('pelaporans.cetakPdf');
 
 
-
+    Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import.post');
     Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
+    Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+
 
 
     // Tambahkan rute lain dalam grup ini
