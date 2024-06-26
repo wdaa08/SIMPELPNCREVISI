@@ -19,35 +19,45 @@
                         <button type="button" class="btn btn-success mb-3" onclick="window.location='{{ route('users.export') }}'">
                             <i class="fas fa-file-export"></i> Unduh
                         </button>
-                        
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Nama</th>
-                                        <th scope="col">NPM NIDN NPK</th>
-                                        <th scope="col">Jabatan</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Tanda Tangan</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tabelpengguna as $key => $item)
-                                    <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->npm_nidn_npak }}</td>
-                                        <td>{{ $item->jabatan }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>
-                                            @if ($item->tanda_tangan)
-                                                <img src="{{ asset('storage/' . $item->tanda_tangan) }}" alt="Tanda Tangan" class="center-image" width="100" height="100">
-                                            @else
-                                                Tidak ada tanda tangan
-                                            @endif
-                                        </td>
-                                    </tr>
+                                   
+                                                        <!-- Filter Dropdown -->
+                                                        <div class="form-group">
+                                                            <label for="roleFilter">Filter Berdasarkan Role:</label>
+                                                            <select class="form-control" id="roleFilter">
+                                                                <option value="all">Semua Role</option>
+                                                                <option value="1">SATGAS</option>
+                                                                <option value="2">PELAPOR</option>
+                                                            </select>
+                                                        </div>
+                                                                                
+                                                        <div class="table-responsive">
+                                                            <table class="table table-hover" id="dataTable">
+                                                                <thead class="thead-dark">
+                                                                    <tr>
+                                                                        <th scope="col">#</th>
+                                                                        <th scope="col">Nama</th>
+                                                                        <th scope="col">NPM NIDN NPK</th>
+                                                                        <th scope="col">Jabatan</th>
+                                                                        <th scope="col">Email</th>
+                                                                        <th scope="col">Tanda Tangan</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    @foreach ($tabelpengguna as $key => $item)
+                                                                        <tr data-role-id="{{ $item->role_id }}">
+                                                                            <th scope="row">{{ $key + 1 }}</th>
+                                                                            <td>{{ $item->nama }}</td>
+                                                                            <td>{{ $item->npm_nidn_npak }}</td>
+                                                                            <td>{{ $item->jabatan }}</td>
+                                                                            <td>{{ $item->email }}</td>
+                                                                            <td>
+                                                                                @if ($item->tanda_tangan)
+                                                                                    <img src="{{ asset('storage/' . $item->tanda_tangan) }}" alt="Tanda Tangan" class="center-image" width="100" height="100">
+                                                                                @else
+                                                                                    Tidak ada tanda tangan
+                                                                                @endif
+                                                                            </td>
+                                                                        </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -135,14 +145,14 @@
                             <label for="jurusan">Jurusan</label>
                             <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ old('jurusan') }}">
                         </div>
-                    </div>
+                   
 
                     <div class="form-group">
                         <label for="role_id">Role</label>
                         <select class="form-control" id="role_id" name="role_id" required>
-                            <option value="">Pilih Role</option>
-                            <option value="1" {{ old('role_id') == '1' ? 'selected' : '' }}>Role 1</option>
-                            <option value="2" {{ old('role_id') == '2' ? 'selected' : '' }}>Role 2</option>
+                            <option value="">--Pilih Role--</option>
+                            <option value="1" {{ old('role_id') == '1' ? 'selected' : '' }}>SATGAS</option>
+                            <option value="2" {{ old('role_id') == '2' ? 'selected' : '' }}>PELAPOR</option>
                         </select>
                         @error('role_id')
                             <span class="invalid-feedback" role="alert">
@@ -150,6 +160,8 @@
                             </span>
                         @enderror
                     </div>
+
+                </div>
                     
 
                     <div class="modal-footer">
@@ -160,4 +172,24 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Ambil elemen dropdown filter
+            var roleFilter = document.getElementById('roleFilter');
+            var tableRows = document.querySelectorAll('#dataTable tbody tr');
+
+            // Tambahkan event listener untuk perubahan nilai dropdown
+            roleFilter.addEventListener('change', function() {
+                var selectedRole = this.value;
+                tableRows.forEach(function(row) {
+                    var rowRoleId = row.getAttribute('data-role-id');
+                    if (selectedRole === 'all' || rowRoleId === selectedRole) {
+                        row.style.display = '';
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

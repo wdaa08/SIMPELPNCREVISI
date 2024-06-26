@@ -103,7 +103,7 @@ class UserController extends Controller
             'unit_kerja' => 'nullable|string',
             'prodi' => 'nullable|string',
             'jurusan' => 'nullable|string',
-            'role_id' => 'required|exists:roles,id', // Pastikan input role_id valid dan ada di tabel roles
+            'role_id' => 'required', // Pastikan input role_id valid dan ada di tabel roles
         ], [
             'nama.required' => 'Nama tidak boleh kosong.',
             'npm_nidn_npak.required' => 'NPM/NIDN/NPAK tidak boleh kosong.',
