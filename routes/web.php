@@ -78,8 +78,6 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::put('/datapelaporan/{id}/edit', [PelaporanController::class, 'updatedatapelaporan'])->name('s.updatedatapelaporan');
     
     // Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('datapelaporan');
-    Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
-    Route::get('/datapelaporan/{id}', [PelaporanController::class, 'ttdview'])->name('ttdview');
     Route::get('/addquestion', [ChatbotController::class, 'questionindex'])->name('addquestion');
 
     Route::get('/datapelaporan', [DashboardSatgasController::class, 'index']);
@@ -95,6 +93,9 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import.post');
     Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+
+
+    Route::get('/dashboard', [DashboardSatgasController::class, 'dashboard'])->name('dashboardsatgas');
 
 
 

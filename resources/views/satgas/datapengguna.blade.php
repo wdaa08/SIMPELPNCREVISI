@@ -21,9 +21,9 @@
                         </button>
                                    
                                                         <!-- Filter Dropdown -->
-                                                        <div class="form-group">
+                                                        <div class="form-group" >
                                                             <label for="roleFilter">Filter Berdasarkan Role:</label>
-                                                            <select class="form-control" id="roleFilter">
+                                                            <select class="form-control w-25" id="roleFilter">
                                                                 <option value="all">Semua Role</option>
                                                                 <option value="1">SATGAS</option>
                                                                 <option value="2">PELAPOR</option>
@@ -37,8 +37,11 @@
                                                                         <th scope="col">#</th>
                                                                         <th scope="col">Nama</th>
                                                                         <th scope="col">NPM NIDN NPK</th>
-                                                                        <th scope="col">Jabatan</th>
                                                                         <th scope="col">Email</th>
+                                                                        <th scope="col">Jabatan</th>
+                                                                        <th scope="col">Unit Kerja</th>
+                                                                        <th scope="col">Jurusan</th>
+                                                                        <th scope="col">Program Studi</th>
                                                                         <th scope="col">Tanda Tangan</th>
                                                                     </tr>
                                                                 </thead>
@@ -48,8 +51,11 @@
                                                                             <th scope="row">{{ $key + 1 }}</th>
                                                                             <td>{{ $item->nama }}</td>
                                                                             <td>{{ $item->npm_nidn_npak }}</td>
-                                                                            <td>{{ $item->jabatan }}</td>
                                                                             <td>{{ $item->email }}</td>
+                                                                            <td>{{ $item->jabatan }}</td>
+                                                                            <td>{{ $item->unit_kerja }}</td>
+                                                                            <td>{{ $item->jurusan }}</td>
+                                                                            <td>{{ $item->prodi }}</td>
                                                                             <td>
                                                                                 @if ($item->tanda_tangan)
                                                                                     <img src="{{ asset('storage/' . $item->tanda_tangan) }}" alt="Tanda Tangan" class="center-image" width="100" height="100">

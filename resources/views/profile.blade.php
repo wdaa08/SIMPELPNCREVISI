@@ -45,6 +45,34 @@
                     @enderror
                 </div>
                 <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">Prodi</label>
+                    <input type="text" class="form-control" id="prodi" name="prodi" value="{{ $user->prodi }}">
+                    @error('prodi')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">Jurusan</label>
+                    <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ $user->jurusan }}">
+                    @error('jurusan')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">Jabatan</label>
+                    <input type="text" class="form-control" id="jabatan" name="jabatan" value="{{ $user->jabatan }}">
+                    @error('jabatan')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6">
+                    <label for="email" class="form-label">Unit Kerja</label>
+                    <input type="text" class="form-control" id="unit_kerja" name="unit_kerja" value="{{ $user->unit_kerja }}">
+                    @error('unit_kerja')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3 col-md-6">
                     <label for="tanda_tangan" class="form-label">Tanda Tangan Pelapor</label>
                     <input type="file" class="form-control" id="tanda_tangan" name="tanda_tangan">
                     @error('tanda_tangan')

@@ -60,7 +60,10 @@
         </div>
         <div class="navbar-nav w-100">
             @if (auth()->user()->role_id == 1)
-                <a href="{{ route('s.datapelaporan') }}"
+            <a href="{{ route('dashboardsatgas') }}"
+                    class="nav-item nav-link {{ \Route::is('dashboardsatgas') ? 'active' : '' }} "><i
+                        class="fa fa-tachometer-alt me-2"></i>Dashboard</a>    
+            <a href="{{ route('s.datapelaporan') }}"
                     class="nav-item nav-link {{ \Route::is('datapelaporan') ? 'active' : '' }} "><i
                         class="fa fa-tachometer-alt me-2"></i>Data Laporan</a>
                 <a href="{{ route('s.datapengguna') }}"

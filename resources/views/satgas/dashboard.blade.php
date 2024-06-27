@@ -1,66 +1,137 @@
 @extends('layouts.tampilansatgas')
 
 @section('container')
-    <style>
-        .thick-border-table th, .thick-border-table td {
-            border: 2px solid #000; /* Adjust the thickness and color as needed */
-        }
-    </style>
+<div class="container-fluid pt-4 px-4">
+    <div class="row g-4">
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded p-4">
+                <h2 class="mb-4">Laporan Per Jurusan</h2>
+                <canvas id="laporanPerJurusanChart" width="400" height="200"></canvas>
+            </div>
+        </div>
 
+        <div class="col-sm-6 col-xl-6">
+            <div class="bg-light rounded p-4">
+                <h2 class="mb-4">Laporan Per Program Studi</h2>
+                <canvas id="laporanPerProdiChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
 
+    <div class="row mt-4">
+        <div class="col">
+            <div class="bg-light rounded p-4">
+                <h2 class="mb-4">Laporan Per Bulan</h2>
+                <ul class="list-unstyled">
+                    @foreach ($laporanPerBulan as $laporan)
+                        <li>{{ \Carbon\Carbon::createFromDate($laporan->tahun, $laporan->bulan, 1)->translatedFormat('F Y') }}: {{ $laporan->total }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        </div>
+    </div>
 
-    <div class="container my-4">
-        <div class="row">
-            <div class="col-12">
-                <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-bordered thick-border-table text-nowrap" >
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th scope="col">Nama Pelaporan</th>
-                                        <th scope="col">Melapor Sebagai</th>
-                                        <th scope="col">Nomor Hp</th>
-                                        <th scope="col">Alamat Email</th>
-                                        <th scope="col">Domisili Pelapor</th>
-                                        <th scope="col">Jenis Kekerasan Seksual</th>
-                                        <th scope="col">Cerita Peristiwa</th>
-                                        <th scope="col">Memiliki Disabilitas</th>
-                                        <th scope="col">Deskripsi Disabilitas</th>
-                                        <th scope="col">Status Terlapor</th>
-                                        <th scope="col">Alasan Pengaduan</th>
-                                        <th scope="col">Nomor HP Pihak Lain</th>
-                                        <th scope="col">Kebutuhan Korban</th>
-                                        <th scope="col">Tanggal Pelaporan</th>
-                                        <th scope="col">Tanda Tangan Pelapor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($tabellaporan as $item)
-                                    <tr>
-                                        <td>{{ $item->nama_pelapor }}</td>
-                                        <td>{{ $item->melapor_sebagai }}</td>
-                                        <td>{{ $item->nomor_hp }}</td>
-                                        <td>{{ $item->alamat_email }}</td>
-                                        <td>{{ $item->domisili_pelapor }}</td>
-                                        <td>{{ $item->jenis_kekerasan_seksual }}</td>
-                                        <td>{{ $item->cerita_peristiwa }}</td>
-                                        <td>{{ $item->memiliki_disabilitas }}</td>
-                                        <td>{{ $item->deskripsi_disabilitas }}</td>
-                                        <td>{{ $item->status_terlapor }}</td>
-                                        <td>{{ $item->alasan_pengaduan }}</td>
-                                        <td>{{ $item->nomor_hp_pihak_lain }}</td>
-                                        <td>{{ $item->kebutuhan_korban }}</td>
-                                        <td>{{ $item->tanggal_pelaporan }}</td>
-                                        <td>{{ $item->tanda_tangan_pelapor }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
+    <div class="row mt-4">
+        <div class="col">
+            <div class="bg-light rounded ">
+                <div class="card-body">
+                    <h2 class="card-title mb-4">Status Terlapor</h2>
+                    <ul class="list-unstyled">
+                        @foreach ($statusTerlapor as $status)
+                            <li>{{ $status->status_terlapor }}: {{ $status->total }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="bg-light rounded p-4">
+                <h2 class="mb-4">Jumlah Pengguna dan Laporan</h2>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h4>Jumlah Pengguna: {{ $jumlahUser }}</h4>
+                    </div>
+                    <div class="col-sm-6">
+                        <h4>Jumlah Laporan: {{ $jumlahLaporan }}</h4>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Grafik Laporan Per Jurusan
+    var ctxLaporanPerJurusan = document.getElementById('laporanPerJurusanChart').getContext('2d');
+    var laporanPerJurusanChart = new Chart(ctxLaporanPerJurusan, {
+        type: 'bar',
+        data: {
+            labels: [
+                @foreach ($laporanPerJurusan as $jurusan)
+                    '{{ $jurusan->jurusan }}',
+                @endforeach
+            ],
+            datasets: [{
+                label: 'Total Laporan',
+                data: [
+                    @foreach ($laporanPerJurusan as $jurusan)
+                        {{ $jurusan->total }},
+                    @endforeach
+                ],
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0 // Untuk menampilkan nilai tanpa koma desimal
+                    }
+                }
+            }
+        }
+    });
+
+    // Grafik Laporan Per Program Studi
+    var ctxLaporanPerProdi = document.getElementById('laporanPerProdiChart').getContext('2d');
+    var laporanPerProdiChart = new Chart(ctxLaporanPerProdi, {
+        type: 'bar',
+        data: {
+            labels: [
+                @foreach ($laporanPerProdi as $prodi)
+                    '{{ $prodi->prodi }}',
+                @endforeach
+            ],
+            datasets: [{
+                label: 'Total Laporan',
+                data: [
+                    @foreach ($laporanPerProdi as $prodi)
+                        {{ $prodi->total }},
+                    @endforeach
+                ],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0 // Untuk menampilkan nilai tanpa koma desimal
+                    }
+                }
+            }
+        }
+    });
+</script>
+
 @endsection

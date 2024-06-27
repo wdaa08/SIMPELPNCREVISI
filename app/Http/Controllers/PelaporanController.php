@@ -169,9 +169,12 @@ class PelaporanController extends Controller
     }
     public function laporansaya()
     {
-        $tabellaporan = Pelaporan::all();
+        $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
+        $tabellaporan = Pelaporan::where('user_id', $userId)->get();
+    
         return view('pelapor.laporanSaya', compact('tabellaporan'));
     }
+    
     public function editlaporan($id)
     {
         $pelapor = Pelaporan::findOrFail($id);

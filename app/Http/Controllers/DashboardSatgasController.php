@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pelaporan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
@@ -60,5 +61,48 @@ class DashboardSatgasController extends Controller
             return response()->json(['error' => 'Gagal memperbarui respon pelaporan.'], 500);
         }
     }
+
+    public function dashboard()
+    {
+        // Mengambil jumlah pengguna
+        $jumlahUser = User::count();
+    
+        // Mengambil jumlah laporan
+        $jumlahLaporan = Pelaporan::count();
+    
+        // Mengambil jumlah laporan per jurusan
+        $laporanPerJurusan = Pelaporan::join('users', 'pelaporans.user_id', '=', 'users.id')
+            ->select('users.jurusan as jurusan', DB::raw('count(*) as total'))
+            ->groupBy('users.jurusan')
+            ->get();
+    
+        // Mengambil jumlah laporan per prodi
+        $laporanPerProdi = Pelaporan::join('users', 'pelaporans.user_id', '=', 'users.id')
+            ->select('users.prodi as prodi', DB::raw('count(*) as total'))
+            ->groupBy('users.prodi')
+            ->get();
+    
+        // Mengambil jumlah laporan per unit kerja
+        $laporanPerUnitKerja = Pelaporan::join('users', 'pelaporans.user_id', '=', 'users.id')
+            ->select('users.unit_kerja as unit_kerja', DB::raw('count(*) as total'))
+            ->groupBy('users.unit_kerja')
+            ->get();
+
+            // Mengambil jumlah laporan per bulan dan tahun
+            $laporanPerBulan = Pelaporan::select(DB::raw('MONTH(created_at) as bulan'), DB::raw('YEAR(created_at) as tahun'), DB::raw('count(*) as total'))
+            ->groupBy('bulan', 'tahun')
+            ->get();
+
+
+              // Mengambil status_terlapor beserta jumlahnya
+                $statusTerlapor = Pelaporan::select('status_terlapor', DB::raw('count(*) as total'))
+                ->groupBy('status_terlapor')
+                ->get();
+    
+        // Meneruskan data ke tampilan
+        return view('satgas.dashboard', compact('jumlahUser', 'jumlahLaporan', 'laporanPerJurusan', 'laporanPerProdi', 'laporanPerUnitKerja', 'laporanPerBulan', 'statusTerlapor'));
+    }
+    
+
     
 }

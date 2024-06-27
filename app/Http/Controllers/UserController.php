@@ -38,6 +38,10 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|max:255|unique:users,npm_nidn_npak,' . $user->id,
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'prodi' => 'nullable|string|max:255', // Ditambahkan tanda koma danenis data
+            'jurusan' => 'nullable|string|max:255', // Ditambahkan tanda koma danenis data
+            'jabatan' => 'nullable|string|max:255', // Ditambahkan tanda koma dan jenis data
+            'unit_kerja' => 'nullable|string|max:255', // Ditambahkan tanda koma dan jenis data
             'tanda_tangan' => 'image|max:5000',
         ]);
     
