@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('role_id')->default(2); // Contoh nilai default, sesuaikan sesuai dengan logika bisnis Anda
             $table->string('nama');
             $table->string('npm_nidn_npak')->unique();
+            $table->string('nomorhp');
+            $table->string('domisili');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('tanda_tangan')->nullable();

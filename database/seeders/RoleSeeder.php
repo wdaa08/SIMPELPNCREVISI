@@ -13,6 +13,9 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
+
+        Role::query()->delete();
+
         Role::create([
             "id"=> "1",
             "level"=> "satgas",

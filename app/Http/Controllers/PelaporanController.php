@@ -56,29 +56,30 @@ class PelaporanController extends Controller
                 'tanggal_pelaporan.date' => 'Format tanggal pelaporan tidak valid.',
             ]
         );
-
+    
+        // dd($validate);
         // Log validasi
         Log::debug('Validasi:', $validate->messages()->toArray());
-
+    
         if ($validate->fails()) {
             return redirect()->back()
                 ->withErrors($validate)
                 ->withInput()
                 ->with('error', 'Mohon isi data yang kosong!');
         }
-
+    
         $data = $request->all();
-
+    
         // Debugging: log all request data
         Log::debug('Request data:', $data);
-
+    
         // Mengelola upload file bukti
         if ($request->hasFile('bukti')) {
             $imagePath = $request->file('bukti')->store('bukti');
             $data['bukti'] = $imagePath;
             Log::info('Bukti path:', ['path' => $imagePath]);
         }
-
+    
         // Mengelola upload file voicenote
         if ($request->hasFile('voicenote')) {
             if ($request->file('voicenote')->isValid()) {
@@ -89,14 +90,14 @@ class PelaporanController extends Controller
                 Log::error('Invalid voicenote file');
             }
         }
-
+    
         // Menggabungkan data inputan yang berupa array menjadi string
         $data['kebutuhan_korban'] = implode(', ', $request->input('kebutuhan_korban', []));
         $data['alasan_pengaduan'] = implode(', ', $request->input('alasan_pengaduan', []));
-
+    
         // Debugging: log data before saving
         Log::info('Data before saving:', $data);
-
+    
         try {
             // Simpan data ke database
             $pelapor = new Pelaporan;
@@ -117,14 +118,14 @@ class PelaporanController extends Controller
             $pelapor->bukti = $data['bukti'] ?? null;
             $pelapor->voicenote = $data['voicenote'] ?? null;
             $pelapor->respon = 'TERKIRIM';
-
+    
             // Pastikan field ini ada di form jika diperlukan
             if (isset($data['deskripsi_disabilitas'])) {
                 $pelapor->deskripsi_disabilitas = $data['deskripsi_disabilitas'];
             }
-
+    
             $pelapor->save();
-
+    
             // Debugging: log after data is saved
             Log::info('Data saved successfully:', $pelapor->toArray());
         } catch (\Exception $e) {
@@ -132,9 +133,10 @@ class PelaporanController extends Controller
             Log::error('Error saving data:', ['error' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
         }
-
+    
         return redirect()->back()->with('success', 'Alhamdulilah, Formulir pelaporan berhasil Terkirim.');
     }
+    
 
 
 

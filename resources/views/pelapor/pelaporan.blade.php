@@ -25,23 +25,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <div data-mdb-input-init class="form-outline">
-                                <label class="form-label" for="nomorhp">Nomor HP</label>
-                                <input type="number" id="nomorhp" name="nomor_hp" value="{{ old('nomor_hp') }}"
-                                    class="form-control" />
-                                <script>
-                                    document.getElementById("nomorhp").addEventListener("input", function() {
-                                        var input = this.value.replace(/\s+/g, '');
-                                        if (input.length > 14) {
-                                            alert("Masukan maksimal 14 angka");
-                                            this.setCustomValidity("Input harus memiliki panjang maksimal 14 angka.");
-                                        } else {
-                                            this.setCustomValidity("");
-                                        }
-                                    });
-                                </script>
-                            </div>
+                            <label for="nomorhp" class="form-label">Nomor HP</label>
+                            <input type="text" class="form-control" id="nomor_hp" name="nomor_hp"
+                                value="{{ auth()->user()->nomorhp }}" disabled>
+                            <input type="hidden" name="nomor_hp" value="{{ auth()->user()->nomorhp }}">
                         </div>
+                        
                         <div class="mb-3">
                             <label for="alamat_email" class="form-label">Alamat Email</label>
                             <input type="email" class="form-control" id="alamat_email_disabled"
@@ -52,25 +41,128 @@
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
 
-
-
                         <div class="mb-3">
-                            <label for="domisilipelapor" class="form-label">Domisili Pelapor</label>
+                            <label for="nomorhp" class="form-label">Domisili</label>
                             <input type="text" class="form-control" id="domisili_pelapor" name="domisili_pelapor"
-                                value="{{ old('domisili_pelapor') }}">
+                                value="{{ auth()->user()->domisili }}" disabled>
+                            <input type="hidden" name="domisili_pelapor" value="{{ auth()->user()->domisili }}">
                         </div>
 
-                        <label for="" class="form-label mt-3">Silahkan Narasikan Jenis Kekerasan Seksual </label>
-                        <div class="form-floating">
-                            <textarea class="form-control" placeholder="narasipelapor" name="jenis_kekerasan_seksual" id="floatingTextarea"
-                                style="height: 150px;">{{ old('jenis_kekerasan_seksual') }}</textarea>
-                        </div>
-
+                        <label for="jenis_kekerasan_seksual" class="form-label mt-3">Jenis Kekerasan Seksual</label>
+                        <select class="form-select" name="jenis_kekerasan_seksual" id="jenis_kekerasan_seksual">
+                            <option value="">--Pilih Salah Satu--</option>
+                            <option value="Ujaran diskriminatif atau melecehkan Korban">Ujaran diskriminatif atau melecehkan Korban</option>
+                            <option value="Memperlihatkan alat kelamin tanpa izin">Memperlihatkan alat kelamin tanpa izin</option>
+                            <option value="Ucapan rayuan atau lelucon seksual">Ucapan rayuan atau lelucon seksual</option>
+                            <option value="Menatap dengan nuansa seksual">Menatap dengan nuansa seksual</option>
+                            <option value="Mengirim pesan atau media seksual">Mengirim pesan atau media seksual</option>
+                            <option value="Mengambil atau mengedarkan foto/video seksual">Mengambil atau mengedarkan foto/video seksual</option>
+                            <option value="Mengunggah foto atau info pribadi">Mengunggah foto atau info pribadi</option>
+                            <option value="Menyebar info seksual tanpa izin">Menyebar info seksual tanpa izin</option>
+                            <option value="Mengintip Korban tanpa izin">Mengintip Korban tanpa izin</option>
+                            <option value="Membujuk atau mengancam untuk seks">Membujuk atau mengancam untuk seks</option>
+                            <option value="Memberi sanksi seksual">Memberi sanksi seksual</option>
+                            <option value="Menyentuh tubuh tanpa izin">Menyentuh tubuh tanpa izin</option>
+                            <option value="Membuka pakaian tanpa izin">Membuka pakaian tanpa izin</option>
+                            <option value="Memaksa transaksi seksual">Memaksa transaksi seksual</option>
+                            <option value="Budaya komunitas berbasis seksual">Budaya komunitas berbasis seksual</option>
+                            <option value="Percobaan perkosaan tanpa penetrasi">Percobaan perkosaan tanpa penetrasi</option>
+                            <option value="Perkosaan dengan benda lain">Perkosaan dengan benda lain</option>
+                            <option value="Memaksa aborsi">Memaksa aborsi</option>
+                            <option value="Memaksa hamil">Memaksa hamil</option>
+                            <option value="Membiarkan Kekerasan Seksual terjadi">Membiarkan Kekerasan Seksual terjadi</option>
+                            <option value="Perbuatan Kekerasan Seksual lainnya">Perbuatan Kekerasan Seksual lainnya</option>
+                        </select>
+                        
                         <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="narasipelapor" name="cerita_peristiwa" id="floatingTextarea"
                                 style="height: 150px;">{{ old('cerita_peristiwa') }}</textarea>
                         </div>
+
+                        <div class="form-group mt-3 ">
+                            <label for="voicenote" >Voice Note | Optional </label>
+                            <br>
+                            <button type="button" id="recordButton" class="btn btn-primary">Mulai Rekam</button>
+                            <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti
+                                Rekam</button>
+                            <input type="file" id="voicenote" name="voicenote" style="display: none;">
+                            <p id="recordingTime">Durasi: 0s</p>
+                            <audio id="audioPreview" controls style="display: none;"></audio>
+                        </div>
+
+                        <script>
+                            let mediaRecorder;
+                            let recordedChunks = [];
+                            let startTime;
+                            let durationInterval;
+
+                            const recordButton = document.getElementById('recordButton');
+                            const stopButton = document.getElementById('stopButton');
+                            const voiceInput = document.getElementById('voicenote');
+                            const recordingTime = document.getElementById('recordingTime');
+                            const audioPreview = document.getElementById('audioPreview');
+
+                            recordButton.addEventListener('click', async () => {
+                                try {
+                                    const stream = await navigator.mediaDevices.getUserMedia({
+                                        audio: true
+                                    });
+                                    mediaRecorder = new MediaRecorder(stream);
+
+                                    mediaRecorder.ondataavailable = (event) => {
+                                        if (event.data.size > 0) {
+                                            recordedChunks.push(event.data);
+                                        }
+                                    };
+
+                                    mediaRecorder.onstop = () => {
+                                        const blob = new Blob(recordedChunks, {
+                                            type: 'audio/wav'
+                                        });
+                                        const url = URL.createObjectURL(blob);
+
+                                        // Set audio preview
+                                        audioPreview.src = url;
+                                        audioPreview.style.display = 'block';
+
+                                        // Set input file for form submission
+                                        const file = new File([blob], 'voicenote.wav', {
+                                            type: 'audio/wav'
+                                        });
+                                        const dataTransfer = new DataTransfer();
+                                        dataTransfer.items.add(file);
+                                        voiceInput.files = dataTransfer.files;
+                                    };
+
+                                    mediaRecorder.start();
+                                    startTime = Date.now();
+                                    durationInterval = setInterval(updateRecordingTime, 1000);
+                                    recordingTime.textContent = 'Durasi: 0s';
+                                    recordedChunks = [];
+
+                                    recordButton.disabled = true;
+                                    stopButton.disabled = false;
+                                } catch (err) {
+                                    console.error('Error accessing audio stream', err);
+                                }
+                            });
+
+                            stopButton.addEventListener('click', () => {
+                                if (mediaRecorder) {
+                                    mediaRecorder.stop();
+                                    clearInterval(durationInterval);
+                                }
+
+                                recordButton.disabled = false;
+                                stopButton.disabled = true;
+                            });
+
+                            function updateRecordingTime() {
+                                const duration = Math.floor((Date.now() - startTime) / 1000);
+                                recordingTime.textContent = `Durasi: ${duration}s`;
+                            }
+                        </script>
 
                         <div class="form-floating mt-3">
                             <select class="form-select" id="hasDisability" name="memiliki_disabilitas"
@@ -283,89 +375,7 @@
                                     <label class="input-group-text" for="bukti">Browse</label>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="voicenote">Rekam Suara:</label>
-                                    <br>
-                                    <button type="button" id="recordButton" class="btn btn-primary">Mulai Rekam</button>
-                                    <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti
-                                        Rekam</button>
-                                    <input type="file" id="voicenote" name="voicenote" style="display: none;">
-                                    <p id="recordingTime">Durasi: 0s</p>
-                                    <audio id="audioPreview" controls style="display: none;"></audio>
-                                </div>
-
-                                <script>
-                                    let mediaRecorder;
-                                    let recordedChunks = [];
-                                    let startTime;
-                                    let durationInterval;
-
-                                    const recordButton = document.getElementById('recordButton');
-                                    const stopButton = document.getElementById('stopButton');
-                                    const voiceInput = document.getElementById('voicenote');
-                                    const recordingTime = document.getElementById('recordingTime');
-                                    const audioPreview = document.getElementById('audioPreview');
-
-                                    recordButton.addEventListener('click', async () => {
-                                        try {
-                                            const stream = await navigator.mediaDevices.getUserMedia({
-                                                audio: true
-                                            });
-                                            mediaRecorder = new MediaRecorder(stream);
-
-                                            mediaRecorder.ondataavailable = (event) => {
-                                                if (event.data.size > 0) {
-                                                    recordedChunks.push(event.data);
-                                                }
-                                            };
-
-                                            mediaRecorder.onstop = () => {
-                                                const blob = new Blob(recordedChunks, {
-                                                    type: 'audio/wav'
-                                                });
-                                                const url = URL.createObjectURL(blob);
-
-                                                // Set audio preview
-                                                audioPreview.src = url;
-                                                audioPreview.style.display = 'block';
-
-                                                // Set input file for form submission
-                                                const file = new File([blob], 'voicenote.wav', {
-                                                    type: 'audio/wav'
-                                                });
-                                                const dataTransfer = new DataTransfer();
-                                                dataTransfer.items.add(file);
-                                                voiceInput.files = dataTransfer.files;
-                                            };
-
-                                            mediaRecorder.start();
-                                            startTime = Date.now();
-                                            durationInterval = setInterval(updateRecordingTime, 1000);
-                                            recordingTime.textContent = 'Durasi: 0s';
-                                            recordedChunks = [];
-
-                                            recordButton.disabled = true;
-                                            stopButton.disabled = false;
-                                        } catch (err) {
-                                            console.error('Error accessing audio stream', err);
-                                        }
-                                    });
-
-                                    stopButton.addEventListener('click', () => {
-                                        if (mediaRecorder) {
-                                            mediaRecorder.stop();
-                                            clearInterval(durationInterval);
-                                        }
-
-                                        recordButton.disabled = false;
-                                        stopButton.disabled = true;
-                                    });
-
-                                    function updateRecordingTime() {
-                                        const duration = Math.floor((Date.now() - startTime) / 1000);
-                                        recordingTime.textContent = `Durasi: ${duration}s`;
-                                    }
-                                </script>
+ 
 
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
