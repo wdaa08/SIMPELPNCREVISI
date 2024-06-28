@@ -118,6 +118,7 @@ class PelaporanController extends Controller
             $pelapor->bukti = $data['bukti'] ?? null;
             $pelapor->voicenote = $data['voicenote'] ?? null;
             $pelapor->respon = 'TERKIRIM';
+            
     
             // Pastikan field ini ada di form jika diperlukan
             if (isset($data['deskripsi_disabilitas'])) {
@@ -349,7 +350,21 @@ class PelaporanController extends Controller
             'user_nama' => $user->nama // Mengembalikan nama pengguna
         ]);
     }
-
+    public function laporanSelesai(Request $request, $id)
+    {
+        try {
+            $pelaporan = Pelaporan::findOrFail($id);
+            $pelaporan->selesai = 'selesai'; // Set nilai string untuk menandai selesai
+            $pelaporan->save();
+    
+            Log::info('Laporan berhasil ditandai selesai: ' . $pelaporan->id);
+            return redirect()->back()->with('success', 'Laporan berhasil ditandai selesai.');
+        } catch (\Exception $e) {
+            Log::error('Gagal menandai laporan selesai: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menandai laporan sebagai selesai.');
+        }
+    }
+    
 
 
 

@@ -33,6 +33,7 @@ class Pelaporan extends Model
         'respon_dari',
         'bukti',
         'voicenote',
+        'selesai',
     ];
     
 
@@ -47,4 +48,6 @@ class Pelaporan extends Model
     {
         return $this->belongsTo(User::class, 'respon_dari');
     }
+
+    
 }

@@ -4,7 +4,7 @@
 <div class="container my-4">
     <div class="row">
         <div class="col-12">
-            <h1 style="text-align:center;">Data Pengguna Website SIMPEL PNC</h1>
+            <h1 style="text-align:center;">Data Laporan Masuk</h1>
             <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
                 <div class="card-body">
                 <table class="table table-hover">
@@ -53,6 +53,16 @@
                                         class="btn btn-danger icon-small" >
                                         <i class="fas fa-file-pdf"></i> <!-- Ganti dengan ikon PDF -->
                                     </a>
+
+                                        <!-- Tambahkan formulir langsung di dalam kolom Aksi -->
+                                        <form action="{{ route('pelaporans.selesai', $pelaporan->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-success">
+                                                <i class="fas fa-check"></i> Selesai <!-- Ganti dengan ikon atau teks yang sesuai -->
+                                            </button>
+                                        </form>
+
+
                                 </div>
                             </td>
                         </tr>
@@ -313,5 +323,7 @@
                     });
             });
         });
+
+
     </script>
 @endsection

@@ -20,7 +20,7 @@
             $request->session()->regenerate();
             // Mengarahkan pengguna yang berhasil login ke halaman yang sesuai berdasarkan peran mereka
             if (auth()->user()->role_id == 1) {
-                return redirect()->route('s.datapelaporan');
+                return redirect()->route('Dashboard');
             } elseif (auth()->user()->role_id == 2) {
                 return redirect()->route('dashboardpelapor');
             }

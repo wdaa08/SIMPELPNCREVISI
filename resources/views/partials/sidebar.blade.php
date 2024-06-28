@@ -46,7 +46,7 @@
 
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-light navbar-light">
-        <a href="#" class="navbar-brand mx-4 mb-3">
+        <a href="#\" class="navbar-brand mx-4 mb-3">
             <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SIMPEL-PNC</h3>
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
@@ -60,34 +60,39 @@
         </div>
         <div class="navbar-nav w-100">
             @if (auth()->user()->role_id == 1)
-            <a href="{{ route('dashboardsatgas') }}"
-                    class="nav-item nav-link {{ \Route::is('dashboardsatgas') ? 'active' : '' }} "><i
-                        class="fa fa-tachometer-alt me-2"></i>Dashboard</a>    
-            <a href="{{ route('s.datapelaporan') }}"
-                    class="nav-item nav-link {{ \Route::is('datapelaporan') ? 'active' : '' }} "><i
-                        class="fa fa-tachometer-alt me-2"></i>Data Laporan</a>
+                <a href="{{ route('dashboardsatgas') }}"
+                   class="nav-item nav-link {{ \Route::is('dashboardsatgas') ? 'active' : '' }}">
+                    <i class="fa fa-tachometer-alt me-2"></i>Dashboard
+                </a>    
+                <a href="{{ route('s.datapelaporan') }}"
+                   class="nav-item nav-link {{ \Route::is('datapelaporan') ? 'active' : '' }}">
+                    <i class="fa fa-file-alt me-2"></i>Data Laporan
+                </a>
                 <a href="{{ route('s.datapengguna') }}"
-                    class="nav-item nav-link {{ \Route::is('s.datapengguna') ? 'active' : '' }} "><i
-                        class="fa fa-th me-2"></i>Data Pengguna</a>
+                   class="nav-item nav-link {{ \Route::is('s.datapengguna') ? 'active' : '' }}">
+                    <i class="fa fa-users me-2"></i>Data Pengguna
+                </a>
                 <a href="{{ route('addquestion') }}"
-                    class="nav-item nav-link {{ \Route::is('addquestion') ? 'active' : '' }} "><i
-                        class="fa fa-th me-2"></i>Olah Data Chatbot</a>
+                   class="nav-item nav-link {{ \Route::is('addquestion') ? 'active' : '' }}">
+                    <i class="fa fa-comments me-2"></i>Olah Data Chatbot
+                </a>
             @endif
 
             @if (auth()->user()->role_id == 2)
-                <a href="{{ route('dashboardpelapor') }}"
-                    class="nav-item nav-link {{ \Route::is('dashboardpelapor') ? 'active' : '' }}"><i
-                        class="bi bi-file-earmark-ppt-fill me-2"></i>Dashboard</a>
-                <a href="{{ route('pelaporan') }}"
-                    class="nav-item nav-link {{ \Route::is('pelaporan') ? 'active' : '' }}"><i
-                        class="bi bi-file-earmark-ppt-fill me-2"></i>Pelaporan</a>
-                <a href="{{ route('laporansaya') }}"
-                    class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : '' }}"><i
-                        class="fa fa-keyboard me-2"></i>Laporan Saya</a>
-                <a href="{{ route('chatbot') }}"
-                    class="nav-item nav-link {{ \Route::is('chatbot') ? 'active' : '' }}"><i
-                        class="bi bi-chat-right-text me-2"></i>ChatBot</a>
-            @endif
+            <a href="{{ route('dashboardpelapor') }}"
+                class="nav-item nav-link {{ \Route::is('dashboardpelapor') ? 'active' : '' }}"><i
+                    class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="{{ route('pelaporan') }}"
+                class="nav-item nav-link {{ \Route::is('pelaporan') ? 'active' : '' }}"><i
+                    class="fas fa-exclamation-triangle me-2"></i>Pelaporan</a>
+            <a href="{{ route('laporansaya') }}"
+                class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : '' }}"><i
+                    class="fas fa-file-alt me-2"></i>Laporan Saya</a>
+            <a href="{{ route('chatbot') }}"
+                class="nav-item nav-link {{ \Route::is('chatbot') ? 'active' : '' }}"><i
+                    class="fas fa-comments me-2"></i>ChatBot</a>
+        @endif
+        
         </div>
 </div>
 </nav>

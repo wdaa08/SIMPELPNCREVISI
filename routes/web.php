@@ -63,8 +63,6 @@ Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('upd
 
 Route::post('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
 
-// Route::put('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
-// Rute untuk mendapatkan detail pelaporan
 Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
 
 
@@ -83,6 +81,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapelaporan', [DashboardSatgasController::class, 'index']);
     Route::get('/datapelaporan/{id}', [DashboardSatgasController::class, 'show']);
     Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.datapelaporan');
+    Route::get('/Dashboard', [DashboardSatgasController::class, 'dashboard'])->name('Dashboard');
 
 
     // cetak pdf detail pelaporan
@@ -96,6 +95,14 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
 
 
     Route::get('/dashboard', [DashboardSatgasController::class, 'dashboard'])->name('dashboardsatgas');
+
+    //cetakadatadashboard
+    // routes/web.php
+    Route::get('/dashboard/pdf', [DashboardSatgasController::class, 'pdf'])->name('dashboard.pdf');
+
+    Route::post('/pelaporans/{id}/selesai', [PelaporanController::class, 'laporanSelesai'])->name('pelaporans.selesai');
+
+
 
 
 
