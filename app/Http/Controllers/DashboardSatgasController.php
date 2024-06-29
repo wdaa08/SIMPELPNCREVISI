@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 
+
 class DashboardSatgasController extends Controller
 {
     public function index()
@@ -91,10 +92,16 @@ class DashboardSatgasController extends Controller
             ->groupBy('users.unit_kerja')
             ->get();
     
-        // Mengambil jumlah laporan per bulan dan tahun
-        $laporanPerBulan = Pelaporan::select(DB::raw('MONTH(created_at) as bulan'), DB::raw('YEAR(created_at) as tahun'), DB::raw('count(*) as total'))
-            ->groupBy('bulan', 'tahun')
-            ->get();
+        // Mengambil jumlah laporan per bulan dan tahun berdasarkan kolom tanggal_pelaporan
+        $laporanPerBulan = Pelaporan::select(
+            DB::raw('YEAR(tanggal_pelaporan) as tahun'), // Ubah sesuai dengan nama kolom yang sesuai
+            DB::raw('MONTH(tanggal_pelaporan) as bulan'), // Ubah sesuai dengan nama kolom yang sesuai
+            DB::raw('count(*) as total'),
+            DB::raw('sum(IF(selesai = "selesai", 1, 0)) as selesai_count'),
+            DB::raw('sum(IF(selesai = "belum", 1, 0)) as belum_count')
+        )
+        ->groupBy('tahun', 'bulan')
+        ->get();
     
         // Mengambil status_terlapor beserta jumlahnya
         $statusTerlapor = Pelaporan::select('status_terlapor', DB::raw('count(*) as total'))
@@ -111,6 +118,8 @@ class DashboardSatgasController extends Controller
     }
     
     
+    
+    
     public function pdf()
     {
         // Mengambil jumlah pengguna
@@ -119,36 +128,49 @@ class DashboardSatgasController extends Controller
         // Mengambil jumlah laporan
         $jumlahLaporan = Pelaporan::count();
     
-        // Mengambil laporan per jurusan
+        // Mengambil jumlah laporan per jurusan
         $laporanPerJurusan = Pelaporan::join('users', 'pelaporans.user_id', '=', 'users.id')
             ->select('users.jurusan as jurusan', DB::raw('count(*) as total'))
             ->groupBy('users.jurusan')
             ->get();
     
-        // Mengambil laporan per prodi
+        // Mengambil jumlah laporan per prodi
         $laporanPerProdi = Pelaporan::join('users', 'pelaporans.user_id', '=', 'users.id')
             ->select('users.prodi as prodi', DB::raw('count(*) as total'))
             ->groupBy('users.prodi')
             ->get();
     
-        // Mengambil laporan per bulan
-        $laporanPerBulan = Pelaporan::select(DB::raw('MONTH(created_at) as bulan'), DB::raw('YEAR(created_at) as tahun'), DB::raw('count(*) as total'))
-            ->groupBy('bulan', 'tahun')
+        // Mengambil jumlah laporan per unit kerja
+        $laporanPerUnitKerja = Pelaporan::join('users', 'pelaporans.user_id', '=', 'users.id')
+            ->select('users.unit_kerja as unit_kerja', DB::raw('count(*) as total'))
+            ->groupBy('users.unit_kerja')
             ->get();
     
-        // Mengambil status terlapor
+        // Mengambil jumlah laporan per bulan dan tahun berdasarkan kolom tanggal_pelaporan
+        $laporanPerBulan = Pelaporan::select(
+            DB::raw('YEAR(tanggal_pelaporan) as tahun'),
+            DB::raw('MONTH(tanggal_pelaporan) as bulan'),
+            DB::raw('count(*) as total'),
+            DB::raw('sum(IF(selesai = "selesai", 1, 0)) as selesai_count'),
+            DB::raw('sum(IF(selesai = "belum", 1, 0)) as belum_count')
+        )
+        ->groupBy('tahun', 'bulan')
+        ->get();
+    
+        // Mengambil status_terlapor beserta jumlahnya
         $statusTerlapor = Pelaporan::select('status_terlapor', DB::raw('count(*) as total'))
             ->groupBy('status_terlapor')
             ->get();
     
-        // Mengambil jenis kekerasan seksual
+        // Mengambil jenis kekerasan seksual beserta jumlahnya
         $jenisKekerasanSeksual = Pelaporan::select('jenis_kekerasan_seksual', DB::raw('count(*) as total'))
             ->groupBy('jenis_kekerasan_seksual')
             ->get();
     
-        $pdf = PDF::loadView('satgas.dashboard_pdf', compact('jumlahUser', 'jumlahLaporan', 'laporanPerJurusan', 'laporanPerProdi', 'laporanPerBulan', 'statusTerlapor', 'jenisKekerasanSeksual'));
-        
-        return $pdf->download('dashboard.pdf');
+        // Load view dashboard_pdf.blade.php dan pass data
+        $pdf = PDF::loadView('satgas.dashboard_pdf', compact('jumlahUser', 'jumlahLaporan', 'laporanPerJurusan', 'laporanPerProdi', 'laporanPerUnitKerja', 'laporanPerBulan', 'statusTerlapor', 'jenisKekerasanSeksual'));
+    
+        // Return PDF sebagai streaming untuk di-download
+        return $pdf->stream('dashboard.pdf');
     }
-
 }

@@ -103,6 +103,10 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::post('/pelaporans/{id}/selesai', [PelaporanController::class, 'laporanSelesai'])->name('pelaporans.selesai');
 
 
+    //search
+    Route::get('/users/filter', [UserController::class, 'filter'])->name('users.filter');
+
+
 
 
 

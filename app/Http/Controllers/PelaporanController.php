@@ -358,10 +358,10 @@ class PelaporanController extends Controller
             $pelaporan->save();
     
             Log::info('Laporan berhasil ditandai selesai: ' . $pelaporan->id);
-            return redirect()->back()->with('success', 'Laporan berhasil ditandai selesai.');
+            return redirect()->back()->with('successstatus', 'Laporan berhasil ditandai selesai.');
         } catch (\Exception $e) {
             Log::error('Gagal menandai laporan selesai: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menandai laporan sebagai selesai.');
+            return redirect()->back()->with('errorstatus', 'Terjadi kesalahan saat menandai laporan sebagai selesai.');
         }
     }
     

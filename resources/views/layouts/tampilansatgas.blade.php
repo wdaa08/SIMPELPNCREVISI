@@ -97,6 +97,17 @@
          });
          
      @endif 
+
+    @if (Session('successstatus'))
+        Swal.fire({
+        title: 'Status Berhasil Diubah',
+        text: '',
+        icon: 'success',
+        });
+        
+    @endif
+
+
       // Menampilkan pesan kesalahan validasi jika ada
       @if($errors->any())
              let errorMessages = '';

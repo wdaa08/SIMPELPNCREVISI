@@ -1,5 +1,6 @@
 @extends('layouts.tampilansatgas')
 
+
 @section('container')
 <div class="container my-4">
     <div class="row">
@@ -13,6 +14,7 @@
                             <th>No</th>
                             <th>Tanggal</th>
                             <th>Nama</th>
+                            <th>Status</th>
                             <th>Respon</th>
                             <th>Aksi</th>
                         </tr>
@@ -23,6 +25,14 @@
                             <td>{{ $index + 1 }}</td>
                             <td>{{ $pelaporan->tanggal_pelaporan }}</td>
                             <td>{{ $pelaporan->nama_pelapor }}</td>
+                            <td>
+                                @if($pelaporan->selesai === 'belum')
+                                    <span class="badge bg-danger">Belum</span> <!-- Warna merah untuk "belum" -->
+                                @elseif($pelaporan->selesai === 'selesai')
+                                    <span class="badge bg-warning text-dark">Selesai</span> <!-- Warna kuning untuk "selesai" -->
+                                @endif
+                            </td>
+                            
                             
                             <td>
                                 <div>
@@ -42,28 +52,27 @@
                                     <button type="button" class="btn btn-warning edit-respon-btn icon-small"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal"
                                         data-id="{{ $pelaporan->id }}">
-                                        <i class="fas fa-pencil-alt"></i> <!-- Ganti dengan ikon Edit -->
+                                        <i class="fas fa-pencil-alt"></i> <!-- Ikon Edit -->
                                     </button>
                                     <button type="button" class="btn btn-primary detail-pelaporan-btn icon-small"
                                         data-bs-toggle="modal" data-bs-target="#modalDetailPelaporan"
                                         data-id="{{ $pelaporan->id }}">
-                                        <i class="fas fa-eye"></i> <!-- Ganti dengan ikon Eye -->
+                                        <i class="fas fa-eye"></i> <!-- Ikon Eye -->
                                     </button>
                                     <a href="{{ route('pelaporans.cetakPdf', $pelaporan->id) }}"
-                                        class="btn btn-danger icon-small" >
-                                        <i class="fas fa-file-pdf"></i> <!-- Ganti dengan ikon PDF -->
+                                        class="btn btn-danger icon-small">
+                                        <i class="fas fa-file-pdf"></i> <!-- Ikon PDF -->
                                     </a>
-
-                                        <!-- Tambahkan formulir langsung di dalam kolom Aksi -->
-                                        <form action="{{ route('pelaporans.selesai', $pelaporan->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-success">
-                                                <i class="fas fa-check"></i> Selesai <!-- Ganti dengan ikon atau teks yang sesuai -->
-                                            </button>
-                                        </form>
-
-
+                                      <!-- Formulir untuk menyelesaikan pelaporan -->
+                                    <form action="{{ route('pelaporans.selesai', $pelaporan->id) }}" method="POST" class="selesai-form" style="display:inline;">
+                                        @csrf
+                                        <button type="submit" class="btn btn-success">
+                                            <i class="fas fa-check"></i> <!-- Ikon Selesai -->
+                                        </button>
+                                    </form>
+                                        
                                 </div>
+                                
                             </td>
                         </tr>
                         @endforeach
@@ -180,6 +189,7 @@
             var simpanResponBtn = document.getElementById('simpanResponBtn');
             var pelaporanIdField = document.getElementById('pelaporanId');
             var modalDetailBody = document.getElementById('modalDetailBody');
+             var selesaiForms = document.querySelectorAll('form.selesai-form');
 
             editResponButtons.forEach(button => {
                 button.addEventListener('click', function() {
@@ -324,6 +334,14 @@
             });
         });
 
+          // Tambahkan logika untuk menonaktifkan tombol "Selesai" setelah diklik
+          var selesaiForms = document.querySelectorAll('form.selesai-form');
+        selesaiForms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                var submitButton = form.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+            });
+        });
 
     </script>
 @endsection

@@ -71,8 +71,8 @@
 <body>
     <div class="kop-surat">
         <div class="header">
-            <img src="{{ public_path('public/img/user.jpg') }}"
-                alt="Logo Kiri">
+            <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 50px; height: auto;">
+            <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 50px; height: auto;">
             <div>
                 <h1>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h1>
                 <h2>POLITEKNIK NEGERI CILACAP</h2>
@@ -81,12 +81,13 @@
                 <p>Telepon: (0282) 533329, Fax: (0282) 537992</p>
                 <p>www.pnc.ac.id, Email: sekretariat@pnc.ac.id</p>
             </div>
-            <img src="{{ asset('storage/profile/0PnTgdcEJysUNwMTNUh1BoYT7haD6a414axa5R9E.jpg') }}" alt="Logo Kanan">
+          
         </div>
         <div class="line"></div>
         <p>FORM PELAPORAN KASUS KEKERASAN SEKSUAL</p>
         <p>SATUAN TUGAS PPKS POLITEKNIK NEGERI CILACAP</p>
     </div>
+    
     <div class="content">
         <h2>Detail Pelaporan</h2>
         <table>

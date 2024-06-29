@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kop Surat</title>
+    <title>Detail Pelaporan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -16,20 +16,9 @@
             margin-bottom: 20px;
         }
 
-        .kop-surat .header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
         .kop-surat img {
-            width: 80px; /* Ukuran logo */
+            width: 80px;
             height: auto;
-        }
-
-        .kop-surat .text-center {
-            flex: 1;
-            padding: 0 10px;
         }
 
         .kop-surat h1,
@@ -37,6 +26,13 @@
         .kop-surat p {
             margin: 0;
             padding: 0;
+        }
+
+        .kop-surat .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
 
         .line {
@@ -62,7 +58,7 @@
 
         .signature {
             margin-top: 30px;
-            text-align: center;
+            text-align: right;
         }
 
         .signature img {
@@ -75,49 +71,187 @@
 <body>
     <div class="kop-surat">
         <div class="header">
-       
-            <div class="text-center">
-                <h1>  <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kanan"> KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI  <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kiri"> </h1>
+            {{-- <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 50px; height: auto;">
+            <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 50px; height: auto;"> --}}
+            <div>
+                <h1>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h1>
                 <h2>POLITEKNIK NEGERI CILACAP</h2>
                 <p>PENCEGAHAN DAN PENANGANAN KEKERASAN SEKSUAL</p>
                 <p>Jalan Dr. Soetomo No. 1, Sidakaya - CILACAP 53212 Jawa Tengah</p>
                 <p>Telepon: (0282) 533329, Fax: (0282) 537992</p>
-                <p><a href="http://www.pnc.ac.id">www.pnc.ac.id</a>, Email: <a href="mailto:sekretariat@pnc.ac.id">sekretariat@pnc.ac.id</a></p>
+                <p>www.pnc.ac.id, Email: sekretariat@pnc.ac.id</p>
             </div>
-               
-            
         </div>
         <div class="line"></div>
-        <p><strong>FORM PELAPORAN KASUS KEKERASAN SEKSUAL</strong></p>
-        <p><strong>SATUAN TUGAS PPKS POLITEKNIK NEGERI CILACAP</strong></p>
+        <h3>DATA LAPORAN WEBSITE SIMPEL-PNC</h3>
     </div>
 
     <div class="content">
-        <div class="row g-4">
-            <div class="col-sm-6 col-xl-6">
-                <h2>Laporan Per Jurusan</h2>
-                <ul>
-                    @foreach ($laporanPerJurusan as $laporan)
-                        <li>{{ $laporan->jurusan }}: {{ $laporan->total }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            <div class="col-sm-6 col-xl-6">
-                <h2>Laporan Per Program Studi</h2>
-                <ul>
-                    @foreach ($laporanPerProdi as $laporan)
-                        <li>{{ $laporan->prodi }}: {{ $laporan->total }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        <!-- Tambahkan bagian lain sesuai kebutuhan -->
-    </div>
+        <h2>Detail Pelaporan</h2>
 
-    <div class="signature">
-        <p>__________________________</p>
-        <p>Tanda Tangan</p>
-    </div>
+        <!-- Tabel Jumlah Pengguna dan Laporan -->
+        <h3>Jumlah Pengguna dan Laporan</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jumlah Pengguna</th>
+                    <th>Jumlah Laporan</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ $jumlahUser }}</td>
+                    <td>{{ $jumlahLaporan }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Tabel Laporan per Jurusan -->
+        <h3>Laporan Per Jurusan</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jurusan</th>
+                    <th>Total Laporan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($laporanPerJurusan as $laporan)
+                <tr>
+                    <td>{{ $laporan->jurusan }}</td>
+                    <td>{{ $laporan->total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Tabel Laporan per Program Studi -->
+        <h3>Laporan Per Program Studi</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Program Studi</th>
+                    <th>Total Laporan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($laporanPerProdi as $laporan)
+                <tr>
+                    <td>{{ $laporan->prodi }}</td>
+                    <td>{{ $laporan->total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Tabel Laporan per Bulan -->
+        <h3>Laporan Per Bulan</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Bulan</th>
+                    <th>Tahun</th>
+                    <th>Total Laporan</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($laporanPerBulan as $laporan)
+                <tr>
+                    <td>{{ \Carbon\Carbon::create()->month($laporan->bulan)->translatedFormat('F') }}</td>
+                    <td>{{ $laporan->tahun }}</td>
+                    <td>{{ $laporan->total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+
+        <h3>Laporan per Bulan</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Bulan</th>
+                    <th>Tahun</th>
+                    <th>Total Laporan</th>
+                    <th>Laporan Selesai</th>
+                    <th>Laporan Belum Selesai</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($laporanPerBulan as $laporan)
+                <tr>
+                    <td>{{ $laporan->bulan }}</td>
+                    <td>{{ $laporan->tahun }}</td>
+                    <td>{{ $laporan->total }}</td>
+                    <td>{{ $laporan->selesai_count }}</td>
+                    <td>{{ $laporan->belum_count }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Tabel Status Terlapor -->
+        <h3>Status Terlapor</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Status Terlapor</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($statusTerlapor as $status)
+                <tr>
+                    <td>{{ $status->status_terlapor }}</td>
+                    <td>{{ $status->total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <!-- Tabel Jenis Kekerasan Seksual -->
+        <h3>Jenis Kekerasan Seksual</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Jenis Kekerasan Seksual</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($jenisKekerasanSeksual as $jks)
+                <tr>
+                    <td>{{ $jks->jenis_kekerasan_seksual }}</td>
+                    <td>{{ $jks->total }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+<div class="signature">
+    <p>____,_________</p>
+    <p style="margin-top: 10px;">Ketua Satgas PPKS</p>
+   <br>
+   <br>
+   <br>
+   <br>
+    <p style="text-decoration: underline;">Dodi Satriawan, S.T., M. Eng.</p>
+</div>
+
+        
+
 </body>
 
 </html>

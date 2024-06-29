@@ -46,7 +46,7 @@
 
 <div class="sidebar pe-4 pb-3">
     <nav class="navbar bg-light navbar-light">
-        <a href="#\" class="navbar-brand mx-4 mb-3">
+        <a href="{{ route('dashboardsatgas') }}" class="navbar-brand mx-4 mb-3">
             <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>SIMPEL-PNC</h3>
         </a>
         <div class="d-flex align-items-center ms-4 mb-4">
@@ -65,7 +65,7 @@
                     <i class="fa fa-tachometer-alt me-2"></i>Dashboard
                 </a>    
                 <a href="{{ route('s.datapelaporan') }}"
-                   class="nav-item nav-link {{ \Route::is('datapelaporan') ? 'active' : '' }}">
+                   class="nav-item nav-link {{ \Route::is('s.datapelaporan') ? 'active' : '' }}">
                     <i class="fa fa-file-alt me-2"></i>Data Laporan
                 </a>
                 <a href="{{ route('s.datapengguna') }}"

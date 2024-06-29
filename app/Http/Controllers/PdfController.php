@@ -39,11 +39,13 @@ class PdfController extends Controller
         ];
         
         $pdf = Pdf::loadView('satgas.detail-pelaporan-pdf', compact('pelaporan', 'data', 'user'))
-            ->setPaper('a4')
-            ->setWarnings(false)
-            ->setOption('isHtml5ParserEnabled', true)
-            ->setOption('isRemoteEnabled', true);
-
-        return $pdf->download('satgas.detail-pelaporan-pdf-' . $id . '.pdf');
+        ->setPaper('a4')
+        ->setWarnings(false)
+        ->setOption('isHtml5ParserEnabled', true)
+        ->setOption('isRemoteEnabled', true);
+    
+    return $pdf->stream('satgas.detail-pelaporan-pdf-' . $id . '.pdf');
+    // return $pdf->download('satgas.detail-pelaporan-pdf-' . $id . '.pdf'); //kode untuk langsung download
+    
     }
 }
