@@ -7,7 +7,7 @@
         <div class="col-12">
             <h1 style="text-align:center;">Data Laporan Masuk</h1>
             <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
-                <div class="card-body">
+                <div class="card-body">  
                 <table class="table table-hover">
                     <thead>
                         <tr>
@@ -335,13 +335,33 @@
         });
 
           // Tambahkan logika untuk menonaktifkan tombol "Selesai" setelah diklik
-          var selesaiForms = document.querySelectorAll('form.selesai-form');
-        selesaiForms.forEach(form => {
-            form.addEventListener('submit', function(event) {
-                var submitButton = form.querySelector('button[type="submit"]');
-                submitButton.disabled = true;
-            });
+   // Tambahkan logika untuk menonaktifkan tombol "Selesai" setelah diklik
+var selesaiForms = document.querySelectorAll('form.selesai-form');
+selesaiForms.forEach(form => {
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Cegah form submit otomatis
+        var submitButton = form.querySelector('button[type="submit"]');
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Anda tidak dapat mengembalikan status ini setelah diubah!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, ubah!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                submitButton.disabled = true; // Nonaktifkan tombol "Selesai"
+                form.submit(); // Lanjutkan form submit
+            }
         });
+    });
+});
 
     </script>
+
+
+
+
+
 @endsection

@@ -9,8 +9,9 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Judul</th>
+                    <th scope="col">no</th>
+                    <th scope="col">Jenis Kekerasan</th>
+                    <th scope="col">Tanggal</th>
                     <th scope="col">Aksi</th>
                     <th scope="col">Keterangan</th>
                 </tr>
@@ -19,8 +20,10 @@
                 @foreach ($tabellaporan as $tbl)
                     <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
-                        <td>Pelaporan {{ $loop->iteration }}</td>
-                        
+                        <td>{{ $tbl->jenis_kekerasan_seksual }}</td>
+                        <td>
+                            {{ $tbl->tanggal_pelaporan }}
+                        </td>
                         <td>
                             <a href="{{ route('editlaporan', ['id' => $tbl->id]) }}" type="button"
                                 class="btn btn-primary">Edit</a>
@@ -32,5 +35,10 @@
                 @endforeach
             </tbody>
         </table>
+        <!-- Tampilkan link halaman -->
+        {{ $tabellaporan->links() }}
     </div>
+</div>
+</div>
+</div>
 @endsection

@@ -9,7 +9,9 @@ class ChatbotController extends Controller
 {
     public function index()
     {
-        return view('chatbot');
+        $questions = Chatbot::select('question')->get(); // Mengambil pertanyaan dari tabel chatbot
+        return view('chatbot', compact('questions'));
+        
     }
     public function questionindex()
     {
@@ -20,22 +22,29 @@ class ChatbotController extends Controller
     {
         $question = $request->input('question');
         $keywords = explode(' ', $question); // Memecah pertanyaan menjadi kata kunci
-
+    
         // Membangun query untuk mencari pertanyaan yang mengandung salah satu kata kunci
         $query = Chatbot::query();
         foreach ($keywords as $keyword) {
             $query->orWhere('question', 'like', '%' . $keyword . '%');
         }
-
+    
         $response = $query->first();
-
+    
         if ($response) {
+            // Menyimpan pertanyaan dari pengguna ke database
+            // Tidak perlu membuat baru jika pertanyaan sudah ada di database
+            // Chatbot::create([
+            //     'question' => $question,
+            //     'answer' => $response->answer,
+            // ]);
+    
             return response()->json(['answer' => $response->answer]);
         } else {
             return response()->json(['answer' => 'Maaf, saya tidak mengerti pertanyaan Anda.']);
         }
     }
-
+    
 
     public function store(Request $request)
     {
@@ -46,6 +55,6 @@ class ChatbotController extends Controller
 
         Chatbot::create($validatedData);
 
-        return redirect()->back()->with('success', 'Pertanyaan dan jawaban berhasil ditambahkan.');
+        return redirect()->back()->with('successaddchatbot', 'Pertanyaan dan jawaban berhasil ditambahkan.');
     }
 }

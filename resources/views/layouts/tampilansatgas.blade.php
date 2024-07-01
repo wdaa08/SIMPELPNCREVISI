@@ -107,6 +107,14 @@
         
     @endif
 
+    @if (Session('successaddchatbot'))
+        Swal.fire({
+        title: 'Berhasil',
+        text: '',
+        icon: 'success',
+        });
+        
+    @endif
 
       // Menampilkan pesan kesalahan validasi jika ada
       @if($errors->any())
@@ -126,6 +134,8 @@
 
          
  </script>
+
+
 
 
 </body>

@@ -82,6 +82,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     Route::get('/datapelaporan/{id}', [DashboardSatgasController::class, 'show']);
     Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.datapelaporan');
     Route::get('/Dashboard', [DashboardSatgasController::class, 'dashboard'])->name('Dashboard');
+    
 
 
     // cetak pdf detail pelaporan

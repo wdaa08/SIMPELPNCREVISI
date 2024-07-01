@@ -173,10 +173,13 @@ class PelaporanController extends Controller
     public function laporansaya()
     {
         $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
-        $tabellaporan = Pelaporan::where('user_id', $userId)->get();
-    
+        $tabellaporan = Pelaporan::where('user_id', $userId)
+                                ->orderBy('tanggal_pelaporan', 'desc') // Urutkan berdasarkan tanggal_pelaporan descending (terbaru)
+                                ->paginate(6); // Pagination dengan 10 item per halaman
+        
         return view('pelapor.laporanSaya', compact('tabellaporan'));
     }
+    
     
     public function editlaporan($id)
     {
