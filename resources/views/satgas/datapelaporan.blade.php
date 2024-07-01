@@ -278,6 +278,20 @@
                                 <th scope="row">Bukti</th>
                                 <td>${data.bukti ? `<img src="/storage/${data.bukti}" width="100" height="100" alt="TTD">` : 'Tidak ada bukti yang diunggah.'}</td>
                             </tr>
+                                        <tr>
+                            <th scope="row">Bukti Video</th>
+                            <td>
+                                ${data.video ?
+                                    `<video width="320" height="240" controls>
+                                        <source src="/storage/${data.video}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>` 
+                                    : 'Tidak ada bukti yang diunggah.'
+                                }
+                            </td>
+                        </tr>
+
+
                                 <tr>
                                 <th class="mb-3" colspan="2">
                                     <label for="detailVoiceNote" class="form-label">Voice Note:</label><br>

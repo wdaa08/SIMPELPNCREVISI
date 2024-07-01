@@ -36,7 +36,6 @@
             </tbody>
         </table>
         <!-- Tampilkan link halaman -->
-        {{ $tabellaporan->links() }}
     </div>
 </div>
 </div>

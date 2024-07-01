@@ -39,6 +39,7 @@ class PelaporanController extends Controller
                 'nomor_hp_pihak_lain' => 'nullable|string|max:14',
                 'kebutuhan_korban' => 'nullable|array',
                 'bukti' => 'nullable|max:2048', // Menambahkan ukuran maksimum file
+                'video.*' => 'nullable|max:102400', // Video (mp4, mov, avi) maks 100MB
                 'voicenote' => 'nullable|max:10240', // Menambahkan validasi file voicenote
             ],
             [
@@ -80,6 +81,15 @@ class PelaporanController extends Controller
             Log::info('Bukti path:', ['path' => $imagePath]);
         }
     
+
+           // Mengelola upload file video
+    if ($request->hasFile('video')) {
+            $videoPath = $request->file('video')->store('video');
+            $data['video'] = $videoPath;
+            // Simpan path atau lakukan sesuai kebutuhan aplikasi
+            Log::info('Video path:', ['path' => $videoPath]);
+        }
+
         // Mengelola upload file voicenote
         if ($request->hasFile('voicenote')) {
             if ($request->file('voicenote')->isValid()) {
@@ -117,6 +127,7 @@ class PelaporanController extends Controller
             $pelapor->kebutuhan_korban = $data['kebutuhan_korban'];
             $pelapor->bukti = $data['bukti'] ?? null;
             $pelapor->voicenote = $data['voicenote'] ?? null;
+            $pelapor->video = $data['video'] ?? null;
             $pelapor->respon = 'TERKIRIM';
             
     
@@ -173,13 +184,10 @@ class PelaporanController extends Controller
     public function laporansaya()
     {
         $userId = Auth::id(); // Mendapatkan ID pengguna yang sedang login
-        $tabellaporan = Pelaporan::where('user_id', $userId)
-                                ->orderBy('tanggal_pelaporan', 'desc') // Urutkan berdasarkan tanggal_pelaporan descending (terbaru)
-                                ->paginate(6); // Pagination dengan 10 item per halaman
-        
+        $tabellaporan = Pelaporan::where('user_id', $userId)->get();
+    
         return view('pelapor.laporanSaya', compact('tabellaporan'));
     }
-    
     
     public function editlaporan($id)
     {

@@ -33,6 +33,7 @@ class Pelaporan extends Model
         'respon_dari',
         'bukti',
         'voicenote',
+        'video',
         'selesai',
     ];
     

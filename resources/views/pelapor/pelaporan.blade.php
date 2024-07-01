@@ -375,7 +375,10 @@
                                     <label class="input-group-text" for="bukti">Browse</label>
                                 </div>
 
- 
+                                <div class="form-group">
+                                    <label for="video">Upload Video (MP4, MOV, AVI)</label>
+                                    <input type="file" class="form-control-file" id="video" name="video" multiple>
+                                </div>
 
                                 <div class="mb-3 form-check">
                                     <input type="checkbox" class="form-check-input" id="exampleCheck1">
