@@ -57,8 +57,7 @@
                                 <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                                 <label for="password">Password</label>
                             </div>
-                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">Sign In</button>
-                            <p class="text-center mb-0">Don't have an account? <a href="{{ route('register') }}">Sign Up</a></p>
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">LOGIN</button>
                         </form>
                     </div>
                 </div>

@@ -137,11 +137,14 @@
                 <div class="chat-container">
                     <div class="chat-header">Chatbot Satgas PPKS PNC</div>
                     <div class="chatbox" id="chatbox">
-                        <div class="message bot-message instructions">
-                            Selamat datang! Anda dapat bertanya beberapa pertanyaan populer yang dapat anda lihat di sebelah kanan chatbot ini.
+                        <div class="message bot-message instructions" style="text-align: left;">
+                            Selamat datang! {{ auth()->user()->nama }} Anda dapat bertanya beberapa pertanyaan populer yang dapat anda lihat di sebelah kanan chatbot ini.
+                        </div>
+                        <div class="message bot-message instructions" style="text-align: left;">
+                            Jangan lupa! {{ auth()->user()->nama }} Untuk memperbarui profil
                         </div>
                     </div>
-                    <div class="chat-input-container">
+                    <div class="chat-input-container" >
                         <input type="text" id="userInput" name="question" class="chat-input" placeholder="Ketik pesan..."
                             onkeydown="if (event.keyCode == 13) sendMessage()">
                         <button onclick="sendMessage()" class="send-button">

@@ -5,7 +5,7 @@
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-0">
                     <div class="bg-light rounded h-100 p-4">
-                        <h6 class="mb-4">Formulir Pelaporan</h6>
+                        <h6 class="mb-4">Edit Formulir Pengaduan</h6>
                         <form method="post" action="{{ route('updatelaporan', $pelapor->id) }}" enctype="multipart/form-data">
                             @method('PUT')
                             @csrf
@@ -47,7 +47,6 @@
                                 <label for="exampleInputEmail1" class="form-label">Alamat Email</label>
                                 <input type="email" class="form-control" id="alamat_email" name="alamat_email"
                                     value="{{ $pelapor->alamat_email }}" aria-describedby="emailHelp">
-                                <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                             </div>
 
                             <div class="mb-3">
@@ -56,11 +55,31 @@
                                     value="{{ $pelapor->domisili_pelapor }}" aria-describedby="emailHelp">
                             </div>
 
-                            <label for="" class="form-label mt-3">Silahkan Narasikan Jenis Kekerasan Seksual </label>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="narasipelapor" name="jenis_kekerasan_seksual" id="floatingTextarea"
-                                    style="height: 150px;">{{ $pelapor->jenis_kekerasan_seksual }}</textarea>
-                            </div>
+                            <label for="jenis_kekerasan_seksual" class="form-label mt-3">Jenis Kekerasan Seksual*</label>
+                            <select class="form-select" name="jenis_kekerasan_seksual" id="jenis_kekerasan_seksual">
+                                <option value="">--Pilih Salah Satu--</option>
+                                <option value="Ujaran diskriminatif atau melecehkan Korban" {{ $pelapor->jenis_kekerasan_seksual == 'Ujaran diskriminatif atau melecehkan Korban' ? 'selected' : '' }}>Ujaran diskriminatif atau melecehkan Korban</option>
+                                <option value="Memperlihatkan alat kelamin tanpa izin" {{ $pelapor->jenis_kekerasan_seksual == 'Memperlihatkan alat kelamin tanpa izin' ? 'selected' : '' }}>Memperlihatkan alat kelamin tanpa izin</option>
+                                <option value="Ucapan rayuan atau lelucon seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Ucapan rayuan atau lelucon seksual' ? 'selected' : '' }}>Ucapan rayuan atau lelucon seksual</option>
+                                <option value="Menatap dengan nuansa seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Menatap dengan nuansa seksual' ? 'selected' : '' }}>Menatap dengan nuansa seksual</option>
+                                <option value="Mengirim pesan atau media seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Mengirim pesan atau media seksual' ? 'selected' : '' }}>Mengirim pesan atau media seksual</option>
+                                <option value="Mengambil atau mengedarkan foto/video seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Mengambil atau mengedarkan foto/video seksual' ? 'selected' : '' }}>Mengambil atau mengedarkan foto/video seksual</option>
+                                <option value="Mengunggah foto atau info pribadi" {{ $pelapor->jenis_kekerasan_seksual == 'Mengunggah foto atau info pribadi' ? 'selected' : '' }}>Mengunggah foto atau info pribadi</option>
+                                <option value="Menyebar info seksual tanpa izin" {{ $pelapor->jenis_kekerasan_seksual == 'Menyebar info seksual tanpa izin' ? 'selected' : '' }}>Menyebar info seksual tanpa izin</option>
+                                <option value="Mengintip Korban tanpa izin" {{ $pelapor->jenis_kekerasan_seksual == 'Mengintip Korban tanpa izin' ? 'selected' : '' }}>Mengintip Korban tanpa izin</option>
+                                <option value="Membujuk atau mengancam untuk seks" {{ $pelapor->jenis_kekerasan_seksual == 'Membujuk atau mengancam untuk seks' ? 'selected' : '' }}>Membujuk atau mengancam untuk seks</option>
+                                <option value="Memberi sanksi seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Memberi sanksi seksual' ? 'selected' : '' }}>Memberi sanksi seksual</option>
+                                <option value="Menyentuh tubuh tanpa izin" {{ $pelapor->jenis_kekerasan_seksual == 'Menyentuh tubuh tanpa izin' ? 'selected' : '' }}>Menyentuh tubuh tanpa izin</option>
+                                <option value="Membuka pakaian tanpa izin" {{ $pelapor->jenis_kekerasan_seksual == 'Membuka pakaian tanpa izin' ? 'selected' : '' }}>Membuka pakaian tanpa izin</option>
+                                <option value="Memaksa transaksi seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa transaksi seksual' ? 'selected' : '' }}>Memaksa transaksi seksual</option>
+                                <option value="Budaya komunitas berbasis seksual" {{ $pelapor->jenis_kekerasan_seksual == 'Budaya komunitas berbasis seksual' ? 'selected' : '' }}>Budaya komunitas berbasis seksual</option>
+                                <option value="Percobaan perkosaan tanpa penetrasi" {{ $pelapor->jenis_kekerasan_seksual == 'Percobaan perkosaan tanpa penetrasi' ? 'selected' : '' }}>Percobaan perkosaan tanpa penetrasi</option>
+                                <option value="Perkosaan dengan benda lain" {{ $pelapor->jenis_kekerasan_seksual == 'Perkosaan dengan benda lain' ? 'selected' : '' }}>Perkosaan dengan benda lain</option>
+                                <option value="Memaksa aborsi" {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa aborsi' ? 'selected' : '' }}>Memaksa aborsi</option>
+                                <option value="Memaksa hamil" {{ $pelapor->jenis_kekerasan_seksual == 'Memaksa hamil' ? 'selected' : '' }}>Memaksa hamil</option>
+                                <option value="Membiarkan Kekerasan Seksual terjadi" {{ $pelapor->jenis_kekerasan_seksual == 'Membiarkan Kekerasan Seksual terjadi' ? 'selected' : '' }}>Membiarkan Kekerasan Seksual terjadi</option>
+                                <option value="Perbuatan Kekerasan Seksual lainnya" {{ $pelapor->jenis_kekerasan_seksual == 'Perbuatan Kekerasan Seksual lainnya' ? 'selected' : '' }}>Perbuatan Kekerasan Seksual lainnya</option>
+                            </select>
                             
 
                             <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
@@ -254,11 +273,16 @@
                                     <label for="tanggal">Tanggal Pelaporan:</label>
                                     <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan" value="{{ old('tanggal_pelaporan', $formattedDate) }}">
                                 </div>
-
-                                <label for="tanggal">Bukti: </label>
+                                
+                                <label for="bukti">Bukti: </label>
                                 <div class="input-group mb-3">
-                                    <input type="file" class="form-control" id="bukti" name="bukti">
-                                    <label class="input-group-text" for="bukti" name="bukti">Upload</label>
+                                    <input type="file" class="form-control" id="bukti" name="bukti" multiple>
+                                    <label class="input-group-text" for="bukti">Browse</label>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="video">Upload Video (MP4, MOV, AVI)</label>
+                                    <input type="file" class="form-control-file" id="video" name="video" multiple>
                                 </div>
 
                                 <div class="form-group">

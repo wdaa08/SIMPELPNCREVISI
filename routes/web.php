@@ -32,12 +32,10 @@ use App\Http\Controllers\UsersController;
 //landingpage
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('login');
 });
 
-Route::get('landingpage/about', function () {
-    return view('chatbot');
-});
+
 
 
 
@@ -70,8 +68,7 @@ Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
 
 
 Route::prefix('satgas')->middleware('check.role:1')->group(function () {
-    // Route::get('/datapelaporan', [DashboardSatgasController::class, 'index'])->name('s.dashboard');
-    // Route::get('/datapelaporan', [PelaporanController::class, 'datapelaporan'])->name('s.datapelaporan');
+
     Route::get('/datapelaporan/{id}/edit', [PelaporanController::class, 'editdatapelaporan'])->name('s.editdatapelaporan');
     Route::put('/datapelaporan/{id}/edit', [PelaporanController::class, 'updatedatapelaporan'])->name('s.updatedatapelaporan');
     

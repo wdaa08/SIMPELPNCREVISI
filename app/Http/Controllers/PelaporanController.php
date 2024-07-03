@@ -204,9 +204,9 @@ class PelaporanController extends Controller
     {
         // Tambahkan log untuk melacak eksekusi fungsi
         Log::info('Memulai fungsi updatelaporan untuk pelapor ID: ' . $id);
-
+    
         $pelapor = Pelaporan::findOrFail($id);
-
+    
         // Validasi data
         $rules = [
             'nama_pelapor' => 'required|string',
@@ -225,15 +225,16 @@ class PelaporanController extends Controller
             'kebutuhan_korban' => 'nullable|array',
             'deskripsi_disabilitas' => 'nullable|string',
             'bukti' => 'image|file',
+            'video.*' => 'nullable|max:102400', // Video (mp4, mov, avi) maks 100MB
             'voicenote' => 'nullable',
         ];
-
+    
         $messages = [
             'nama_pelapor.required' => 'Nama Pelapor tidak boleh kosong!',
             'nomor_hp.max' => 'Nomor HP tidak boleh lebih dari 14 angka!',
             'nomor_hp_pihak_lain.max' => 'Nomor HP pihak lain tidak boleh lebih dari 14 angka!',
         ];
-
+    
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             Log::warning('Validasi gagal untuk pelapor ID: ' . $id, ['errors' => $validator->errors()]);
@@ -241,11 +242,11 @@ class PelaporanController extends Controller
                 ->withErrors($validator)
                 ->withInput();
         }
-
+    
         // Menggabungkan data inputan yang berupa array menjadi string
         $combineKebutuhan = implode(', ', $request->input('kebutuhan_korban', []));
         $combineAlasan = implode(', ', $request->input('alasan_pengaduan', []));
-
+    
         // Update data pelapor
         $pelapor->nama_pelapor = $request->nama_pelapor;
         $pelapor->melapor_sebagai = $request->melapor_sebagai;
@@ -255,66 +256,64 @@ class PelaporanController extends Controller
         $pelapor->jenis_kekerasan_seksual = $request->jenis_kekerasan_seksual;
         $pelapor->cerita_peristiwa = $request->cerita_peristiwa;
         $pelapor->memiliki_disabilitas = $request->memiliki_disabilitas;
-
+    
         if ($request->memiliki_disabilitas == 'memiliki') {
             $pelapor->deskripsi_disabilitas = $request->deskripsi_disabilitas;
         } else {
             $pelapor->deskripsi_disabilitas = null;
         }
-
-
+    
         $pelapor->status_terlapor = $request->status_terlapor;
         $pelapor->alasan_pengaduan = $combineAlasan;
         $pelapor->nomor_hp_pihak_lain = $request->nomor_hp_pihak_lain;
         $pelapor->kebutuhan_korban = $combineKebutuhan;
         $pelapor->tanggal_pelaporan = $request->tanggal_pelaporan;
-        $pelapor->bukti = $request->bukti;
-
+    
+        // Mengelola upload file bukti
+         // Mengelola upload file bukti
+         if ($request->hasFile('bukti')) {
+            $imagePath = $request->file('bukti')->store('bukti');
+            $data['bukti'] = $imagePath;
+            Log::info('Bukti path:', ['path' => $imagePath]);
+        }
+        // Mengelola upload file video
+        if ($request->hasFile('video')) {
+            $videoFiles = [];
+            foreach ($request->file('video') as $file) {
+                $path = $file->store('video', 'public');
+                $videoFiles[] = $path;
+            }
+            $pelapor->video = json_encode($videoFiles);
+            Log::info('File video baru disimpan: ' . json_encode($videoFiles));
+        } else {
+            Log::warning('Tidak ada file video dalam request.');
+        }
+    
+        // Mengelola upload file voice note
         if ($request->hasFile('voicenote')) {
-            // Log untuk mengidentifikasi adanya file voice note baru
             Log::info('Ada file voice note baru yang diunggah oleh pelapor dengan ID: ' . $pelapor->id);
-
+    
             // Hapus file voice note lama jika ada
             if ($pelapor->voicenote) {
                 Log::info('Menghapus file voice note lama: ' . $pelapor->voicenote);
                 Storage::delete($pelapor->voicenote);
             }
-
+    
             // Simpan file voice note baru
-            $filePath = $request->file('voicenote')->store('voicenotes');
+            $filePath = $request->file('voicenote')->store('voicenotes', 'public');
             $pelapor->voicenote = $filePath;
             Log::info('File voice note baru disimpan: ' . $filePath);
         } else {
             Log::warning('Tidak ada file voicenote dalam request.');
         }
-
-
-        if ($request->hasFile('bukti')) {
-            // Log untuk mengidentifikasi adanya file bukti baru
-            Log::info('Ada file bukti baru yang diunggah oleh pelapor dengan ID: ' . $pelapor->id);
-
-            // Hapus file bukti lama jika ada
-            if ($pelapor->bukti) {
-                Log::info('Menghapus file bukti lama: ' . $pelapor->bukti);
-                Storage::delete($pelapor->bukti);
-            }
-
-            // Simpan file bukti baru
-            $imagePath = $request->file('bukti')->store('bukti');
-            $pelapor->bukti = $imagePath;
-            Log::info('File bukti baru disimpan: ' . $imagePath);
-        } else {
-            Log::warning('Tidak ada file bukti dalam request.');
-        }
-
-
+    
         $pelapor->save();
-
+    
         Log::info('Pelapor ID: ' . $pelapor->id . ' berhasil diupdate.');
-
+    
         return redirect()->route('laporansaya')->with('edit.success', 'Formulir pelaporan berhasil diupdate.');
     }
-
+    
 
 
 

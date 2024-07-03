@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
                 if (auth()->user()->role_id == 1) {
                     return redirect()->route('s.datapelaporan');
                 } elseif (auth()->user()->role_id == 2) {
-                    return redirect()->route('p.halamanpelaporan');
+                    return redirect()->route('chatbot');
                 }
                 // Tambahan ini menggantikan RouteServiceProvider::HOME
             }

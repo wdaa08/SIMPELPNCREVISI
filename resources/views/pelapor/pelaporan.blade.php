@@ -5,11 +5,11 @@
         <div class="row g-4">
             <div class="col-sm-12 col-xl-0">
                 <div class="bg-light rounded h-100 p-4">
-                    <h6 class="mb-4">Formulir Pelaporan</h6>
+                    <h6 class="mb-4">Formulir Pengaduan</h6>
                     <form method="post" action="{{ route('tambah_laporan') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="mb-3">
-                            <label for="namapelapor" class="form-label">Nama Pelapor</label>
+                            <label for="namapelapor" class="form-label">Nama Pelapor*</label>
                             <input type="text" class="form-control" id="namapelapor" name="nama_pelapor"
                                 value="{{ auth()->user()->nama }}" disabled>
                             <input type="hidden" name="nama_pelapor" value="{{ auth()->user()->nama }}">
@@ -21,34 +21,33 @@
                                 <option value="korban">Korban</option>
                                 <option value="saksi">Saksi</option>
                             </select>
-                            <label for="melaporsebagai">Melapor Sebagai:</label>
+                            <label for="melaporsebagai">Melapor Sebagai:*</label>
                         </div>
 
                         <div class="mb-3">
-                            <label for="nomorhp" class="form-label">Nomor HP</label>
+                            <label for="nomorhp" class="form-label">Nomor HP*</label>
                             <input type="text" class="form-control" id="nomor_hp" name="nomor_hp"
                                 value="{{ auth()->user()->nomorhp }}" disabled>
                             <input type="hidden" name="nomor_hp" value="{{ auth()->user()->nomorhp }}">
                         </div>
                         
                         <div class="mb-3">
-                            <label for="alamat_email" class="form-label">Alamat Email</label>
+                            <label for="alamat_email" class="form-label">Alamat Email*</label>
                             <input type="email" class="form-control" id="alamat_email_disabled"
                                 aria-describedby="emailHelp" value="{{ auth()->user()->email }}" disabled>
                             <!-- Input dinonaktifkan tetapi nilai akan dikirim ke server -->
                             <input type="hidden" name="alamat_email" value="{{ auth()->user()->email }}">
                             <!-- Input tersembunyi untuk menyimpan nilai yang akan dikirim ke server -->
-                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
 
                         <div class="mb-3">
-                            <label for="nomorhp" class="form-label">Domisili</label>
+                            <label for="nomorhp" class="form-label">Domisili*</label>
                             <input type="text" class="form-control" id="domisili_pelapor" name="domisili_pelapor"
                                 value="{{ auth()->user()->domisili }}" disabled>
                             <input type="hidden" name="domisili_pelapor" value="{{ auth()->user()->domisili }}">
                         </div>
 
-                        <label for="jenis_kekerasan_seksual" class="form-label mt-3">Jenis Kekerasan Seksual</label>
+                        <label for="jenis_kekerasan_seksual" class="form-label mt-3">Jenis Kekerasan Seksual*</label>
                         <select class="form-select" name="jenis_kekerasan_seksual" id="jenis_kekerasan_seksual">
                             <option value="">--Pilih Salah Satu--</option>
                             <option value="Ujaran diskriminatif atau melecehkan Korban">Ujaran diskriminatif atau melecehkan Korban</option>
@@ -74,23 +73,26 @@
                             <option value="Perbuatan Kekerasan Seksual lainnya">Perbuatan Kekerasan Seksual lainnya</option>
                         </select>
                         
-                        <label for="" class="form-label mt-3">Cerita Singkat Peristiwa</label>
+                        <label for="" class="form-label mt-3">Cerita Singkat Peristiwa*</label>
                         <div class="form-floating">
                             <textarea class="form-control" placeholder="narasipelapor" name="cerita_peristiwa" id="floatingTextarea"
                                 style="height: 150px;">{{ old('cerita_peristiwa') }}</textarea>
                         </div>
 
-                        <div class="form-group mt-3 ">
-                            <label for="voicenote" >Voice Note | Optional </label>
+                        <div class="form-group mt-3">
+                            <label for="voicenote">Voice Note | Optional</label>
                             <br>
-                            <button type="button" id="recordButton" class="btn btn-primary">Mulai Rekam</button>
-                            <button type="button" id="stopButton" class="btn btn-danger" disabled>Berhenti
-                                Rekam</button>
+                            <button type="button" id="recordButton" class="btn btn-primary">
+                                <i class="fas fa-microphone-alt"></i> Mulai Rekam
+                            </button>
+                            <button type="button" id="stopButton" class="btn btn-danger" disabled>
+                                <i class="fas fa-stop"></i> Berhenti Rekam
+                            </button>
                             <input type="file" id="voicenote" name="voicenote" style="display: none;">
                             <p id="recordingTime">Durasi: 0s</p>
                             <audio id="audioPreview" controls style="display: none;"></audio>
                         </div>
-
+                        
                         <script>
                             let mediaRecorder;
                             let recordedChunks = [];
@@ -174,7 +176,7 @@
                                 <option value="memiliki"
                                     {{ old('memiliki_disabilitas') === 'memiliki' ? 'selected' : '' }}>Memiliki</option>
                             </select>
-                            <label for="hasDisability">Memiliki Disabilitas?</label>
+                            <label for="hasDisability">Memiliki Disabilitas?*</label>
                         </div>
 
 
@@ -206,7 +208,7 @@
                                     {{ old('status_terlapor') === 'masyarakat_kampus' ? 'selected' : '' }}>Masyarakat Umum
                                 </option>
                             </select>
-                            <label for="status terlapor">Status Terlapor:</label>
+                            <label for="status terlapor">Status Terlapor:*</label>
                         </div>
 
 
@@ -214,7 +216,7 @@
                         <div class="border border-light p-3">
                             <div class="mb-3">
                                 <label for="alasanPengaduan" class="form-label">Silahkan centang salah satu atau lebih
-                                    alasan pengaduan</label>
+                                    alasan pengaduan*</label>
 
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="alasan_pengaduan[]"
@@ -287,7 +289,7 @@
                                 <div class="border border-light p-3">
                                     <div class="mb-3">
                                         <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan
-                                            Korban:</label>
+                                            Korban:*</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
                                                 id="konselingPsikologis" value="Konseling Psikologis">
@@ -355,7 +357,7 @@
                                     });
                                 </script>
                                 <div class="mb-3">
-                                    <label for="tanggal">Tanggal Pelaporan:</label>
+                                    <label for="tanggal">Tanggal Pelaporan:*</label>
                                     <input type="date" id="tanggalpelaporan" name="tanggal_pelaporan">
                                 </div>
 
@@ -369,22 +371,16 @@
                                     // Mengatur nilai default input tanggal ke tanggal hari ini
                                     inputTanggal.value = today;
                                 </script>
-                                <label for="bukti">Bukti: </label>
+                                <label for="bukti">Bukti Foto: </label>
                                 <div class="input-group mb-3">
-                                    <input type="file" class="form-control" id="bukti" name="bukti" multiple>
-                                    <label class="input-group-text" for="bukti">Browse</label>
+                                    <input type="file" class="form-control-file" id="bukti" name="bukti" multiple>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="video">Upload Video (MP4, MOV, AVI)</label>
+                                <label for="video">Bukti Video: </label>
+                                <div class="form-group mb-3">
                                     <input type="file" class="form-control-file" id="video" name="video" multiple>
                                 </div>
-
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                                <button class="btn btn-danger" type="submit">Kirim Laporan</button>
+                                <button class="btn btn-danger" type="submit">KIRIM PENGADUAN</button>
                     </form>
                 </div>
             </div>

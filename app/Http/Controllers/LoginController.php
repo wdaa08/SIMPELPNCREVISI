@@ -22,7 +22,7 @@
             if (auth()->user()->role_id == 1) {
                 return redirect()->route('Dashboard');
             } elseif (auth()->user()->role_id == 2) {
-                return redirect()->route('dashboardpelapor');
+                return redirect()->route('chatbot');
             }
         } else {
             return redirect('/login')->withErrors(['login' => 'Invalid credentials']);

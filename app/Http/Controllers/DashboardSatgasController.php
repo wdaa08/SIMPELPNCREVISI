@@ -118,6 +118,20 @@ class DashboardSatgasController extends Controller
     }
     
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     
     public function pdf()
@@ -174,3 +188,7 @@ class DashboardSatgasController extends Controller
         return $pdf->stream('dashboard.pdf');
     }
 }
+
+
+
+

@@ -21,16 +21,10 @@ class ChatbotController extends Controller
     public function query(Request $request)
     {
         $question = $request->input('question');
-        $keywords = explode(' ', $question); // Memecah pertanyaan menjadi kata kunci
-    
-        // Membangun query untuk mencari pertanyaan yang mengandung salah satu kata kunci
-        $query = Chatbot::query();
-        foreach ($keywords as $keyword) {
-            $query->orWhere('question', 'like', '%' . $keyword . '%');
-        }
-    
-        $response = $query->first();
-    
+        
+        // Mencari pertanyaan yang sama persis di database
+        $response = Chatbot::where('question', '=', $question)->first();
+        
         if ($response) {
             // Menyimpan pertanyaan dari pengguna ke database
             // Tidak perlu membuat baru jika pertanyaan sudah ada di database
@@ -44,7 +38,7 @@ class ChatbotController extends Controller
             return response()->json(['answer' => 'Maaf, saya tidak mengerti pertanyaan Anda.']);
         }
     }
-    
+        
 
     public function store(Request $request)
     {

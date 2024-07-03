@@ -38,11 +38,13 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|max:255|unique:users,npm_nidn_npak,' . $user->id,
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'prodi' => 'nullable|string|max:255', // Ditambahkan tanda koma danenis data
-            'jurusan' => 'nullable|string|max:255', // Ditambahkan tanda koma danenis data
-            'jabatan' => 'nullable|string|max:255', // Ditambahkan tanda koma dan jenis data
-            'unit_kerja' => 'nullable|string|max:255', // Ditambahkan tanda koma dan jenis data
+            'prodi' => 'nullable|string|max:255',
+            'jurusan' => 'nullable|string|max:255',
+            'jabatan' => 'nullable|string|max:255',
+            'unit_kerja' => 'nullable|string|max:255',
             'tanda_tangan' => 'image|max:5000',
+            'current_password' => 'nullable|string', // Validasi untuk password saat ini
+            'password' => 'nullable|string|min:8|confirmed', // Validasi untuk password baru
         ]);
     
         // Jika validasi gagal, kembalikan dengan pesan kesalahan
@@ -50,6 +52,11 @@ class UserController extends Controller
             return redirect()->back()
                         ->withErrors($validator)
                         ->withInput();
+        }
+    
+        // Verifikasi password saat ini jika password baru diisi
+        if ($request->filled('password') && !Hash::check($request->input('current_password'), $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Password saat ini tidak cocok.'])->withInput();
         }
     
         // Inisialisasi $validatedData
@@ -63,6 +70,14 @@ class UserController extends Controller
             if ($user->tanda_tangan) {
                 Storage::delete($user->tanda_tangan);
             }
+        }
+    
+        // Update password jika ada input password baru yang dikonfirmasi
+        if ($request->filled('password')) {
+            $validatedData['password'] = Hash::make($request->input('password'));
+        } else {
+            // Hapus validasi password dari $validatedData agar tidak mengubah password
+            unset($validatedData['password']);
         }
     
         // Update data pengguna dengan data yang divalidasi

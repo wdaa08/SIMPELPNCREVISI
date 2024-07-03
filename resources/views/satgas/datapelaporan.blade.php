@@ -5,7 +5,7 @@
 <div class="container my-4">
     <div class="row">
         <div class="col-12">
-            <h1 style="text-align:center;">Data Laporan Masuk</h1>
+            <h1 style="text-align:center;">Data Pengaduan</h1>
             <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
                 <div class="card-body">  
                 <table class="table table-hover">
@@ -88,7 +88,7 @@
                     <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="modalDetailPelaporanLabel">Detail Pelaporan</h5>
+                                <h6 class="modal-title" id="modalDetailPelaporanLabel" >Detail Pelaporan</h6>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">

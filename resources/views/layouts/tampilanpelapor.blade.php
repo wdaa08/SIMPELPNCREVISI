@@ -79,7 +79,7 @@
         @endif
         @if (Session('edit.success'))
             Swal.fire({
-            title: 'edit Berhasil Dikirim',
+            title: 'Profil berhasil diperbarui',
             text: '',
             icon: 'success',
             });
