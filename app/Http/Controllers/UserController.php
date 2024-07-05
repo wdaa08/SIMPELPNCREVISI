@@ -38,6 +38,8 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|max:255|unique:users,npm_nidn_npak,' . $user->id,
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+            'nomorhp' => 'nullable|string',
+            'domisili' => 'nullable|string',
             'prodi' => 'nullable|string|max:255',
             'jurusan' => 'nullable|string|max:255',
             'jabatan' => 'nullable|string|max:255',
@@ -45,7 +47,14 @@ class UserController extends Controller
             'tanda_tangan' => 'image|max:5000',
             'current_password' => 'nullable|string', // Validasi untuk password saat ini
             'password' => 'nullable|string|min:8|confirmed', // Validasi untuk password baru
+        ], [
+            'nama.required' => 'Nama tidak boleh kosong.',
+            'npm_nidn_npak.required' => 'NPM/NIDN/NPAK tidak boleh kosong.',
+            'email.required' => 'Email tidak boleh kosong.',
+            'password.confirmed' => 'Konfirmasi password tidak sesuai.',
         ]);
+
+
     
         // Jika validasi gagal, kembalikan dengan pesan kesalahan
         if ($validator->fails()) {
@@ -80,13 +89,16 @@ class UserController extends Controller
             unset($validatedData['password']);
         }
     
-        // Update data pengguna dengan data yang divalidasi
+    // Update data pengguna dengan data yang divalidasi
+    try {
         $user->update($validatedData);
-    
-        // Redirect ke halaman profil dengan pesan sukses
-        return redirect()->route('profile', ['id' => $id])->with('edit.success', 'Profil berhasil diperbarui.');
+    } catch (\Exception $e) {
+        return redirect()->back()->with('edit.error', 'Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
     }
-    
+
+    // Redirect ke halaman profil dengan pesan sukses
+    return redirect()->route('profile', ['id' => $id])->with('edit.success', 'Profil berhasil diperbarui.');
+    }
 
     public function showImportForm()
     {
@@ -101,7 +113,7 @@ class UserController extends Controller
 
         Excel::import(new UsersImport, $request->file('file')); // Proses import menggunakan kelas UsersImport
 
-        return redirect()->route('datapengguna')->with('success', 'Pengguna berhasil diimpor.'); // Redirect ke halaman setelah import selesai
+        return redirect()->route('s.datapengguna')->with('success', 'Pengguna berhasil diimpor.'); // Redirect ke halaman setelah import selesai
     }
 
     public function export()
@@ -127,7 +139,8 @@ class UserController extends Controller
             'nama' => 'required|string|max:255',
             'npm_nidn_npak' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
+            'nomorhp' =>'nullable|string',
+            'password' => 'required|string',
             'jabatan' => 'nullable|string',
             'unit_kerja' => 'nullable|string',
             'prodi' => 'nullable|string',
@@ -138,7 +151,6 @@ class UserController extends Controller
             'npm_nidn_npak.required' => 'NPM/NIDN/NPAK tidak boleh kosong.',
             'email.required' => 'Email tidak boleh kosong.',
             'password.required' => 'Password tidak boleh kosong.',
-            'password.min' => 'Password minimal harus 8 karakter.',
             'role_id.required' => 'Role harus dipilih.',
             'role_id.exists' => 'Role yang dipilih tidak valid.',
         ]);
@@ -152,6 +164,8 @@ class UserController extends Controller
                 'nama' => $validatedData['nama'],
                 'npm_nidn_npak' => $validatedData['npm_nidn_npak'],
                 'email' => $validatedData['email'],
+                'nomorhp' => $validatedData['nomorhp'],
+                'domisili' => $validatedData['domisili'],
                 'password' => Hash::make($validatedData['password']),
                 'jabatan' => $validatedData['jabatan'],
                 'unit_kerja' => $validatedData['unit_kerja'],

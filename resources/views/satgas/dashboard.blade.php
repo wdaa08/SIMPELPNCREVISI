@@ -5,7 +5,7 @@
     <div class="row g-4">
         <div class="col-12">
             <div class="d-flex justify-content-start mb-4">
-                <a href="{{ route('dashboard.pdf') }}" class="btn btn-danger"><i class="fas fa-file-pdf me-2"></i>Cetak PDF</a>
+                <a href="{{ route('dashboard.pdf') }}" class="btn btn-danger"><i class="fas fa-file-pdf me-2"></i>Cetak Laporan PDF</a>
             </div>
         </div>
         

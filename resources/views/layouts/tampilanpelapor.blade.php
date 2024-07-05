@@ -115,6 +115,14 @@
             });
         @endif
 
+        @if (Session('edit.error'))
+            Swal.fire({
+            title: 'Perbarui Profil Gagal',
+            text: '{{ session('error') }}',
+            icon: 'error',
+            });
+            
+        @endif 
 
             
     </script>

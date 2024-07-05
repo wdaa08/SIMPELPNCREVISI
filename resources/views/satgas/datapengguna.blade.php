@@ -10,21 +10,23 @@
 
                         <!-- Button trigger modal for Import -->
                         <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#importModal">
-                            <i class="fas fa-file-import"></i> Tambah
-                        </button>
-                        <!-- Button trigger modal for Add User -->
-                        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#addUserModal">
-                            <i class="fas fa-user-plus"></i> Tambah Pengguna
-                        </button>
-                        <button type="button" class="btn btn-success mb-3" onclick="window.location='{{ route('users.export') }}'">
-                            <i class="fas fa-file-export"></i> Unduh
-                        </button>
+                                <i class="fas fa-file-excel"></i> Tambah
+                            </button>
+
+                            <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#addUserModal">
+                                <i class="fas fa-user"></i> Tambah
+                            </button>
+
+                            <button type="button" class="btn btn-success mb-3" onclick="window.location='{{ route('users.export') }}'">
+                                <i class="fas fa-download"></i> Unduh
+                            </button>
+
                                    
                                                         <!-- Filter Dropdown -->
                                                         <div class="form-group" >
                                                             <label for="roleFilter">Filter Berdasarkan Role:</label>
                                                             <select class="form-control w-25" id="roleFilter">
-                                                                <option value="all">Semua Role</option>
+                                                                <option value="all">--semua--</option>
                                                                 <option value="1">SATGAS</option>
                                                                 <option value="2">PELAPOR</option>
                                                             </select>
@@ -130,6 +132,10 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="email" class="form-control" id="email" name="email" value="{{ old('email') }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nomorhp">nomorhp</label>
+                            <input type="nomorhp" class="form-control" id="nomorhp" name="nomorhp" value="{{ old('nomorhp') }}">
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>

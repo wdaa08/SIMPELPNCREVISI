@@ -5,7 +5,7 @@
 <div class="container my-4">
     <div class="row">
         <div class="col-12">
-            <h1 style="text-align:center;">Data Pengaduan</h1>
+            <h2 style="text-align:center;">Data Pengaduan</h2>
             <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
                 <div class="card-body">  
                 <table class="table table-hover">
@@ -275,7 +275,7 @@
                                 <td>${data.tanggal_pelaporan}</td>
                             </tr>
                             <tr>
-                                <th scope="row">Bukti</th>
+                                <th scope="row">Bukti Foto</th>
                                 <td>${data.bukti ? `<img src="/storage/${data.bukti}" width="100" height="100" alt="TTD">` : 'Tidak ada bukti yang diunggah.'}</td>
                             </tr>
                                         <tr>

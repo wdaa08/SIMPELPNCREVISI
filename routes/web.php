@@ -98,7 +98,7 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
     // routes/web.php
     Route::get('/dashboard/pdf', [DashboardSatgasController::class, 'pdf'])->name('dashboard.pdf');
 
-    Route::post('/pelaporans/{id}/selesai', [PelaporanController::class, 'laporanSelesai'])->name('pelaporans.selesai');
+    // Route::post('/pelaporans/{id}/selesai', [PelaporanController::class, 'laporanSelesai'])->name('pelaporans.selesai');
 
 
     //search
@@ -123,6 +123,8 @@ Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
     Route::get('/chatbot', [ChatbotController::class, 'index'])->name('chatbot');
     Route::post('/chatbot/query', [ChatbotController::class, 'query'])->name('chatbot.query');
     
+
+    Route::post('/pelaporans/{id}/selesai', [PelaporanController::class, 'laporanSelesai'])->name('pelaporans.selesai');
     // Tambahkan rute lain dalam grup ini
 });
 

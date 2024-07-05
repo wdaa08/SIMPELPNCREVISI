@@ -71,8 +71,8 @@
 <body>
     <div class="kop-surat">
         <div class="header">
-            <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 50px; height: auto;">
-            <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 50px; height: auto;">
+            {{-- <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 50px; height: auto;">
+            <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 50px; height: auto;"> --}}
             <div>
                 <h1>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h1>
                 <h2>POLITEKNIK NEGERI CILACAP</h2>
