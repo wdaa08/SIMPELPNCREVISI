@@ -74,7 +74,7 @@
             {{-- <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 50px; height: auto;">
             <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 50px; height: auto;"> --}}
             <div>
-                <h1>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h1>
+                <h2>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h2>
                 <h2>POLITEKNIK NEGERI CILACAP</h2>
                 <p>PENCEGAHAN DAN PENANGANAN KEKERASAN SEKSUAL</p>
                 <p>Jalan Dr. Soetomo No. 1, Sidakaya - CILACAP 53212 Jawa Tengah</p>
@@ -229,18 +229,8 @@
         </table>
 
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
 
-<div class="signature">
+{{-- <div class="signature">
     <p>____,_________</p>
     <p style="margin-top: 10px;">Ketua Satgas PPKS</p>
    <br>
@@ -248,7 +238,7 @@
    <br>
    <br>
     <p style="text-decoration: underline;">Dodi Satriawan, S.T., M. Eng.</p>
-</div>
+</div> --}}
 
         
 

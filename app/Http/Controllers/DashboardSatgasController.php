@@ -183,7 +183,7 @@ class DashboardSatgasController extends Controller
     
         // Load view dashboard_pdf.blade.php dan pass data
         $pdf = PDF::loadView('satgas.dashboard_pdf', compact('jumlahUser', 'jumlahLaporan', 'laporanPerJurusan', 'laporanPerProdi', 'laporanPerUnitKerja', 'laporanPerBulan', 'statusTerlapor', 'jenisKekerasanSeksual'));
-    
+        $pdf->setPaper('A4', 'portrait');
         // Return PDF sebagai streaming untuk di-download
         return $pdf->stream('dashboard.pdf');
     }

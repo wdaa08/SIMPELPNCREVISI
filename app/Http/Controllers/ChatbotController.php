@@ -10,11 +10,13 @@ class ChatbotController extends Controller
     public function index()
     {
         $questions = Chatbot::select('question')->get(); // Mengambil pertanyaan dari tabel chatbot
+        $questions = Chatbot::orderBy('babpertanyaan')->get();
         return view('chatbot', compact('questions'));
         
     }
     public function questionindex()
     {
+        
         return view('add_question');
     }
 
@@ -43,6 +45,7 @@ class ChatbotController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'babpertanyaan' => 'required|string',
             'question' => 'required|string',
             'answer' => 'required|string',
         ]);

@@ -188,7 +188,7 @@ var laporanPerJurusanChart = new Chart(ctxLaporanPerJurusan, {
         });
 
         var dataTotal = laporanPerBulanData.map(function(item) {
-            return Math.round(item.total); // Memastikan data total di bulatkan ke integer
+            return Math.round(item.total); // Memastikan data total dibulatkan ke integer
         });
 
         var ctx = document.getElementById('laporanPerBulanChart').getContext('2d');
@@ -201,7 +201,20 @@ var laporanPerJurusanChart = new Chart(ctxLaporanPerJurusan, {
                     data: dataTotal,
                     backgroundColor: 'rgba(54, 162, 235, 0.2)',
                     borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
+                    borderWidth: 2,
+                    pointRadius: 6, // Ukuran titik
+                    pointBackgroundColor: 'rgba(54, 162, 235, 1)', // Warna titik
+                    pointBorderColor: 'rgba(54, 162, 235, 1)', // Warna tepi titik
+                    pointHoverRadius: 8, // Ukuran titik saat dihover
+                    pointHoverBackgroundColor: 'rgba(54, 162, 235, 1)', // Warna titik saat dihover
+                    pointHoverBorderColor: 'rgba(54, 162, 235, 1)' // Warna tepi titik saat dihover
+                }, {
+                    label: 'Rata-rata',
+                    data: Array(labels.length).fill(dataTotal.reduce((a, b) => a + b, 0) / dataTotal.length), // Garis rata-rata
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    borderDash: [5, 5], // Garis putus-putus
+                    fill: false
                 }]
             },
             options: {
@@ -213,6 +226,12 @@ var laporanPerJurusanChart = new Chart(ctxLaporanPerJurusan, {
                         ticks: {
                             precision: 0 // Pastikan tidak menampilkan desimal
                         }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
                     }
                 }
             }

@@ -74,6 +74,8 @@
             @endif
             <form action="{{ route('chatbot.store') }}" method="POST">
                 @csrf
+                <label for="babpertanyaan">Kategori Pertanyaan:</label>
+                <input type="text" id="babpertanyaan" name="babpertanyaan" required>
                 <label for="question">Pertanyaan:</label>
                 <input type="text" id="question" name="question" required>
                 <label for="answer">Jawaban:</label>

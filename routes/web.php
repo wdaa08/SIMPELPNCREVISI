@@ -106,6 +106,12 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
 
 
 
+    // routes/web.php atau routes/api.php
+
+    Route::post('/send-message', [PelaporanController::class, 'send']);
+
+
+
 
 
     // Tambahkan rute lain dalam grup ini

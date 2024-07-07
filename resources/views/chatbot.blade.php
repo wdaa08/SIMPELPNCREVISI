@@ -132,6 +132,48 @@
 
 <div class="container-fluid pt-4 px-4">
     <div class="row g-4">
+
+
+
+        <div class="col-sm-12 col-xl-6">
+            <div class="bg-light rounded h-100 p-4">
+                <div class="popular-questions">
+                    <h4 class="mb-4">Pertanyaan Populer</h4>
+                    @foreach($questions->groupBy('babpertanyaan') as $babPertanyaan => $pertanyaans)
+                        <div class="accordion mb-3" id="accordion{{ $loop->index }}">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{ $loop->index }}">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $loop->index }}" aria-expanded="false" aria-controls="collapse{{ $loop->index }}">
+                                        {{ $babPertanyaan }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ $loop->index }}" class="accordion-collapse collapse" aria-labelledby="heading{{ $loop->index }}" data-bs-parent="#accordion{{ $loop->index }}">
+                                    <div class="accordion-body">
+                                        <ul class="list-group">
+                                            @foreach($pertanyaans as $question)
+                                                <li class="list-group-item">
+                                                    <a href="#" class="link" onclick="selectQuestion('{{ $question->question }}')">
+                                                        {{ $question->question }}
+                                                    </a>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+
+
+
         <div class="col-sm-12 col-xl-6">
             <div class="bg-light rounded h-100 p-4">
                 <div class="chat-container">
@@ -155,19 +197,7 @@
             </div>
         </div>
         
-        <div class="col-sm-12 col-xl-6">
-            <div class="bg-light rounded h-100 p-4">
-                <div class="popular-questions">
-                        <div class="card-body">
-                            @foreach($questions as $question)
-                                <a href="#" class="link" onclick="selectQuestion('{{ $question->question }}')">
-                                    {{ $question->question }}
-                                </a>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-            </div>
+    
         </div>
     </div>
 

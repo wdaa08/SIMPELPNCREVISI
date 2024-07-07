@@ -10,6 +10,7 @@ class CreateChatbotTable extends Migration
     {
         Schema::create('chatbot', function (Blueprint $table) {
             $table->id();
+            $table->string('babpertanyaan');
             $table->text('question');
             $table->text('answer');
             $table->timestamps();

@@ -64,12 +64,12 @@
                                         <i class="fas fa-file-pdf"></i> <!-- Ikon PDF -->
                                     </a>
                                       <!-- Formulir untuk menyelesaikan pelaporan -->
-                                    <form action="{{ route('pelaporans.selesai', $pelaporan->id) }}" method="POST" class="selesai-form" style="display:inline;">
+                                    {{-- <form action="{{ route('pelaporans.selesai', $pelaporan->id) }}" method="POST" class="selesai-form" style="display:inline;">
                                         @csrf
                                         <button type="submit" class="btn btn-success">
                                             <i class="fas fa-check"></i> <!-- Ikon Selesai -->
                                         </button>
-                                    </form>
+                                    </form> --}}
                                         
                                 </div>
                                 

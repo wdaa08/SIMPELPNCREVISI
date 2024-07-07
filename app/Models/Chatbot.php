@@ -10,5 +10,5 @@ class Chatbot extends Model
     use HasFactory;
 
     protected $table = 'chatbot';
-    protected $fillable = ['question', 'answer'];
+    protected $fillable = ['babpertanyaan', 'question', 'answer'];
 }
