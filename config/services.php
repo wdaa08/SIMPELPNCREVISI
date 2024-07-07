@@ -32,6 +32,9 @@ return [
     ],
 
     
+'fonnte' => [
+    'api_key' => 'cukfkqgV54onZVbb1hR8',
+],
 
 
 
