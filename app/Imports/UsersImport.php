@@ -16,6 +16,10 @@ class UsersImport implements ToModel, WithHeadingRow
             'npm_nidn_npak' => $row['npm_nidn_npak'],
             'email' => $row['email'],
             'password' => Hash::make($row['password']),
+            'jabatan' => $row['jabatan'],
+            'unit_kerja' => $row['unit_kerja'],
+            'jurusan' => $row['jurusan'],
+            'prodi' => $row['prodi'],
         ]);
     }
 }

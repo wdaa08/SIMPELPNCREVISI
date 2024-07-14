@@ -5,7 +5,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-0">
             <div class="bg-light rounded h-100 p-4">
-                <h6 class="mb-4">Formulir Pengaduan</h6>
+                <h6 class="mb-4">Formulir Pelaporan</h6>
                 <form method="post" action="{{ route('tambah_laporan') }}" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
@@ -293,59 +293,58 @@
                                     });
                             </script>
 
-                            <div class="border border-light p-3">
-                                <div class="mb-3">
-                                    <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan
-                                        Korban:*</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="konselingPsikologis" value="Konseling Psikologis">
-                                        <label class="form-check-label" for="konselingPsikologis">
-                                            Konseling Psikologis
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="konselingRohani" value="Konseling Rohani atau Spiritual">
-                                        <label class="form-check-label" for="konselingRohani">
-                                            Konseling Rohani/Spiritual
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="bantuanHukum" value="Bantuan Hukum">
-                                        <label class="form-check-label" for="bantuanHukum">
-                                            Bantuan Hukum
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="bantuanMedis" value="Bantuan Medis">
-                                        <label class="form-check-label " for="bantuanMedis">
-                                            Bantuan Medis
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]"
-                                            id="bantuanDigital" value="Bantuan Digital">
-                                        <label class="form-check-label" for="bantuanDigital">
-                                            Bantuan Digital
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <label class="form-check-label" for="lainnya">Lainnya :</label>
-                                        <input type="text" class="form-control" id="lainnya2Input"
-                                            name="kebutuhan_korban[]" placeholder="Opsional">
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="kebutuhan_korban"
-                                            id="tidakMembutuhkan" value="Tidak Membutuhkan Pendampingan">
-                                        <label class="form-check-label" for="tidakMembutuhkan">
-                                            Tidak Membutuhkan Pendampingan
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
+<div class="border border-light p-3">
+    <div class="mb-3">
+        <label for="kebutuhanKorban" class="form-label">Identifikasi Kebutuhan Korban:*</label>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="konselingPsikologis"
+                value="Konseling Psikologis" {{ in_array('Konseling Psikologis', old('kebutuhan_korban', [])) ? 'checked' : '' }}>
+            <label class="form-check-label" for="konselingPsikologis">
+                Konseling Psikologis
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="konselingRohani"
+                value="Konseling Rohani atau Spiritual" {{ in_array('Konseling Rohani atau Spiritual', old('kebutuhan_korban', [])) ? 'checked' : '' }}>
+            <label class="form-check-label" for="konselingRohani">
+                Konseling Rohani/Spiritual
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="bantuanHukum"
+                value="Bantuan Hukum" {{ in_array('Bantuan Hukum', old('kebutuhan_korban', [])) ? 'checked' : '' }}>
+            <label class="form-check-label" for="bantuanHukum">
+                Bantuan Hukum
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="bantuanMedis"
+                value="Bantuan Medis" {{ in_array('Bantuan Medis', old('kebutuhan_korban', [])) ? 'checked' : '' }}>
+            <label class="form-check-label" for="bantuanMedis">
+                Bantuan Medis
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="bantuanDigital"
+                value="Bantuan Digital" {{ in_array('Bantuan Digital', old('kebutuhan_korban', [])) ? 'checked' : '' }}>
+            <label class="form-check-label" for="bantuanDigital">
+                Bantuan Digital
+            </label>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label" for="lainnya">Lainnya :</label>
+            <input type="text" class="form-control" id="lainnya2Input" name="kebutuhan_korban[]"
+                value="{{ old('kebutuhan_korban.lainnya') }}" placeholder="Opsional">
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="kebutuhan_korban[]" id="tidakMembutuhkan"
+                value="Tidak Membutuhkan Pendampingan" {{ in_array('Tidak Membutuhkan Pendampingan', old('kebutuhan_korban', [])) ? 'checked' : '' }}>
+            <label class="form-check-label" for="tidakMembutuhkan">
+                Tidak Membutuhkan Pendampingan
+            </label>
+        </div>
+    </div>
+</div>
                             <script>
                                 var checkboxTidakMembutuhkan = document.getElementById("tidakMembutuhkan");
                                     var checkboxesLainnya = document.querySelectorAll('input[name="kebutuhan_korban[]"]:not(#tidakMembutuhkan)');
@@ -387,7 +386,7 @@
                             <div class="form-group mb-3">
                                 <input type="file" class="form-control-file" id="video" name="video" multiple>
                             </div>
-                            <button class="btn btn-danger" type="submit">KIRIM PENGADUAN</button>
+                            <button class="btn btn-danger" type="submit">KIRIM PELAPORAN</button>
                 </form>
             </div>
         </div>

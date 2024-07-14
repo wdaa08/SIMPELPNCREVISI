@@ -121,10 +121,59 @@ class UserController extends Controller
         return Excel::download(new UsersExport, 'users.xlsx');
     }
 
-
-
-
-
+    public function deleteUsersByYear(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'year' => 'required|integer|min:1900|max:' . date('Y'),
+        ], [
+            'year.required' => 'Tahun tidak boleh kosong.',
+            'year.integer' => 'Tahun harus berupa angka.',
+            'year.min' => 'Tahun tidak valid.',
+            'year.max' => 'Tahun tidak valid.',
+        ]);
+    
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        $year = $request->input('year');
+    
+        $users = User::whereYear('created_at', $year)->where('role_id', '<>', 1)->get();
+    
+        $skippedUsers = [];
+    
+        foreach ($users as $user) {
+            $pendingReports = $user->pelaporans()->where('selesai', 0)->exists();
+    
+            if ($pendingReports) {
+                $skippedUsers[] = $user->nama; // Simpan nama pengguna yang dilewati
+                continue;
+            }
+    
+            try {
+                $user->delete();
+            } catch (\Exception $e) {
+                Log::error('Error deleting user:', ['error' => $e->getMessage()]);
+                return redirect()->back()->with('error', 'Terjadi kesalahan saat menghapus data pengguna. Silakan coba lagi.');
+            }
+        }
+    
+        if (count($skippedUsers) > 0) {
+            $skippedUsersList = implode(', ', $skippedUsers);
+            $warningMessage = "Beberapa pengguna tidak dapat dihapus karena memiliki pelaporan yang belum selesai: $skippedUsersList";
+        
+            // Tambahkan kondisi jika yang kosong adalah role_id 2
+            if (empty($skippedUsers) && $request->role_id == 2) {
+                $warningMessage = "Tidak ada pengguna dengan role_id 2 pada tahun ini.";
+            }
+        
+            return redirect()->route('s.datapengguna')->with('warning', $warningMessage);
+        }
+        
+    
+        return redirect()->route('s.datapengguna')->with('successhapusdata', 'Pengguna berhasil dihapus.');
+    }
+    
 
 
 
@@ -140,6 +189,7 @@ class UserController extends Controller
             'npm_nidn_npak' => 'required|string|unique:users',
             'email' => 'required|string|email|max:255|unique:users',
             'nomorhp' =>'nullable|string',
+            'domisili' => 'nullable|string',
             'password' => 'required|string',
             'jabatan' => 'nullable|string',
             'unit_kerja' => 'nullable|string',
@@ -178,7 +228,7 @@ class UserController extends Controller
             return redirect()->route('s.datapengguna')->with('success', 'Pengguna berhasil ditambahkan.');
         } catch (\Exception $e) {
             // Tangkap error jika terjadi dan log pesan error
-            Log::error('Error saving user data:', ['error' => $e->getMessage()]);
+            Log::error('Error saving user data:', ['errortambah1data' => $e->getMessage()]);
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan data pengguna. Silakan coba lagi.');
         }
     }

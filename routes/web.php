@@ -31,6 +31,8 @@ use App\Http\Controllers\UsersController;
 
 //landingpage
 
+
+//////////TUJUAN KETIKA WEB DIAKSES///////////
 Route::get('/', function () {
     return view('login');
 });
@@ -40,11 +42,8 @@ Route::get('/', function () {
 
 
 
-//regiss
-Route::get('/register', [RegistrationController::class, 'create'])->name('register');
-Route::post('/register', 'Auth\RegistrationController@store')->name('register');
-Route::post('/register', [RegistrationController::class, 'store']);
 
+//////////LOGIN dan LOGUT///////////
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 Route::post('/actionlogin', [LoginController::class, 'actionLogin'])->name('actionlogin');
 Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout');
@@ -55,10 +54,11 @@ Route::post('/actionlogout', [LoginController::class, 'actionlogout'])->name('ac
 
 
 
-
+//////////UPDATE PROFIL///////////
 Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
 Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('updateprofile');
 
+//////////UPDATE RESPON///////////
 Route::post('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
 
 Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
@@ -87,6 +87,8 @@ Route::prefix('satgas')->middleware('check.role:1')->group(function () {
 
 
     Route::get('/datapengguna', [UserController::class, 'datapengguna'])->name('s.datapengguna');
+    Route::post('/users/delete-by-year', [UserController::class, 'deleteUsersByYear'])->name('users.deleteByYear');
+
     Route::post('/users/import', [UserController::class, 'import'])->name('users.import.post');
     Route::get('/users/export', [UserController::class, 'export'])->name('users.export');
     Route::post('/users/store', [UserController::class, 'store'])->name('users.store');

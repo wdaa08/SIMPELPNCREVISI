@@ -72,7 +72,7 @@
     <script>
         @if (Session('success'))
             Swal.fire({
-            title: 'Pengaduan Berhasil Dikirim',
+            title: 'Pelaporan Berhasil Dikirim',
             text: '',
             icon: 'success',
             });
@@ -86,7 +86,7 @@
         @endif
         @if (Session('error'))
             Swal.fire({
-            title: 'Pengaduan Gagal Dikirim',
+            title: 'Pelaporan Gagal Dikirim',
             text: '{{ session('error') }}',
             icon: 'error',
             });
@@ -100,8 +100,8 @@
                 @endforeach
 
                 Swal.fire({
-                    title: 'pengaduan gagal!',
-                    html: `<div style="text-align: left;">${errorMessages}</div>`,
+                    title: 'Pelaporan Gagal',
+                    html: `<div style="text-align: left;">${errorMessages} Segera Perbarui profil! Untuk jika Nomor HP / Domisili Kosong</div>`,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
@@ -109,7 +109,7 @@
 
             @if (Session('success.edit.profil'))
             Swal.fire({
-            title: 'Pengaduan Berhasil Dikirim',
+            title: 'Pelaporan Berhasil Dikirim',
             text: '',
             icon: 'success',
             });

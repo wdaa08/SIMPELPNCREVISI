@@ -45,7 +45,7 @@
                     <div class="bg-white rounded shadow p-4 p-sm-5 my-4 mx-3 text-center">
                         <div class="mb-3">
                             <h1 class="text-primary">SIMPEL PNC</h1>
-                            <p class="text-muted">SISTEM INFORMASI PENGADUAN PELECEHAN SEKSUAL DI POLITEKNIK NEGERI CILACAP</p>
+                            <p class="text-muted">SISTEM INFORMASI PELAPORAN PELECEHAN SEKSUAL DI POLITEKNIK NEGERI CILACAP</p>
                         </div>
                         <form action="{{ route('actionlogin') }}" method="post">
                             @csrf

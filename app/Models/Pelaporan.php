@@ -47,7 +47,7 @@ class Pelaporan extends Model
 
     public function responDariUser()
     {
-        return $this->belongsTo(User::class, 'respon_dari');
+        return $this->belongsTo(User::class, 'respon_dari'); //relasi
     }
 
     

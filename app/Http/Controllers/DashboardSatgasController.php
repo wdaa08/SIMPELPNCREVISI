@@ -181,9 +181,12 @@ class DashboardSatgasController extends Controller
             ->groupBy('jenis_kekerasan_seksual')
             ->get();
     
-        // Load view dashboard_pdf.blade.php dan pass data
-        $pdf = PDF::loadView('satgas.dashboard_pdf', compact('jumlahUser', 'jumlahLaporan', 'laporanPerJurusan', 'laporanPerProdi', 'laporanPerUnitKerja', 'laporanPerBulan', 'statusTerlapor', 'jenisKekerasanSeksual'));
-        $pdf->setPaper('A4', 'portrait');
+        // Render HTML view
+        $html = view('satgas.dashboard_pdf', compact('jumlahUser', 'jumlahLaporan', 'laporanPerJurusan', 'laporanPerProdi', 'laporanPerUnitKerja', 'laporanPerBulan', 'statusTerlapor', 'jenisKekerasanSeksual'))->render();
+    
+        // Load HTML into PDF and render it
+        $pdf = PDF::loadHTML($html)->setPaper('A4', 'portrait');
+    
         // Return PDF sebagai streaming untuk di-download
         return $pdf->stream('dashboard.pdf');
     }

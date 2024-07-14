@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="" name="keywords">
     <meta content="" name="description">
+    
 
     @include('partials.css')
 
@@ -73,63 +74,85 @@
 
  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
  <script>
-     @if (Session('success'))
-         Swal.fire({
-         title: 'pengguna baru berhasil',
-         text: '',
-         icon: 'success',
-         });
-     @endif
-     @if (Session('edit.success'))
-         Swal.fire({
-         title: 'edit Berhasil Dikirim',
-         text: '',
-         icon: 'success',
-         });
-     @endif
-     @if (Session('error'))
-         Swal.fire({
-         title: 'Pengaduan Gagal Dikirim',
-         text: '{{ session('error') }}',
-         icon: 'error',
-         });
-         
-     @endif 
+        @if(Session::has('success'))
+            Swal.fire({
+                title: 'Pengguna baru berhasil',
+                text: '',
+                icon: 'success',
+            });
+        @endif
 
-    @if (Session('successstatus'))
-        Swal.fire({
-        title: 'Status Berhasil Diubah',
-        text: '',
-        icon: 'success',
-        });
-        
-    @endif
+        @if(Session::has('edit.success'))
+            Swal.fire({
+                title: 'Edit berhasil dikirim',
+                text: '',
+                icon: 'success',
+            });
+        @endif
 
-    @if (Session('successaddchatbot'))
-        Swal.fire({
-        title: 'Berhasil',
-        text: '',
-        icon: 'success',
-        });
-        
-    @endif
+        @if(Session::has('error'))
+            Swal.fire({
+                title: 'Pengaduan gagal dikirim',
+                text: '{{ session('error') }}',
+                icon: 'error',
+            });
+        @endif
 
-      // Menampilkan pesan kesalahan validasi jika ada
-      @if($errors->any())
-             let errorMessages = '';
-             @foreach ($errors->all() as $error)
-                 errorMessages += '{{ $error }}<br>';
-             @endforeach
+        @if(Session::has('successstatus'))
+            Swal.fire({
+                title: 'Status berhasil diubah',
+                text: '',
+                icon: 'success',
+            });
+        @endif
 
-             Swal.fire({
-                 title: 'gagal!',
-                 html: `<div style="text-align: left;">${errorMessages}</div>`,
-                 icon: 'error',
-                 confirmButtonText: 'OK'
-             });
-         @endif         
+        @if(Session::has('successaddchatbot'))
+            Swal.fire({
+                title: 'Berhasil',
+                text: '',
+                icon: 'success',
+            });
+        @endif
 
-       
+        @if(Session::has('errortambah1data'))
+            Swal.fire({
+                title: 'Pengguna gagal ditambahkan',
+                text: '{{ session('errortambah1data') }}',
+                icon: 'error',
+            });
+        @endif
+
+                @if (Session('successhapusdata'))
+            Swal.fire({
+                title: 'Berhasil',
+                text: '{{ session('successhapusdata') }}',
+                icon: 'success',
+            });
+        @endif
+
+        @if (Session('warning'))
+            Swal.fire({
+                title: 'Peringatan',
+                text: '{{ session('warning') }}',
+                icon: 'warning',
+            });
+        @endif
+
+
+        // Menampilkan pesan kesalahan validasi jika ada
+        @if($errors->any())
+            let errorMessages = '';
+            @foreach ($errors->all() as $error)
+                errorMessages += '{{ $error }}<br>';
+            @endforeach
+
+            Swal.fire({
+                title: 'Gagal!',
+                html: `<div style="text-align: left;">${errorMessages}</div>`,
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+        @endif
          
  </script>
 </body>

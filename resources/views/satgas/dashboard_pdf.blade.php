@@ -17,8 +17,8 @@
         }
 
         .kop-surat img {
-            width: 80px;
             height: auto;
+            vertical-align: middle;
         }
 
         .kop-surat h1,
@@ -47,6 +47,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
 
         th,
@@ -71,8 +72,7 @@
 <body>
     <div class="kop-surat">
         <div class="header">
-            {{-- <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 50px; height: auto;">
-            <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 50px; height: auto;"> --}}
+            {{-- <img src="{{ public_path('img/logopnc.png') }}" alt="Logo Kiri" style="width: 80px;"> --}}
             <div>
                 <h2>KEMENTRIAN PENDIDIKAN, KEBUDAYAAN, RISET, DAN TEKNOLOGI</h2>
                 <h2>POLITEKNIK NEGERI CILACAP</h2>
@@ -81,6 +81,7 @@
                 <p>Telepon: (0282) 533329, Fax: (0282) 537992</p>
                 <p>www.pnc.ac.id, Email: sekretariat@pnc.ac.id</p>
             </div>
+            {{-- <img src="{{ public_path('img/logoppks.png') }}" alt="Logo Kanan" style="width: 80px;"> --}}
         </div>
         <div class="line"></div>
         <h3>DATA LAPORAN WEBSITE SIMPEL-PNC</h3>
@@ -165,31 +166,6 @@
             </tbody>
         </table>
 
-
-        <h3>Laporan per Bulan</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Bulan</th>
-                    <th>Tahun</th>
-                    <th>Total Laporan</th>
-                    <th>Laporan Selesai</th>
-                    <th>Laporan Belum Selesai</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($laporanPerBulan as $laporan)
-                <tr>
-                    <td>{{ $laporan->bulan }}</td>
-                    <td>{{ $laporan->tahun }}</td>
-                    <td>{{ $laporan->total }}</td>
-                    <td>{{ $laporan->selesai_count }}</td>
-                    <td>{{ $laporan->belum_count }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-
         <!-- Tabel Status Terlapor -->
         <h3>Status Terlapor</h3>
         <table>
@@ -228,19 +204,7 @@
             </tbody>
         </table>
 
-
-
-{{-- <div class="signature">
-    <p>____,_________</p>
-    <p style="margin-top: 10px;">Ketua Satgas PPKS</p>
-   <br>
-   <br>
-   <br>
-   <br>
-    <p style="text-decoration: underline;">Dodi Satriawan, S.T., M. Eng.</p>
-</div> --}}
-
-        
+    </div>
 
 </body>
 

@@ -20,7 +20,7 @@
                 </a>    
                 <a href="{{ route('s.datapelaporan') }}"
                    class="nav-item nav-link {{ \Route::is('s.datapelaporan') ? 'active' : '' }}">
-                    <i class="fa fa-file-alt me-2"></i>Data Pengaduan
+                    <i class="fa fa-file-alt me-2"></i>Data Pelaporan
                 </a>
                 <a href="{{ route('s.datapengguna') }}"
                    class="nav-item nav-link {{ \Route::is('s.datapengguna') ? 'active' : '' }}">
@@ -38,7 +38,7 @@
                     class="fas fa-comments me-2"></i>ChatBot</a>
             <a href="{{ route('pelaporan') }}"
                 class="nav-item nav-link {{ \Route::is('pelaporan') ? 'active' : '' }}"><i
-                    class="fas fa-exclamation-triangle me-2"></i>Pengaduan</a>
+                    class="fas fa-exclamation-triangle me-2"></i>Pelaporan</a>
             <a href="{{ route('laporansaya') }}"
                 class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : '' }}"><i
                     class="fas fa-file-alt me-2"></i>Laporan Saya</a>
