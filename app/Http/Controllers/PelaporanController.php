@@ -138,32 +138,32 @@ class PelaporanController extends Controller
 
 
 
-            // // Ambil nomor target dari luar, misalnya dari input atau variabel lain
-            // $targetNumber = '62895413799294'; // Contoh nomor yang diambil dari luar, bisa disesuaikan dengan kebutuhan aplikasi
-            // // Mengirim pesan WhatsApp dengan Fonnte
-            // $client = new Client();
-            // $apiKey = config('services.fonnte.api_key');
-            // Log::info('Using Fonnte API Key:', ['apiKey' => $apiKey]); // Logging API key untuk debugging
+            // Ambil nomor target dari luar, misalnya dari input atau variabel lain
+            $targetNumber = '6287734577740'; // Contoh nomor yang diambil dari luar, bisa disesuaikan dengan kebutuhan aplikasi
+            // Mengirim pesan WhatsApp dengan Fonnte
+            $client = new Client();
+            $apiKey = config('services.fonnte.api_key');
+            Log::info('Using Fonnte API Key:', ['apiKey' => $apiKey]); // Logging API key untuk debugging
 
-            // $message = "Pelaporan baru dari: " . $data['nama_pelapor'] . "\nJenis Kekerasan Seksual: " . $data['jenis_kekerasan_seksual'];
-            // $response = $client->post('https://api.fonnte.com/send', [
-            //     'headers' => [
-            //         'Authorization' => $apiKey,
-            //     ],
-            //     'form_params' => [
-            //         'target' => $targetNumber,
-            //         'message' => $message,
-            //     ],
-            // ]);
+            $message = "Pelaporan baru dari: " . $data['nama_pelapor'] . "\nJenis Kekerasan Seksual: " . $data['jenis_kekerasan_seksual'];
+            $response = $client->post('https://api.fonnte.com/send', [
+                'headers' => [
+                    'Authorization' => $apiKey,
+                ],
+                'form_params' => [
+                    'target' => $targetNumber,
+                    'message' => $message,
+                ],
+            ]);
 
-            // $responseBody = json_decode($response->getBody(), true);
-            // Log::info('Fonnte API response:', $responseBody);
+            $responseBody = json_decode($response->getBody(), true);
+            Log::info('Fonnte API response:', $responseBody);
 
-            // if ($responseBody['status'] === false) {
-            //     Log::error('Failed to send WhatsApp message', ['reason' => $responseBody['reason']]);
-            // } else {
-            //     Log::info('WhatsApp message sent successfully');
-            // }
+            if ($responseBody['status'] === false) {
+                Log::error('Failed to send WhatsApp message', ['reason' => $responseBody['reason']]);
+            } else {
+                Log::info('WhatsApp message sent successfully');
+            }
         } catch (\Exception $e) {
             // Catch any exceptions and log them
             Log::error('Error saving data:', ['error' => $e->getMessage()]);

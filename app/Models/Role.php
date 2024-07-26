@@ -18,11 +18,11 @@ class Role extends Model
     ];
     public function user()
     {
-        return $this->hasMany(User::class, 'role_id', 'id');
+        return $this->hasMany(User::class, 'role_id', 'id'); //Penghubung antara Role dan User adalah bahwa setiap User memiliki nilai role_id yang sesuai dengan id dari Role yang terkait.
     }
 
     public function users(): HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class); //setiap role memiliki banyak user
     }
 }

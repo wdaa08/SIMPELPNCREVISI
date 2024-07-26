@@ -13,16 +13,23 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-
-        Role::query()->delete();
-
-        Role::create([
-            "id"=> "1",
-            "level"=> "satgas",
+        Role::updateOrCreate([
+            'id' => '1',
+        ], [
+            'level' => 'satgas',
         ]);
-        Role::create([
-            "id"=> "2",
-            "level"=> "pelapor",
+    
+        Role::updateOrCreate([
+            'id' => '2',
+        ], [
+            'level' => 'pelapor',
+        ]);
+    
+        Role::updateOrCreate([
+            'id' => '3',
+        ], [
+            'level' => 'direktur',
         ]);
     }
+    
 }

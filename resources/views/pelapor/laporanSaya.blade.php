@@ -5,7 +5,7 @@
     <div class="row g-4">
         <div class="col-sm-12 col-xl-0">
             <div class="bg-light rounded h-100 p-4">
-                <h3 class="card-title">Daftar Pengaduan Saya</h3>
+                <h3 class="card-title">Daftar Pelaporan Saya</h3>
                 <table class="table">
                     <thead>
                         <tr>
@@ -13,7 +13,7 @@
                             <th scope="col">Jenis Kekerasan</th>
                             <th scope="col">Tanggal</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Respon</th>
+                            <th scope="col">Progres</th>
                             <th scope="col">Aksi</th>
                         </tr>
                     </thead>

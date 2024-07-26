@@ -4,48 +4,79 @@
     <div class="container my-4">
         <div class="row">
             <div class="col-12">
-                <h1 style="text-align:center;">Data Pengguna Website SIMPEL PNC</h1>
+                <h1 class="text-center">Data Pengguna Website SIMPEL PNC</h1>
                 <div class="card shadow" style="box-shadow: 5px 5px 10px rgba(135, 110, 210, 0.5);">
                     <div class="card-body">
-
-                        <!-- Button trigger modal for Import -->
-                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#importModal">
-                            <i class="fas fa-file-excel"></i> Tambah
-                        </button>
-
-                        <button type="button" class="btn btn-secondary mb-3" data-toggle="modal" data-target="#addUserModal">
-                            <i class="fas fa-user"></i> Tambah
-                        </button>
-
-                        <button type="button" class="btn btn-success mb-3" onclick="window.location='{{ route('users.export') }}'">
-                            <i class="fas fa-download"></i> Unduh
-                        </button>
-
-                        <!-- Form for Deleting Users by Year -->
-                        <form action="{{ route('users.deleteByYear') }}" method="POST" class="mb-3" id="deleteForm">
-                            @csrf
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" id="deleteButton">
-                                <i class="fas fa-trash"></i> Hapus Pengguna
+                        
+                        <!-- Button triggers -->
+                        <div class="d-flex flex-wrap mb-3" style="gap: 10px;">
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#importModal">
+                                <i class="fas fa-file-excel"></i> Tambah
                             </button>
-                        </form>
-
-                        <!-- Filter Dropdown -->
-                        <div class="form-group">
-                            {{-- <label for="roleFilter">Filter Berdasarkan Role:</label> --}}
-                            <select class="form-control w-25" id="roleFilter">
-                                <option value="all">--semua--</option>
-                                <option value="1">SATGAS</option>
-                                <option value="2">PELAPOR</option>
-                            </select>
+                            <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addUserModal">
+                                <i class="fas fa-user"></i> Tambah
+                            </button>
+                            <button type="button" class="btn btn-success" onclick="window.location='{{ route('users.export') }}'">
+                                <i class="fas fa-download"></i> Unduh
+                            </button>
+                            <form action="{{ route('users.deleteByYear') }}" method="POST" id="deleteForm">
+                                @csrf
+                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" id="deleteButton">
+                                    <i class="fas fa-trash"></i> Hapus Pengguna
+                                </button>
+                            </form>
                         </div>
 
+                        <!-- Filters -->
+                        <div class="d-flex flex-wrap mb-3" style="gap: 10px;">
+                            <div class="form-group mb-2">
+                                <label for="roleFilter">Role:</label>
+                                <select class="form-control" id="roleFilter">
+                                    <option value="all">-- semua --</option>
+                                    <option value="1">SATGAS</option>
+                                    <option value="2">PELAPOR</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="jurusanFilter">Jurusan:</label>
+                                <select class="form-control" id="jurusanFilter">
+                                    <option value="all">-- semua jurusan --</option>
+                                    @foreach ($tabelpengguna->pluck('jurusan')->unique() as $jurusan)
+                                        <option value="{{ $jurusan }}">{{ $jurusan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="jabatanFilter">Jabatan:</label>
+                                <select class="form-control" id="jabatanFilter">
+                                    <option value="all">-- semua jabatan --</option>
+                                    @foreach ($tabelpengguna->pluck('jabatan')->unique() as $jabatan)
+                                        <option value="{{ $jabatan }}">{{ $jabatan }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+                            <div class="form-group mb-2">
+                                <label for="prodiFilter">Program Studi:</label>
+                                <select class="form-control" id="prodiFilter">
+                                    <option value="all">-- semua prodi --</option>
+                                    @foreach ($tabelpengguna->pluck('prodi')->unique() as $prodi)
+                                        <option value="{{ $prodi }}">{{ $prodi }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Table -->
                         <div class="table-responsive">
                             <table class="table table-hover" id="dataTable">
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">#</th>
                                         <th scope="col">Nama</th>
-                                        <th scope="col">NPM NIDN NPK</th>
+                                        <th scope="col">NPM/NIDN/NPK</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Jabatan</th>
                                         <th scope="col">Unit Kerja</th>
@@ -56,7 +87,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($tabelpengguna as $key => $item)
-                                        <tr data-role-id="{{ $item->role_id }}">
+                                        <tr data-role-id="{{ $item->role_id }}" data-jurusan="{{ $item->jurusan }}" data-jabatan="{{ $item->jabatan }}" data-prodi="{{ $item->prodi }}">
                                             <th scope="row">{{ $key + 1 }}</th>
                                             <td>{{ $item->nama }}</td>
                                             <td>{{ $item->npm_nidn_npak }}</td>
@@ -214,28 +245,42 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Ambil elemen select
             const roleFilter = document.getElementById('roleFilter');
+            const jurusanFilter = document.getElementById('jurusanFilter');
+            const jabatanFilter = document.getElementById('jabatanFilter');
+            const prodiFilter = document.getElementById('prodiFilter');
 
-            // Tambahkan event listener untuk perubahan nilai
-            roleFilter.addEventListener('change', function () {
+            roleFilter.addEventListener('change', filterTable);
+            jurusanFilter.addEventListener('change', filterTable);
+            jabatanFilter.addEventListener('change', filterTable);
+            prodiFilter.addEventListener('change', filterTable);
+
+            function filterTable() {
                 const selectedRoleId = roleFilter.value;
+                const selectedJurusan = jurusanFilter.value.toLowerCase();
+                const selectedJabatan = jabatanFilter.value.toLowerCase();
+                const selectedProdi = prodiFilter.value.toLowerCase();
 
-                // Ambil semua baris dalam tabel
                 const rows = document.querySelectorAll('#dataTable tbody tr');
 
-                // Iterasi setiap baris untuk menentukan apakah harus ditampilkan atau disembunyikan
                 rows.forEach(row => {
                     const role_id = row.getAttribute('data-role-id');
-                    
-                    if (selectedRoleId === 'all' || role_id === selectedRoleId) {
-                        row.style.display = ''; // Tampilkan baris
+                    const jurusan = row.getAttribute('data-jurusan').toLowerCase();
+                    const jabatan = row.getAttribute('data-jabatan').toLowerCase();
+                    const prodi = row.getAttribute('data-prodi').toLowerCase();
+
+                    const roleMatch = (selectedRoleId === 'all' || role_id === selectedRoleId);
+                    const jurusanMatch = (selectedJurusan === 'all' || jurusan === selectedJurusan);
+                    const jabatanMatch = (selectedJabatan === 'all' || jabatan === selectedJabatan);
+                    const prodiMatch = (selectedProdi === 'all' || prodi === selectedProdi);
+
+                    if (roleMatch && jurusanMatch && jabatanMatch && prodiMatch) {
+                        row.style.display = '';
                     } else {
-                        row.style.display = 'none'; // Sembunyikan baris
+                        row.style.display = 'none';
                     }
                 });
-            });
+            }
         });
     </script>
-
 @endsection

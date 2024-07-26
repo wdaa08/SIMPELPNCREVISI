@@ -42,12 +42,12 @@ class Pelaporan extends Model
     // Jika diperlukan, definisikan relasi dengan User
     public function user()
     {
-        return $this->belongsTo(User::class, 'user_id'); //relasi
+        return $this->belongsTo(User::class, 'user_id'); //relasi //Setiap Pelaporan memiliki satu User yang terkait dengan user_id.
     }
 
     public function responDariUser()
     {
-        return $this->belongsTo(User::class, 'respon_dari'); //relasi
+        return $this->belongsTo(User::class, 'respon_dari'); //relasi //Setiap Pelaporan juga memiliki satu User yang terkait dengan respon_dari. Ini mengindikasikan siapa yang memberikan tanggapan atau respons terhadap pelaporan tersebut.
     }
 
     

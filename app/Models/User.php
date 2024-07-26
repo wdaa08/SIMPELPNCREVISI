@@ -57,11 +57,11 @@ class User extends Authenticatable
     // Definisikan relasi user memiliki banyak pelaporan
     public function pelaporans()
     {
-        return $this->hasMany(Pelaporan::class);
+        return $this->hasMany(Pelaporan::class);  //1 pelapor memiliki banyak pelaporan
     }
 
     public function role(): BelongsTo
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class); //Setiap User memiliki satu Role tertentu.
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\RegistrationController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardSatgasController;
+use App\Http\Controllers\DirekturController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PelaporanController;
@@ -62,9 +63,6 @@ Route::put('/profile/{id}', [UserController::class, 'updateprofile'])->name('upd
 Route::post('/pelaporans/{id}/updateRespon', [PelaporanController::class, 'updateRespon'])->name('pelaporans.updateRespon');
 
 Route::get('/pelaporans/{id}', [PelaporanController::class, 'show']);
-
-
-
 
 
 Route::prefix('satgas')->middleware('check.role:1')->group(function () {
@@ -137,10 +135,13 @@ Route::prefix('pelapor')->middleware('check.role:2')->group(function () {
 });
 
 
-///chabtbot
-// Route::get('/chatbot', function () {
-//     return view('chatbot');
-// });
+// routes/web.php
+Route::middleware(['role:3'])->group(function () {
+    // Route::get('/dashboarddirektur', 'DirectorController@index')->name('dashboarddirektur');
+    Route::get('/dashboarddirektur', [DirekturController::class, 'index'])->name('d.dashboarddirektur');
+    // Route::get('/datalaporanmasuk', [DirekturController::class, 'datalaporanmasuk'])->name('datalaporamasuk');
+    Route::get('/datalaporanmasuk', [DirekturController::class, 'datalaporanmasuk'])->name('datalaporanmasuk');
+});
 
 
 Route::post('/chatbot/store', [ChatbotController::class, 'store'])->name('chatbot.store');

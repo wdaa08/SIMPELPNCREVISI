@@ -23,10 +23,13 @@
                 return redirect()->route('Dashboard');
             } elseif (auth()->user()->role_id == 2) {
                 return redirect()->route('chatbot');
+            } elseif (auth()->user()->role_id == 3) { // Tambahkan kondisi untuk role_id 3
+                return redirect()->route('d.dashboarddirektur');
             }
         } else {
             return redirect('/login')->withErrors(['login' => 'Invalid credentials']);
         }
+        
     }
 
     public function register() {

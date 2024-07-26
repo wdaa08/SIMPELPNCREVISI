@@ -43,6 +43,17 @@
                 class="nav-item nav-link {{ \Route::is('laporansaya') ? 'active' : '' }}"><i
                     class="fas fa-file-alt me-2"></i>Laporan Saya</a>
         @endif
+
+        @if (auth()->user()->role_id == 3)          
+        <a href="{{ route('d.dashboarddirektur') }}"
+        class="nav-item nav-link {{ \Route::is('d.dashboarddirektur') ? 'active' : '' }}">
+        <i class="fas fa-chart-bar me-2"></i> Laporan Masuk
+        </a>
+        <a href="{{ route('datalaporanmasuk') }}"
+        class="nav-item nav-link {{ \Route::is('datalaporanmasuk') ? 'active' : '' }}">
+        <i class="fas fa-chart-bar me-2"></i> Data Laporan
+        </a>      
+        @endif
         
         </div>
 </div>

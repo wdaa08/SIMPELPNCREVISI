@@ -3,25 +3,27 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class CheckRole
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  int  $roleId
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next, int $roleId): Response
+    public function handle($request, Closure $next, $roleId)
     {
-         // Cek apakah pengguna sudah login
-         if (!$request->user()) {
+        // Cek apakah pengguna sudah login
+        if (!Auth::check()) {
             return redirect('login');
         }
 
         // Cek apakah pengguna memiliki role_id yang sesuai
-        if ($request->user()->role_id != $roleId) {
+        if (Auth::user()->role_id != $roleId) {
             return redirect('login'); // atau halaman lain yang sesuai
         }
 

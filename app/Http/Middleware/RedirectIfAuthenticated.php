@@ -22,10 +22,14 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
                 // Mengarahkan pengguna yang sudah login ke halaman yang sesuai berdasarkan peran mereka
-                if (auth()->user()->role_id == 1) {
+                $user = auth()->user();
+
+                if ($user->role_id == 1) {
                     return redirect()->route('s.datapelaporan');
-                } elseif (auth()->user()->role_id == 2) {
+                } elseif ($user->role_id == 2) {
                     return redirect()->route('chatbot');
+                } elseif ($user->role_id == 3) {
+                    return redirect()->route('d.dashboarddirektur'); // Menambahkan kondisi untuk role_id 3
                 }
                 // Tambahan ini menggantikan RouteServiceProvider::HOME
             }
